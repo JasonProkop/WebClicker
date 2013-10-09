@@ -7,7 +7,7 @@ include_once('db.php');
 $answers = array('q1', 'q2a1', 'q2a2', 'q2a3', 'q3', 'q4');
 $db = db_getpdo();
 
-$query = "INSERT INTO \"Toy\" (q1, q2a1, q2a2, q2a3, q3, q4) VALUES (";
+$query = "INSERT INTO toy (q1, q2a1, q2a2, q2a3, q3, q4) VALUES (";
 foreach($answers as $answer)
 {
 	if(empty($_POST[$answer]))

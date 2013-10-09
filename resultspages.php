@@ -9,19 +9,19 @@
 	
 	$data = array();
 	
-	$query = "SELECT * FROM \"Toy\" WHERE q1='on'";
+	$query = "SELECT * FROM toy WHERE q1='yes'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$data['q1'][0] = $statement->rowCount();
 	
-	$query = "SELECT * FROM \"Toy\" WHERE q1='off'";
+	$query = "SELECT * FROM toy WHERE q1='no'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$data['q1'][1] = $statement->rowCount();
 	
 	for($i = 1; $i <= 3; $i++)
 	{
-		$query = "SELECT * FROM \"Toy\" WHERE q2a$i='on'";
+		$query = "SELECT * FROM toy WHERE q2a$i='on'";
 		$statement = $db->prepare($query);
 		$statement->execute();
 		$data['q2'][$i - 1] = $statement->rowCount();
@@ -29,7 +29,7 @@
 	
 	for($i = 0; $i <= 10; $i++)
 	{
-		$query = "SELECT * FROM \"Toy\" WHERE q3='$i'";
+		$query = "SELECT * FROM toy WHERE q3='$i'";
 		$statement = $db->prepare($query);
 		$statement->execute();
 		$data['q3'][$i] = $statement->rowCount();
