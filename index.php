@@ -43,9 +43,9 @@
 				<h3>Have you ever used a clicker or responseware before?</h3>
 	            <fieldset data-role="controlgroup" data-type="horizontal">
 					<legend></legend>
-					<input type="radio" name="q1" id="q1a1" />
+					<input type="radio" name="q1" id="q1a1" value="no" />
 					<label for="q1a1">No</label>
-					<input type="radio" name="q1" id="q1a2" />
+					<input type="radio" name="q1" id="q1a2" value="yes" />
 					<label for="q1a2">Yes</label>
 				</fieldset>
 			</div><!-- /content -->

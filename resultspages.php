@@ -89,7 +89,7 @@
 		</div><!-- /page -->
 		<script>
 			$(document).ready(function() {
-				var data = [[<? echo $data['q1'][0]; ?>],[<? echo $data['q1'][1]; ?>]];
+				var data = [[<?php echo $data['q1'][0]; ?>],[<?php echo $data['q1'][1]; ?>]];
 				var plot1 = $.jqplot('chart1', data, {
 						seriesDefaults:{
 							renderer:$.jqplot.BarRenderer,
@@ -113,7 +113,7 @@
 						}
 				});
 
-				var data = [['Marked Quiz', <? echo $data['q2'][0]; ?>],['Non-marked Quiz', <? echo $data['q2'][1]; ?>],['Questions/Comments', <? echo $data['q2'][2]; ?>]];
+				var data = [['Marked Quiz', <?php echo $data['q2'][0]; ?>],['Non-marked Quiz', <?php echo $data['q2'][1]; ?>],['Questions/Comments', <?php echo $data['q2'][2]; ?>]];
 				var plot2 = $.jqplot('chart2', [data], {
 						seriesDefaults:{
 							renderer:$.jqplot.PieRenderer,
@@ -126,7 +126,7 @@
 						}
 				});
 				
-				var data = [[<? echo $data['q3'][0] ?>],[<? echo $data['q3'][1] ?>],[<? echo $data['q3'][2] ?>],[<? echo $data['q3'][3] ?>],[<? echo $data['q3'][4] ?>],[<? echo $data['q3'][5] ?>],[<? echo $data['q3'][6] ?>],[<? echo $data['q3'][7] ?>],[<? echo $data['q3'][8] ?>],[<? echo $data['q3'][9] ?>],[<? echo $data['q3'][10] ?>]];
+				var data = [[<?php echo $data['q3'][0] ?>],[<?php echo $data['q3'][1] ?>],[<?php echo $data['q3'][2] ?>],[<?php echo $data['q3'][3] ?>],[<?php echo $data['q3'][4] ?>],[<?php echo $data['q3'][5] ?>],[<?php echo $data['q3'][6] ?>],[<?php echo $data['q3'][7] ?>],[<?php echo $data['q3'][8] ?>],[<?php echo $data['q3'][9] ?>],[<?php echo $data['q3'][10] ?>]];
 				var plot3 = $.jqplot('chart3', data, {
 						seriesDefaults:{
 							renderer:$.jqplot.BarRenderer,
