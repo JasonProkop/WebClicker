@@ -56,6 +56,7 @@
 	</div>
 </section><!-- /page -->
 
+<!-->Option Page</!-->
 <section id="option" data-role="page">
 	<header data-role="header">
 		<h1>
@@ -66,13 +67,90 @@
 	<article data-role="content">
 		<ul data-role="listview" data-divider-theme="b">
 		    <li data-role="list-divider">Account</li>
-		    <li><a href="#">Sign Up</a></li>
-		    <li><a href="#">Sign In</a></li>
+		    <li><a href="#signUpPage">Sign Up</a></li>
+		    <li><a href="#signInPage">Sign In</a></li>
 		    <li data-role="list-divider">Other</li>
 		    <li><a href="#">FeedBack</a></li>
 		</ul>
 	</article><!-- /content -->
-	
 </section><!-- /page -->
+
+<!-- SignUp-->
+<div data-role="page" id="signUpPage">
+  <div data-theme="a" data-role="header">
+    <h3>
+      Sign Up
+    </h3>
+  </div>
+  <div data-role="content">
+    <form action="">
+      <div data-role="fieldcontain">
+        <label for="textinput1">
+          Email / Login Name
+        </label>
+        <input name="email" id="textinput1" placeholder="email@example.com" value=""
+        type="email">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="textinput3">
+          Alias
+        </label>
+        <input name="alias" id="textinput3" placeholder="Your public name" value=""
+        type="text">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="textinput2">
+          Password
+        </label>
+        <input name="password" id="textinput2" placeholder="" value="" type="password">
+      </div>
+      <div id="checkboxes1" data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+          <input id="checkbox1" name="subscribe" type="checkbox">
+          <label for="checkbox1">
+            Subscribe to email updates?
+          </label>
+        </fieldset>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+  <!-- Sign In -->
+
+<div data-role="page" id="signInPage">
+  <div data-theme="a" data-role="header">
+    <h3>
+      Sign In
+    </h3>
+    
+  </div>
+  <div data-role="content">
+  	<form action="">
+      <div data-role="fieldcontain">
+        <label for="textinput1">
+          Email / Login Name
+        </label>
+        <input name="email" id="textinput1" placeholder="email@example.com" value=""
+        type="email">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="textinput2">
+          Password
+        </label>
+        <input name="password" id="textinput2" placeholder="" value="" type="password">
+      </div>
+      <div id="checkboxes1" data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+          <input id="checkbox1" name="remember" type="checkbox">
+          <label for="checkbox1">
+            Remember my login
+          </label>
+        </fieldset>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
 </body>
 </html>
