@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>
+			WebClicker
+		</title>
+		<link rel="stylesheet" href="themes/webclicker-usask.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+		<!-- Looks like its deprecated, actually
+
+			touchOverflow: Improved page transitions and true fixed toolbars
+			 http://jquerymobile.com/demos/1.2.1/docs/pages/touchoverflow.html 
+		<script>
+			$(document).bind("mobileinit", function(){
+	 		$.mobile.touchOverflowEnabled = true;
+		});-->
+
+	</script>
+	</head>
+<body>
+<section data-role="page">
+	<header data-role="header">
+		<h1>
+		Web Clicker
+		</h1>
+		<a href="#" 
+			data-icon="gear" 
+			data-iconpos="notext" 
+			data-rel="dialog" 
+			data-transition="fade" 
+			class="ui-btn-right"
+		>Options</a>
+
+	</header><!-- /header -->
+	<article data-role="content">
+		<p>
+			insert introductory word. short and clean
+		</p>
+	<ul data-role="listview" data-inset="true">
+	    <li><a href="#">
+	        <img src="./themes/images/icons-18-black.png">
+	        <h2>Start New Poll</h2>
+	        <p>if you want to have a quick vote!</p></a>
+	    </li>
+	    <li><a href="#">
+	        <img src="./themes/images/icons-18-black.png">
+	        <h3>Search Poll by ID</h3>
+	        <p>"I know what I want!"</p></a>
+	    </li>
+	    <li><a href="#">
+	        <img src="./themes/images/icons-18-black.png">
+	        <h4>Sign In or Sign Up</h4>
+	       </a>
+	    </li>
+	</ul>
+	</article><!-- /content -->
+	
+</section><!-- /page -->
+</body>
+</html>
