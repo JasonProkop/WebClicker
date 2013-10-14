@@ -24,42 +24,36 @@
 	</script>
 	</head>
 <body>
-<section id="homepage" data-role="page">
-	<header data-role="header">
+<section id="homepage" data-role="page" >
+	<header data-role="header" data-position="fixed">
 		<h1>
 		Web Clicker
 		</h1>
 		<a href="#option" 
 			data-icon="gear" 
-			data-iconpos="notext" 
-			data-rel="dialog" 
+			data-iconpos="notext"  
 			data-transition="fade" 
 			class="ui-btn-right"
 		>Options</a>
 
 	</header><!-- /header -->
-	<article data-role="content">
-		<p>
-			insert introductory word. short and clean
-		</p>
-	<ul data-role="listview" data-inset="true">
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h2>Start New Poll</h2>
-	        <p>if you want to have a quick vote!</p></a>
-	    </li>
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h3>Search Poll by ID</h3>
-	        <p>"I know what I want!"</p></a>
-	    </li>
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h4>Sign In or Sign Up</h4>
-	       </a>
-	    </li>
-	</ul>
-	</article><!-- /content -->	
+	<div>
+		<article data-role="content">
+			<h3>
+				Create polls and vote in seconds!
+			</h3>
+		<a href="#" data-role="button" data-theme="b" >
+			<h1>
+				Create a poll!
+			</h1>
+		</a>
+			<h3>
+				Find polls quickly, by name or ID!
+			</h3>
+		<a href="#" data-role="button" data-theme="b" >
+			Search Poll From Here!
+		</a>
+	</div>
 </section><!-- /page -->
 
 <section id="option" data-role="page">
@@ -67,36 +61,16 @@
 		<h1>
 		Options
 		</h1>
-		<a href="#option" 
-			data-icon="gear" 
-			data-iconpos="notext" 
-			data-rel="dialog" 
-			data-transition="fade" 
-			class="ui-btn-right"
-		>Options</a>
 
 	</header><!-- /header -->
 	<article data-role="content">
-		<p>
-			insert introductory word. short and clean
-		</p>
-	<ul data-role="listview" data-inset="false">
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h2>Sign Up</h2>
-	        <p></p></a>
-	    </li>
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h3>Sign In</h3>
-	        <p></p></a>
-	    </li>
-	    <li><a href="#">
-	        <img src="./themes/images/icons-18-black.png">
-	        <h4>Feedback</h4>
-	       </a>
-	    </li>
-	</ul>
+		<ul data-role="listview" data-divider-theme="b">
+		    <li data-role="list-divider">Account</li>
+		    <li><a href="#">Sign Up</a></li>
+		    <li><a href="#">Sign In</a></li>
+		    <li data-role="list-divider">Other</li>
+		    <li><a href="#">FeedBack</a></li>
+		</ul>
 	</article><!-- /content -->
 	
 </section><!-- /page -->
