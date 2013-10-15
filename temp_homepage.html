@@ -29,14 +29,16 @@
 		<h1>
 		Web Clicker
 		</h1>
-		<a href="#option" 
-			data-icon="gear" 
-			data-iconpos="notext"  
-			data-transition="fade" 
-			class="ui-btn-right"
-		>Options</a>
-
-	</header><!-- /header -->
+		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="flip" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
+	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="d" >
+            <li data-role="divider" data-theme="b">Choose an option</li>
+            <li><a href="#signUpPage">Sign Up!</a></li>
+            <li><a href="#signInPage">Sign In</a></li>
+            <li><a href="#">Feedback</a></li>
+        </ul>
+	</div>
+</header><!-- /header -->
 	<div>
 		<article data-role="content">
 			<h3>
@@ -54,25 +56,6 @@
 			Search Poll From Here!
 		</a>
 	</div>
-</section><!-- /page -->
-
-<!-->Option Page</!-->
-<section id="option" data-role="page">
-	<header data-role="header">
-		<h1>
-		Options
-		</h1>
-
-	</header><!-- /header -->
-	<article data-role="content">
-		<ul data-role="listview" data-divider-theme="b">
-		    <li data-role="list-divider">Account</li>
-		    <li><a href="#signUpPage">Sign Up</a></li>
-		    <li><a href="#signInPage">Sign In</a></li>
-		    <li data-role="list-divider">Other</li>
-		    <li><a href="#">FeedBack</a></li>
-		</ul>
-	</article><!-- /content -->
 </section><!-- /page -->
 
 <!-- SignUp-->
