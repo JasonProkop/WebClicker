@@ -18,7 +18,7 @@
 	</head>
 <body>
 <form action="">
-	<section data-role="page">
+	<section data-role="page" id="createPoll">
 		<header data-role="header">
 			<h1>Poll#</h1>
 			<!--need to get a random number as code for a new vote.
@@ -26,23 +26,23 @@
 		</header><!-- /header -->
 		<article data-role="content">
 			<ol data-role="listview">
-				<li><a href="temp_homepage.html">				
+				<li><a href="#createQuestion">				
 					<h3>Fake Question</h3>
 					<p>this is a fake question</p>
 					</a>
 					<a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop" data-icon="delete">Delete This Poll</a>
 				</li>
-				<li><a href="index.php">				
+				<li><a href="#createQuestion">				
 					<h3>Another Fake Question</h3>
 					<p>Only for demonstrate UI</p>
 					</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop" data-icon="delete">Delete This Poll</a>
 				</li>
-				<li><a href="index.php">				
+				<li><a href="#createQuestion">				
 					<h3>Another Fake Question</h3>
 					<p>but you can try it!</p>
 					</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop" data-icon="delete">Delete This Poll</a>
 				</li>
-				<li ><a href="index.php">
+				<li ><a href="#createQuestion">
 					<h3>Add One Question</h3>
 					<p>under construction</p>
 					</a>
@@ -54,6 +54,32 @@
 			<input type="submit" value="Submit" data-theme="b" class="ui-btn-right" >
 		</footer><!-- /footer -->
 	</section><!-- /page -->
+
+
+	<section data-role="page" id="createQuestion">
+	<header data-role="header">
+		<h1>Page header</h1>
+		<nav data-role="navbar">
+			<ul>
+				 <li><a href="#">item1</a></li>
+				 <li><a href="#">item2</a></li>
+				 <li><a href="#">item3</a></li>
+				 <li><a href="#">item4</a></li>
+			</ul>
+		</nav>
+	</header><!-- /header -->
+	<article data-role="content">
+		
+		<ul data-role="listview">
+			<li><a href="#">item1</a></li>
+			<li><a href="#">item2</a></li>
+			<li><a href="#">item3</a></li>
+		</ul>
+	</article><!-- /content -->
+	<footer data-role="footer">
+		<h4>Page footer</h4>
+	</footer><!-- /footer -->
+</section><!-- /page -->
 </form>
 </body>
 </html>
