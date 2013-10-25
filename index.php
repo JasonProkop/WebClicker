@@ -15,16 +15,6 @@ include_once('functions.php');
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
-		<!-- Looks like its deprecated, actually
-
-			touchOverflow: Improved page transitions and true fixed toolbars
-			 http://jquerymobile.com/demos/1.2.1/docs/pages/touchoverflow.html 
-		<script>
-			$(document).bind("mobileinit", function(){
-	 		$.mobile.touchOverflowEnabled = true;
-		});-->
-
-	</script>
 	</head>
 <body>
 <section id="homepage" data-role="page" >
@@ -53,11 +43,11 @@ include_once('functions.php');
 		</div>
 	</header><!-- /header -->
 	<div>
-		<article data-role="content">
+		<article data-role="content" data-theme="b">
 			<h3>
 				Create polls and vote in seconds!
 			</h3>
-		<a href="#" data-role="button" data-theme="b" >
+		<a href="#" data-role="button" >
 			<h1>
 				Create a poll!
 			</h1>
@@ -65,9 +55,12 @@ include_once('functions.php');
 			<h3>
 				Find polls quickly, by name or ID!
 			</h3>
-		<a href="#" data-role="button" data-theme="b" >
+		<a href="#" data-role="button" >
 			Search Poll From Here!
 		</a>
+    <a href="toy.php" data-role="button" data-ajax="false">
+      Poll Example/FeedBack
+    </a>
 	</div>
 </section><!-- /page -->
 
