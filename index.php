@@ -34,15 +34,24 @@ include_once('functions.php');
 		</h1>
 		<?php errorHandler(); ?>
 		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
-        <ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-            <li data-role="divider" data-theme="b">Choose an option</li>
-            <li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
-            <li><a href="#signInPage">Sign In</a></li>
-            <li><a href="#">Feedback</a></li>
-        </ul>
-	</div>
-</header><!-- /header -->
+		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
+			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
+				<li data-role="divider" data-theme="b">Choose an option</li>
+				<?php
+				$user = loggedInUser();
+				if($user === 'anonymous'){
+					echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
+						<li><a href="#signInPage">Sign In</a></li>
+						<li><a href="#">Feedback</a></li>';
+				}else{
+					echo '<li>Welcome '.$user.'!</li>
+						<li><a href="signout.php"><h4>Sign Out</h4></a></li>
+						<li><a href="#">Feedback</a></li>';
+				}
+				?>
+			</ul>
+		</div>
+	</header><!-- /header -->
 	<div>
 		<article data-role="content">
 			<h3>
@@ -118,8 +127,7 @@ include_once('functions.php');
         <label for="textinput1">
           Email / Login Name
         </label>
-        <input name="email" id="textinput1" placeholder="email@example.com" value=""
-        type="email">
+        <input name="email" id="textinput1" placeholder="email@example.com" value="">
       </div>
       <div data-role="fieldcontain">
         <label for="textinput2">
