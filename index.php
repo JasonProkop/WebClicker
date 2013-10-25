@@ -59,6 +59,9 @@ include_once('functions.php');
 		<a href="#" data-role="button" data-theme="b" >
 			Search Poll From Here!
 		</a>
+    <a href="toy.php" data-role="button" data-theme="b">
+      Poll Example/FeedBack
+    </a>
 	</div>
 </section><!-- /page -->
 
