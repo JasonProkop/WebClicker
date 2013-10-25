@@ -57,27 +57,36 @@
 
 
 	<section data-role="page" id="createQuestion">
-	<header data-role="header">
-		<h1>Page header</h1>
-		<nav data-role="navbar">
-			<ul>
-				 <li><a href="#">item1</a></li>
-				 <li><a href="#">item2</a></li>
-				 <li><a href="#">item3</a></li>
-				 <li><a href="#">item4</a></li>
-			</ul>
-		</nav>
-	</header><!-- /header -->
-	<article data-role="content">
+	<header data-role="header" data-position="fixed">
+		<h1>A Fake Question</h1>
 		
-		<ul data-role="listview">
-			<li><a href="#">item1</a></li>
-			<li><a href="#">item2</a></li>
-			<li><a href="#">item3</a></li>
-		</ul>
-	</article><!-- /content -->
-	<footer data-role="footer">
-		<h4>Page footer</h4>
+	</header><!-- /header -->
+	<div data-role="content">
+				<textarea name="q1q" id="q1q" form="createPoll" type="text" placeholder="Enter your question here..." rows="4" cols="50"></textarea>
+				<div data-role="fieldcontain">
+					<label for="questionType">Choose the type of answer:</label>
+					<select name="questionType" id="questionType" data-mini="true">
+						<option value="1">Radio</option>
+						<option value="2">Checkbox</option>
+						<option value="3">Textline</option>
+						<option value="4">Textarea</option>
+						<option value="5">Slider</option>
+		    		</select>
+				</div>
+				<div data-role="fieldcontain">
+		            <fieldset data-role="controlgroup" data-type="vertical">
+		            	<label for="q1a1"><textarea name="q1r1" id="q1r1" type="text" data-mini="true" placeholder="A"></textarea></label>
+						<input id="q1a1" name="q1a1" type="checkbox">
+						<label for="q1a2"><textarea name="q1r2" id="q1r2" type="text" data-mini="true" placeholder="B"></textarea></label>
+						<input id="q1a2" name="q1a2" type="checkbox">
+						<label for="q1a3"><textarea name="q1r3" id="q1r3" type="text" data-mini="true"placeholder="C"></textarea></label>
+						<input id="q1a3" name="q1a3" type="checkbox">
+					</fieldset>
+				</div>
+			</div><!-- /content -->
+	<footer data-role="footer" data-position="fixed">
+		<h3> </h3>
+		 <input type="submit" value="Done!" data-inline="true" class="ui-btn-right">
 	</footer><!-- /footer -->
 </section><!-- /page -->
 </form>
