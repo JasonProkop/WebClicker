@@ -103,6 +103,7 @@ function signUp($email, $password, $alias){
 		$sql->bindValue(':salt', $salt);
 		$sql->execute();
 		$db->commit();
+		
 		header("location:index.php");
 	}catch(PDOException $e){
 		//print $e->getMessage(); //should print this to an error log.
@@ -110,6 +111,31 @@ function signUp($email, $password, $alias){
 	}
 }
 
+function sendAuthorizationEmail($email)
+{
+	$subject = 'Webclicker Authorization Link';
+	$link = 'http://webclicker.tk/authorize.php?email='.$email;
+	$message = '
+	<html>
+	<head>
+	  <title>Webclkicker Authorization Link</title>
+	</head>
+	<body>
+	  <a href="'.$link.'">Click here to fully validate your account!</a>
+	</body>
+	</html>
+	';
+
+	// To send HTML mail, the Content-type header must be set
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	// Additional headers
+	$headers .= 'To: Mary <'.$email.'>' . "\r\n";
+	$headers .= 'From: Webclicker Support <support@webclicker.tk>' . "\r\n";
+
+	// Mail it
+	mail($email, $subject, $message, $headers);
+}
 /*
 	Displays what user is logged in or anonymous if no user is currently logged in.
 */
@@ -145,6 +171,11 @@ function errorHandler(){
 	}
 }
 
+function loggedInUser()
+{
+	return 'anonymous';
+	//return 'dylan';
+}
 /*
 
 */
@@ -186,18 +217,19 @@ function signIn($alias, $password){
 				$_SESSION['anonymous'] = 'false';
 				$_SESSION['alias'] = $alias;
 				//echo "logged in!";
-				//header("location:index.php");
-				exit();
+				header("location:index.php");
+				//exit();
 			}
 		}
-		header("location:index.php?error=003");
+		header("location:index.php?error=003#signInPage");
 		//echo 'failed signing in';
 	}catch(PDOException $e){
 		//print $e->getMessage(); //should print this to an error log.
-		header("location:index.php?error=002");
+		header("location:index.php?error=002#signInPage");
 	}
 
 }
+//sendAuthorizationEmail("fafmaster@hotmail.com");
 //testing signup
 /*
 signUp('dylan@cool.com', '874923749328749', 'i am a new dylan');
