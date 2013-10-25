@@ -11,16 +11,7 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
-		<!-- Looks like its deprecated, actually
-
-			touchOverflow: Improved page transitions and true fixed toolbars
-			 http://jquerymobile.com/demos/1.2.1/docs/pages/touchoverflow.html 
-		<script>
-			$(document).bind("mobileinit", function(){
-	 		$.mobile.touchOverflowEnabled = true;
-		});-->
-
-	</script>
+		
 	</head>
 	<body>
 	<form action="results.php" method="POST" data-ajax="false">
