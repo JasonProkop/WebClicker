@@ -27,29 +27,43 @@ include_once('functions.php');
 	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
         <ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
             <li data-role="divider" data-theme="b">Choose an option</li>
-            <li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
+            <li><a href="#signUpPage">Sign Up!</a></li>
             <li><a href="#signInPage">Sign In</a></li>
-            <li><a href="#">Feedback</a></li>
+            <li><a href="toy.php" data-ajax="false">Feedback</a></li>
         </ul>
 	</div>
 </header><!-- /header -->
 	<div>
-		<article data-role="content" data-theme="b">
+		<article data-role="content" >
 			<h3>
 				Create polls and vote in seconds!
 			</h3>
-		<a href="#" data-role="button" >
+		<a href="temp_CreatePoll.html" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>
 				Create a poll!
 			</h1>
 		</a>
-			<h3>
-				Find polls quickly, by name or ID!
-			</h3>
-		<a href="#" data-role="button" >
-			Search Poll From Here!
+		<h3>
+			Find polls quickly, by name or ID!
+		</h3>
+    <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >			
+    Search Poll From Here!
 		</a>
-    <a href="toy.php" data-role="button" data-ajax="false">
+    <form action="">
+      <div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
+          <h3>Input the ID of Poll, </h3>
+          <h3>it is 4-digit number or letter.</h3>
+          <fieldset class="ui-grid-b">
+            <div class="ui-block-a"><p> </p></div>
+            <div class="ui-block-b">
+              <input type="text" name="AccessCode" id="AccessCode" style="min-width:160px;" value="" placeholder="like 4c9e">
+            </div>
+            <div class="ui-block-c"><p> </p></div>
+          </fieldset>
+          <p> </p>
+      </div>
+    </form>
+    <a href="toy.php" data-role="button" data-icon="edit" data-ajax="false">
       Poll Example/FeedBack
     </a>
 	</div>
