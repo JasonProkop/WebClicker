@@ -1,5 +1,5 @@
 <?php
-include_once('functions.php');
+require_once('functions.php');
 ?>
 <!doctype html>
 <html>
@@ -46,7 +46,7 @@ include_once('functions.php');
 						<li><a href="#">Feedback</a></li>';
 				}else{
 					echo '<li>Welcome '.$user.'!</li>
-						<li><a href="signout.php"><h4>Sign Out</h4></a></li>
+						<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
 						<li><a href="#">Feedback</a></li>';
 				}
 				?>
