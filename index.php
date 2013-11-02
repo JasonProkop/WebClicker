@@ -1,5 +1,5 @@
 <?php
-// This is a comment
+// I can change this
 require_once('functions.php');
 ?>
 <!doctype html>
