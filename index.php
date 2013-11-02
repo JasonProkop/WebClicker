@@ -1,5 +1,9 @@
+<?php
+require_once('functions.php');
+?>
+<!doctype html>
 <html>
-	<head>
+<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -11,138 +15,180 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
-		<!-- Looks like its deprecated, actually
-
-			touchOverflow: Improved page transitions and true fixed toolbars
-			 http://jquerymobile.com/demos/1.2.1/docs/pages/touchoverflow.html 
-		<script>
-			$(document).bind("mobileinit", function(){
-	 		$.mobile.touchOverflowEnabled = true;
-		});-->
-
-	</script>
 	</head>
-	<body>
-	<form action="results.php" method="POST" data-ajax="false">
-		<div id="q1" data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed" >
-				<h1>Poll #0002</h1>
-				<div data-role="navbar">
-					<ul>
-						<li><a href="#q1" class="ui-btn-active ui-state-persist">1</a></li>
-						<li><a href="#q2" >2</a></li>
-						<li><a href="#q3" >3</a></li>
-						<li><a href="#q4" >4</a></li>
-						<li><a href="#q5" >*</a></li>
-						<!-- place class="ui-btn-active ui-state-persist" on the active anchor -->
-						<!-- 5 items is the maximum for a single line navbar -->
-					</ul>
-				</div><!-- /navbar -->
-			</div><!-- /header -->
-			<div data-role="content" >
-				<h3>Have you ever used a clicker or responseware before?</h3>
-	            <fieldset data-role="controlgroup" data-type="horizontal">
-					<legend></legend>
-					<input type="radio" name="q1" id="q1a1" value="no" />
-					<label for="q1a1">No</label>
-					<input type="radio" name="q1" id="q1a2" value="yes" />
-					<label for="q1a2">Yes</label>
-				</fieldset>
-			</div><!-- /content -->
-		</div><!-- /page -->
+<body>
+<section id="homepage" data-role="page" >
+	<header data-role="header" data-position="fixed">
+		<h1>
+		Web Clicker
+		</h1>
+		<?php errorHandler(); ?>
+		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
+<<<<<<< HEAD
+	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
+        <ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
+            <li data-role="divider" data-theme="b">Choose an option</li>
+            <li><a href="#signUpPage">Sign Up!</a></li>
+            <li><a href="#signInPage">Sign In</a></li>
+            <li><a href="toy.php" data-ajax="false">Feedback</a></li>
+        </ul>
+	</div>
+</header><!-- /header -->
+=======
+		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
+			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
+				<li data-role="divider" data-theme="b">Choose an option</li>
+				<?php
+				$user = loggedInUser();
+				if($user === 'anonymous'){
+					echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
+						<li><a href="#signInPage">Sign In</a></li>
+						<li><a href="#">Feedback</a></li>';
+				}else{
+					echo '<li>Welcome '.$user.'!</li>
+						<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
+						<li><a href="#">Feedback</a></li>';
+				}
+				?>
+			</ul>
+		</div>
+	</header><!-- /header -->
+>>>>>>> origin/serversignin
+	<div>
+		<article data-role="content" >
+			<h3>
+				Create polls and vote in seconds!
+			</h3>
+		<a href="temp_CreatePoll.html" data-role="button" data-icon="check" data-ajax="false" >
+			<h1>
+				Create a poll!
+			</h1>
+		</a>
+		<h3>
+			Find polls quickly, by name or ID!
+		</h3>
+    <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >			
+    Search Poll From Here!
+		</a>
+    <form action="">
+      <div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
+          <h3>Input the ID of Poll, </h3>
+          <h3>it is 4-digit number or letter.</h3>
+          <p>but it would not work know, :P this is only an interface design.</p>
+          <fieldset class="ui-grid-b">
+            <div class="ui-block-a"><p> </p></div>
+            <div class="ui-block-b">
+              <input type="text" name="AccessCode" id="AccessCode" style="min-width:160px;" value="" placeholder="like 4c9e">
+            </div>
+            <div class="ui-block-c"><p> </p></div>
+          </fieldset>
+          <p> </p>
+      </div>
+    </form>
+    <a href="toy.php" data-role="button" data-icon="edit" data-ajax="false">
+      Poll Example/FeedBack
+    </a>
+	</div>
+</section><!-- /page -->
 
-		<div id="q2" data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed" > 
-				<h1>Poll #0002</h1>
-				<div data-role="navbar">
-					<ul>
-						<li><a href="#q1" >1</a></li>
-						<li><a href="#q2" class="ui-btn-active ui-state-persist">2</a></li>
-						<li><a href="#q3" >3</a></li>
-						<li><a href="#q4" >4</a></li>
-						<li><a href="#q5" >*</a></li>
-						<!-- place class="ui-btn-active ui-state-persist" on the active anchor -->
-						<!-- 5 items is the maximum for a single line navbar -->
-					</ul>
-				</div><!-- /navbar -->
-			</div><!-- /header -->
-			<div data-role="content" >
-				<h3>What did you use that tool for, if anything?</h3>
-				<fieldset data-role="controlgroup">
-			        <legend></legend>
-			        <input type="checkbox" name="q2a1" id="q2a1">
-			        <label for="q2a1">Marked Quizzes</label>
-			        <input type="checkbox" name="q2a2" id="q2a2">
-			        <label for="q2a2">Non-marked Quizzes</label>
-			        <input type="checkbox" name="q2a3" id="q2a3">
-			        <label for="q2a3">Question/Comment Polling</label>
-		    	</fieldset>
-				<!-- Don't know which of this is required yet -->
-			</div><!-- /content -->
-		</div><!-- /page -->
+<!-- SignUp-->
+<div data-role="page" id="signUpPage">
+  <div data-theme="a" data-role="header">
+    <h3>
+      Sign Up
+    </h3>
+  </div>
+  <div data-role="content">
+    <form action="signup.php" method="POST" data-ajax="false">
+       <div data-role="fieldcontain">
+        <label for="email">
+          Email
+        </label>
+        <input name="email" id="email" placeholder="email@example.com" value=""
+        type="email" required>
+      </div>
+      <div data-role="fieldcontain">
+        <label for="account">
+          Account Name (optional)
+        </label>
+        <input name="account" id="account" placeholder="Alternative to email for sign in" value=""
+        type="text">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="alias">
+          Default Alias (optional)
+        </label>
+        <input name="alias" id="alias" placeholder="Your default public name" value=""
+        type="text">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="password">
+          Password
+        </label>
+        <input name="password" id="password" placeholder="" value="" type="password" required>
+      </div>
+      <div data-role="fieldcontain">
+        <label for="passwordconfirmation">
+          Confirm Password
+        </label>
+        <input name="passwordconfirmation" id="passwordconfirmation" placeholder="" value="" type="password" oninput="confirmPass(this)" required>
+        <script language='javascript' type='text/javascript'>
+          function confirmPass(input) {
+              if (input.value != document.getElementById('password').value) {
+                  input.setCustomValidity('The two passwords must match.');
+              } else {
+                  // input is valid -- reset the error message
+                  input.setCustomValidity('');
+             }
+          }
+        </script>
+      </div>
+      <div id="checkboxes1" data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+          <input id="checkbox1" name="subscribe" type="checkbox">
+          <label for="checkbox1">
+            Subscribe to email updates?
+          </label>
+        </fieldset>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+  <!-- Sign In -->
 
-		<div id="q3" data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed">
-				<h1>Poll #0002</h1>
-				<div data-role="navbar">
-					<ul>
-						<li><a href="#q1" >1</a></li>
-						<li><a href="#q2" >2</a></li>
-						<li><a href="#q3" class="ui-btn-active ui-state-persist">3</a></li>
-						<li><a href="#q4" >4</a></li>
-						<li><a href="#q5" >*</a></li>
-						<!-- 5 items is the maximum for a single line navbar -->
-					</ul>
-				</div><!-- /navbar -->
-			</div><!-- /header -->
-			<div data-role="content">
-				<h3>Rate how much value was added by using the tool</h3>
-				<label for="q3">0 is no value, 10 is the most value</label>
-    			<input type="range" name="q3" id="q3" data-track-theme="a" data-theme="a" min="0" max="10" value="">
-			</div><!-- /content -->
-		</div><!-- /page -->
-
-		<div id="q4"data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed" >
-				<h1>Poll #0002</h1>
-				<div data-role="navbar">
-					<ul>
-						<li><a href="#q1" >1</a></li>
-						<li><a href="#q2" >2</a></li>
-						<li><a href="#q3" >3</a></li>
-						<li><a href="#q4" class="ui-btn-active ui-state-persist">4</a></li>
-						<li><a href="#q5" >*</a></li>
-						<!-- 5 items is the maximum for a single line navbar -->
-					</ul>
-				</div><!-- /navbar -->
-			</div><!-- /header -->
-			<div data-role="content" >
-				<h3>Please leave us any comments/questions/suggestions. We will read them!</h3>
-				<label for="q4"></label>
-    			<textarea cols="40" rows="8" name="q4" id="q4"></textarea>		
-				</div><!-- /content -->
-		</div><!-- /page -->
-
-		<div id="q5" data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed">
-				<h1>Poll #0002</h1>
-				<div data-role="navbar">
-					<ul>
-						<li><a href="#q1" >1</a></li>
-						<li><a href="#q2" >2</a></li>
-						<li><a href="#q3" >3</a></li>
-						<li><a href="#q4" >4</a></li>
-						<li><a href="#q5" class="ui-btn-active ui-state-persist">*</a></li>
-						<!-- 5 items is the maximum for a single line navbar -->
-					</ul>
-				</div><!-- /navbar -->
-			</div><!-- /header -->
-			<div data-role="content" >
-				<h3>Are you sure you're ready to submit?</h3>
-				<input type="submit" value="Submit" data-theme="a">
-			</div><!-- /content --> 
-		</div><!-- /page -->
-	</form>
-	</body>
+<div data-role="page" id="signInPage">
+  <div data-theme="a" data-role="header">
+    <h3>
+      Sign In
+    </h3>
+    
+  </div>
+  <div data-role="content">
+  	<form action="signin.php" method="POST" data-ajax="false">
+      <div data-role="fieldcontain">
+        <label for="textinput1">
+          Email / Login Name
+        </label>
+        <input name="email" id="textinput1" placeholder="email@example.com" value="">
+      </div>
+      <div data-role="fieldcontain">
+        <label for="textinput2">
+          Password
+        </label>
+        <input name="password" id="textinput2" placeholder="" value="" type="password">
+      </div>
+      <div id="checkboxes1" data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+          <input id="checkbox1" name="remember" type="checkbox">
+          <label for="checkbox1">
+            Remember my login
+          </label>
+        </fieldset>
+      </div>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+</body>
 </html>
-
