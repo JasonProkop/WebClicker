@@ -1,19 +1,33 @@
 <?php
 include_once('db.php');
+include_once('exception.php');
 
-// This will be used to handle sessions
+//setup exceptions
+class Account extends CustomException {} //'User with that e-mail already exists.'
+class Credentials extends CustomException {} //'Incorrect user credentials.'
+class Authorization extends CustomException {} //'Account is not authorized.'
+
+//todo: remove all header to satisfy view-model-controller
+//update all function calls with try/catch clauses
+
+
+/******* Start SESSION manager ********
+	Sets the user to the anonymous user if no session exists.
+	If Session is already set then it leaves it alone.
+*/
 if(!isset($_SESSION)) {
     session_start();
 }
-if(empty($_SESSION['alias'])){
-    // set as anonymous
+if(empty($_SESSION['email']) && empty($_SESSION['alias'])){
     $_SESSION['alias'] = 'anonymous';
-    $_SESSION['email'] = '';
+    $_SESSION['email'] = 'anonymous@anonymous.com';
 }
+// ******* End SESSION manager ********
+
 
 /*
     Generates a random access code for accessing polls. 
-    A random string of characters in the charset with a length of 5
+    A random string of characters in the charset with a given length (default 5)
 */
 function generateAccessCode($length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -35,12 +49,14 @@ function randomize()
   srand((float) $sec + ((float) $usec * 100000));
 }
 
+/*
+	Authorizes a user's account so they can login with it.
+*/
 function authorizeUser($email, $key){
     try{
         $db = db_getpdo();
         $db->beginTransaction();
-        //should check for existing user here and return proper error code
-        $sql = $db->prepare("SELECT \"Authorized\", \"Email\", \"Salt\" FROM \"Users\" WHERE \"Email\"=:email;");
+        $sql = $db->prepare("SELECT \"Authorized\", \"Email\", \"Salt\" FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
         $sql->bindValue(':email', $email);
         $sql->execute();
         if($sql->rowCount() == 1){
@@ -52,17 +68,15 @@ function authorizeUser($email, $key){
                 $sql->bindValue(':email', $email);
                 $sql->execute();
                 $db->commit();
-                header("location:index.php#signInPage");
+                header("location:index.php#signInPage"); //success
             }else{
-                header("location:index.php?error=007");
+                header("location:index.php?error=007"); //incorrect authorization link
             }
         }else{
-            //no user with that email exists so lets make a new one
-            header("location:index.php?error=004");
+            header("location:index.php?error=004"); //email not found in the database
         }
     }catch(PDOException $e){
-        //print $e->getMessage(); //should print this to an error log.
-        header("location:index.php?error=002");
+        header("location:index.php?error=002"); //database error
     }
 }
 
@@ -95,17 +109,16 @@ function signUp($email, $password, $alias){
             $user = $sql->fetch();
             //check if authorized
             if($user['Authorized'] == 'true'){
-                //duplicate email error
-                header("location:index.php?error=001");
+                header("location:index.php?error=001"); //duplicate email error
             }else{
-                //update the credentials
-                $sql = $db->prepare("UPDATE \"Users\" SET \"Hash\"=:hash, \"Salt\"=:salt, \"Alias\"=:alias, \"Authorized\"=:authorized WHERE \"Email\"=:email;");
+                $sql = $db->prepare("UPDATE \"Users\" SET \"Hash\"=:hash, \"Salt\"=:salt, \"Alias\"=:alias, \"Authorized\"=:authorized WHERE \"Email\"=:email;"); //success
             }
         }else{
             //no user with that email exists so lets make a new one
-            $sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);");
-            sendAuthorizationEmail($email, $salt);
+            $sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);"); //success
+            
         }
+		sendAuthorizationEmail($email, $salt);
         $sql->bindValue(':email', $email);
         $sql->bindValue(':alias', $alias);
         $sql->bindValue(':authorized', 'false');
@@ -113,15 +126,16 @@ function signUp($email, $password, $alias){
         $sql->bindValue(':salt', $salt);
         $sql->execute();
         $db->commit();
-        //succesfully signed up
-        header("location:index.php#signUpPage");
+        header("location:index.php#signInPage"); //success
     }catch(PDOException $e){
-        //print $e->getMessage(); //should print this to an error log.
-        header("location:index.php?error=002");
+        header("location:index.php?error=002"); //database error
     }
 }
 
-
+/*
+	Sends an e-mail to the given e-mail with a link that will authorize the account.
+	Uses the given salt to generate a key unique to the e-mail.
+*/
 function sendAuthorizationEmail($email, $salt)
 {
 
@@ -150,7 +164,7 @@ function sendAuthorizationEmail($email, $salt)
 }
 
 /*
-
+	Remove this
 */
 function errorHandler(){
     if(isset($_GET) && !empty($_GET['error'])){
@@ -177,6 +191,10 @@ function errorHandler(){
     }
 }
 
+/*
+	Returns the alias if set or e-mail of the logged in user.
+	Will return anonynmous if the user is not logged in.
+*/
 function loggedInUser()
 {
 	if($_SESSION['alias'] === ''){
@@ -187,7 +205,7 @@ function loggedInUser()
 }
 
 /*
-
+	Signs the user out by clearing the SESSION and any cookies that were set.
 */
 function signOut(){
     // Delete all the values (dont try to unset $_SESSION)
@@ -204,37 +222,31 @@ function signOut(){
 }
 
 /*
+	Tries to sign the user in with the supplied credentials.
+	If credentials are valid then the SESSION is set otherwise throws an exception.
 */
 function signIn($email, $password){
-    try{
-        $db = db_getpdo();
-        $sql = $db->prepare("SELECT * FROM \"Users\" WHERE \"Email\"=:alias;");
-        $sql->bindValue(':alias', $email);
-        $db->beginTransaction();
-        $sql->execute();
-        $db->commit();
-		
-        if($sql->rowCount() == 1){
-            $user = $sql->fetch();
-            if(sha1($password . $user['Salt']) === $user['Hash']){
-                if($user['Authorized'] == 'true'){
-                    $_SESSION['email'] = $user['Email'];
-                    $_SESSION['alias'] = $user['Alias'];
-                    //succesfully logged in
-                    header("location:index.php");
-                }else{
-					//acount is not authorized yet
-                    header("location:index.php?error=006#signInPage");
-                }
-            }
-        }else{
-			//wrong credentials
-			header("location:index.php?error=003#signInPage");
+	$db = db_getpdo();
+	$sql = $db->prepare("SELECT * FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
+	$sql->bindValue(':email', $email);
+	$db->beginTransaction();
+	$sql->execute();
+	$db->commit();
+	
+	if($sql->rowCount() == 1){
+		$user = $sql->fetch();
+		if(!(bool)$user['Authorized']){
+			throw new Authorization('Account is not yet authorized.');
 		}
-    }catch(PDOException $e){
-        //print $e->getMessage(); //should print this to an error log.
-        header("location:index.php?error=002#signInPage");
-    }
-
+		if(sha1($password . $user['Salt']) === $user['Hash']){
+			$_SESSION['email'] = $user['Email'];
+			$_SESSION['alias'] = $user['Alias'];
+			//success
+		}else{
+			throw new Credentials('Incorrect password.');
+		}
+	}else{
+		throw new Credentials('Incorrect e-mail.');
+	}
 }
 ?>
