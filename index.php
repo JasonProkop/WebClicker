@@ -3,6 +3,7 @@
 ?>
 <!doctype html>
 <html>
+
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -15,8 +16,25 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
+		<style type='text/css'>
+		/* Style sheet to restrict the page on large browsers */
+
+		html { background-color: #333; }
+		/* this line detects browsers which have a minimum width of 600
+		 * pixels and only applies the changes to them */
+		@media only screen and (min-width: 600px){
+		    .ui-page {
+			width: 600px !important;
+			margin: 0 auto !important;
+			position: relative !important;
+			border-right: 5px #666 outset !important;
+			border-left: 5px #666 outset !important;
+		    }
+        }
+</style>
 	</head>
 <body>
+
 <section id="homepage" data-role="page" >
 	<header data-role="header" data-position="fixed">
 		<h1>
