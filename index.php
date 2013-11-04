@@ -81,24 +81,24 @@
 		<h3>
 			Find polls quickly, by name or ID!
 		</h3>
-    <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >			
+    <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >
     Search Poll From Here!
 		</a>
-    <form action="">
-      <div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
-          <h3>Input the ID of Poll, </h3>
-          <h3>it is 4-digit number or letter.</h3>
-          <p>but it would not work know, :P this is only an interface design.</p>
-          <fieldset class="ui-grid-b">
-            <div class="ui-block-a"><p> </p></div>
-            <div class="ui-block-b">
-              <input type="text" name="AccessCode" id="AccessCode" style="min-width:160px;" value="" placeholder="like 4c9e">
-            </div>
-            <div class="ui-block-c"><p> </p></div>
-          </fieldset>
+    
+	<div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
+		<form action="search.php" method="POST" data-ajax="false">
+			<h3>Input the ID of Poll, </h3>
+			<h3>It is a 5 character string of numbers/letters.</h3>
+		  <div data-role="fieldcontain">
+			<label for="textinput1">
+			  Access Code:
+			</label>
+			<input name="accessCode" id="textinput1" placeholder="49d2" value="">
+		  </div>
+		</form>
           <p> </p>
-      </div>
-    </form>
+	</div>
+    
     <a href="toy.php" data-role="button" data-icon="edit" data-ajax="false">
       Poll Example/FeedBack
     </a>
@@ -165,7 +165,6 @@
           </label>
         </fieldset>
       </div>
-      <input type="submit" value="Submit">
     </form>
   </div>
 </div>

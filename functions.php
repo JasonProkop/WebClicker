@@ -7,6 +7,8 @@ class Account extends CustomException {} //'User with that e-mail already exists
 class Credentials extends CustomException {} //'Incorrect user credentials.'
 class Authorization extends CustomException {} //'Account is not authorized.'
 class PollNotFound extends CustomException {} //'Poll is not in database.'
+class MalformedAccessCode extends CustomException {} //'Access code is malformed.'
+
 /******* Start SESSION manager ********
 	Sets the user to the anonymous user if no session exists.
 	If Session is already set then it leaves it alone.
@@ -230,12 +232,22 @@ function generateHeader(){
 		</div>
 	</header><!-- /header -->';
 }
+
+function validAccessCode($access)
+{
+	return (strlen($access) == 5);
+}
+
 function search($access){
+		if(!validAccessCode($access)){
+			throw new MalformedAccessCode('Access code is malformed');
+		}
 		$db = db_getpdo();
-		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM \"polls\" WHERE \"poll_id\"=:access ;");
+		$sql = $db->prepare("SELECT * FROM \"polls\" WHERE \"poll_id\"=:access;");
 		$sql->bindValue(':access', $access);
+		$db->beginTransaction();
 		$sql->execute();
+		$db->commit();
 		if($sql->rowCount() == 1){
 			//there is a poll with that access code
 			return  $sql->fetch();
