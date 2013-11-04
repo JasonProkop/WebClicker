@@ -9,19 +9,19 @@
 	
 	$data = array();
 	
-	$query = "SELECT * FROM toy WHERE q1='yes'";
+	$query = "SELECT * FROM \"Toy\" WHERE q1='yes'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$data['q1'][0] = $statement->rowCount();
 	
-	$query = "SELECT * FROM toy WHERE q1='no'";
+	$query = "SELECT * FROM \"Toy\" WHERE q1='no'";
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$data['q1'][1] = $statement->rowCount();
 	
 	for($i = 1; $i <= 3; $i++)
 	{
-		$query = "SELECT * FROM toy WHERE q2a$i='on'";
+		$query = "SELECT * FROM \"Toy\" WHERE q2a$i='on'";
 		$statement = $db->prepare($query);
 		$statement->execute();
 		$data['q2'][$i - 1] = $statement->rowCount();
@@ -29,7 +29,7 @@
 	
 	for($i = 0; $i <= 10; $i++)
 	{
-		$query = "SELECT * FROM toy WHERE q3='$i'";
+		$query = "SELECT * FROM \"Toy\" WHERE q3='$i'";
 		$statement = $db->prepare($query);
 		$statement->execute();
 		$data['q3'][$i] = $statement->rowCount();
@@ -89,7 +89,7 @@
 		</div><!-- /page -->
 		<script>
 			$(document).ready(function() {
-				var data = [[<?php echo $data['q1'][0]; ?>],[<?php echo $data['q1'][1]; ?>]];
+				var data = [[<? echo $data['q1'][0]; ?>],[<? echo $data['q1'][1]; ?>]];
 				var plot1 = $.jqplot('chart1', data, {
 						seriesDefaults:{
 							renderer:$.jqplot.BarRenderer,
@@ -113,7 +113,7 @@
 						}
 				});
 
-				var data = [['Marked Quiz', <?php echo $data['q2'][0]; ?>],['Non-marked Quiz', <?php echo $data['q2'][1]; ?>],['Questions/Comments', <?php echo $data['q2'][2]; ?>]];
+				var data = [['Marked Quiz', <? echo $data['q2'][0]; ?>],['Non-marked Quiz', <? echo $data['q2'][1]; ?>],['Questions/Comments', <? echo $data['q2'][2]; ?>]];
 				var plot2 = $.jqplot('chart2', [data], {
 						seriesDefaults:{
 							renderer:$.jqplot.PieRenderer,
@@ -126,7 +126,7 @@
 						}
 				});
 				
-				var data = [[<?php echo $data['q3'][0] ?>],[<?php echo $data['q3'][1] ?>],[<?php echo $data['q3'][2] ?>],[<?php echo $data['q3'][3] ?>],[<?php echo $data['q3'][4] ?>],[<?php echo $data['q3'][5] ?>],[<?php echo $data['q3'][6] ?>],[<?php echo $data['q3'][7] ?>],[<?php echo $data['q3'][8] ?>],[<?php echo $data['q3'][9] ?>],[<?php echo $data['q3'][10] ?>]];
+				var data = [[<? echo $data['q3'][0] ?>],[<? echo $data['q3'][1] ?>],[<? echo $data['q3'][2] ?>],[<? echo $data['q3'][3] ?>],[<? echo $data['q3'][4] ?>],[<? echo $data['q3'][5] ?>],[<? echo $data['q3'][6] ?>],[<? echo $data['q3'][7] ?>],[<? echo $data['q3'][8] ?>],[<? echo $data['q3'][9] ?>],[<? echo $data['q3'][10] ?>]];
 				var plot3 = $.jqplot('chart3', data, {
 						seriesDefaults:{
 							renderer:$.jqplot.BarRenderer,
