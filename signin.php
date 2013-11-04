@@ -1,7 +1,7 @@
 <?php
 include_once('functions.php');
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['email']) && isset($_POST['password'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])){
 	try{
 		signIn($_POST['email'], $_POST['password']);
 		echo "success";
