@@ -1,5 +1,5 @@
 <?php
-require_once('functions.php');
+	require_once('functions.php');
 ?>
 <!doctype html>
 <html>
@@ -23,7 +23,6 @@ require_once('functions.php');
 		Web Clicker
 		</h1>
 		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-<<<<<<< HEAD
 	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
         <ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
             <li data-role="divider" data-theme="b">Choose an option</li>
