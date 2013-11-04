@@ -7,10 +7,6 @@ class Account extends CustomException {} //'User with that e-mail already exists
 class Credentials extends CustomException {} //'Incorrect user credentials.'
 class Authorization extends CustomException {} //'Account is not authorized.'
 
-//todo: remove all header to satisfy view-model-controller
-//update all function calls with try/catch clauses
-
-
 /******* Start SESSION manager ********
 	Sets the user to the anonymous user if no session exists.
 	If Session is already set then it leaves it alone.
@@ -24,6 +20,18 @@ if(empty($_SESSION['email']) && empty($_SESSION['alias'])){
 }
 // ******* End SESSION manager ********
 
+/*
+	Returns the alias if set or e-mail of the logged in user.
+	Will return anonymous if the user is not logged in.
+*/
+function loggedInUser()
+{
+	if(empty($_SESSION['alias'])){
+		return $_SESSION['email'];
+	}else{
+		return $_SESSION['alias'];
+	}
+}
 
 /*
     Generates a random access code for accessing polls. 
@@ -53,31 +61,27 @@ function randomize()
 	Authorizes a user's account so they can login with it.
 */
 function authorizeUser($email, $key){
-    try{
-        $db = db_getpdo();
-        $db->beginTransaction();
-        $sql = $db->prepare("SELECT \"Authorized\", \"Email\", \"Salt\" FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
-        $sql->bindValue(':email', $email);
-        $sql->execute();
-        if($sql->rowCount() == 1){
-            //there is a user with that email
-            $user = $sql->fetch();
-            if($key === sha1($user['Email'] . $user['Salt'])){
-                //update the credentials
-                $sql = $db->prepare("UPDATE \"Users\" SET \"Authorized\"='true' WHERE \"Email\"=:email;");
-                $sql->bindValue(':email', $email);
-                $sql->execute();
-                $db->commit();
-                header("location:index.php#signInPage"); //success
-            }else{
-                header("location:index.php?error=007"); //incorrect authorization link
-            }
-        }else{
-            header("location:index.php?error=004"); //email not found in the database
-        }
-    }catch(PDOException $e){
-        header("location:index.php?error=002"); //database error
-    }
+	$db = db_getpdo();
+	$db->beginTransaction();
+	$sql = $db->prepare("SELECT \"Authorized\", \"Email\", \"Salt\" FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
+	$sql->bindValue(':email', $email);
+	$sql->execute();
+	if($sql->rowCount() == 1){
+		//there is a user with that email
+		$user = $sql->fetch();
+		if($key === sha1($user['Email'] . $user['Salt'])){
+			//correct authorization link. authorize the e-mail
+			$sql = $db->prepare("UPDATE \"Users\" SET \"Authorized\"='true' WHERE \"Email\"=:email;");
+			$sql->bindValue(':email', $email);
+			$sql->execute();
+			$db->commit();
+			return; //success
+		}else{
+			throw new Authorization('Incorrect key for given email');
+		}
+	}else{
+		throw new Authorization('E-mail not found.');
+	}
 }
 
 /*
@@ -95,41 +99,35 @@ function authorizeUser($email, $key){
 
 function signUp($email, $password, $alias){
     randomize();
-    $salt = rand(0, 100000);
-    $hash = sha1($password . $salt);
-    try{
-        $db = db_getpdo();
-        $db->beginTransaction();
-        //should check for existing user here and return proper error code
-        $sql = $db->prepare("SELECT \"Authorized\" FROM \"Users\" WHERE \"Email\"=:email;");
-        $sql->bindValue(':email', $email);
-        $sql->execute();
-        if($sql->rowCount() > 0){
-            //there is a user with that email already
-            $user = $sql->fetch();
-            //check if authorized
-            if($user['Authorized'] == 'true'){
-                header("location:index.php?error=001"); //duplicate email error
-            }else{
-                $sql = $db->prepare("UPDATE \"Users\" SET \"Hash\"=:hash, \"Salt\"=:salt, \"Alias\"=:alias, \"Authorized\"=:authorized WHERE \"Email\"=:email;"); //success
-            }
-        }else{
-            //no user with that email exists so lets make a new one
-            $sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);"); //success
-            
-        }
-		sendAuthorizationEmail($email, $salt);
-        $sql->bindValue(':email', $email);
-        $sql->bindValue(':alias', $alias);
-        $sql->bindValue(':authorized', 'false');
-        $sql->bindValue(':hash', $hash);
-        $sql->bindValue(':salt', $salt);
-        $sql->execute();
-        $db->commit();
-        header("location:index.php#signInPage"); //success
-    }catch(PDOException $e){
-        header("location:index.php?error=002"); //database error
-    }
+	$salt = rand(0, 100000);
+	$hash = sha1($password . $salt);
+	$db = db_getpdo();
+	$db->beginTransaction();
+	$sql = $db->prepare("SELECT \"Authorized\" FROM \"Users\" WHERE \"Email\"=:email;");
+	$sql->bindValue(':email', $email);
+	$sql->execute();
+	if($sql->rowCount() > 0){
+		//there is a user with that email already
+		$user = $sql->fetch();
+		if($user['Authorized'] == 'true'){
+			throw new Account('Duplicate e-mail.');
+		}else{
+			$sql = $db->prepare("UPDATE \"Users\" SET \"Hash\"=:hash, \"Salt\"=:salt, \"Alias\"=:alias, \"Authorized\"=:authorized WHERE \"Email\"=:email;");
+		}
+	}else{
+		//no user with that email exists so lets make a new one
+		$sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);");
+		
+	}
+	$sql->bindValue(':email', $email);
+	$sql->bindValue(':alias', $alias);
+	$sql->bindValue(':authorized', 'false');
+	$sql->bindValue(':hash', $hash);
+	$sql->bindValue(':salt', $salt);
+	$sql->execute();
+	$db->commit();
+	
+	sendAuthorizationEmail($email, $salt);
 }
 
 /*
@@ -164,51 +162,10 @@ function sendAuthorizationEmail($email, $salt)
 }
 
 /*
-	Remove this
-*/
-function errorHandler(){
-    if(isset($_GET) && !empty($_GET['error'])){
-        switch($_GET['error']){
-            case 000:
-                $error = 'Everything starts at 0.';
-                break;
-            case 001:
-                $error = 'User with that email already exists';
-                break;
-            case 002:
-                $error = 'Database error, try again later';
-                break;
-            case 003:
-                $error = 'Incorrect user credentials';
-                break;
-            case 004:
-                $error = 'Unable to authorize the given account.';
-                break;
-            default:
-                $error = 'unrecognized error code';
-        }
-        echo "<h2>$error</h2>";
-    }
-}
-
-/*
-	Returns the alias if set or e-mail of the logged in user.
-	Will return anonynmous if the user is not logged in.
-*/
-function loggedInUser()
-{
-	if($_SESSION['alias'] === ''){
-		return $_SESSION['email'];
-	}else{
-		return $_SESSION['alias'];
-	}
-}
-
-/*
 	Signs the user out by clearing the SESSION and any cookies that were set.
 */
 function signOut(){
-    // Delete all the values (dont try to unset $_SESSION)
+    // Delete all the values (don't try to unset $_SESSION)
     $_SESSION = array();
 
     // Delete the session cookie if found
@@ -241,12 +198,36 @@ function signIn($email, $password){
 		if(sha1($password . $user['Salt']) === $user['Hash']){
 			$_SESSION['email'] = $user['Email'];
 			$_SESSION['alias'] = $user['Alias'];
-			//success
+			return; //success
 		}else{
 			throw new Credentials('Incorrect password.');
 		}
 	}else{
 		throw new Credentials('Incorrect e-mail.');
 	}
+}
+
+function generateHeader(){
+	echo '<header data-role="header" data-position="fixed">
+		<h1>
+		Web Clicker
+		</h1>
+		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
+		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b" data-ajax="false">
+			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
+				<li data-role="divider" data-theme="b">Choose an option</li>';
+	$user = loggedInUser();
+	if($user === 'anonymous'){
+		echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
+			<li><a href="#signInPage">Sign In</a></li>
+			<li><a href="#">Feedback</a></li>';
+	}else{
+		echo '<li>Welcome '.$user.'!</li>
+			<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
+			<li><a href="#">Feedback</a></li>';
+	}
+	echo '</ul>
+		</div>
+	</header><!-- /header -->';
 }
 ?>
