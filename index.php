@@ -22,7 +22,6 @@ require_once('functions.php');
 		<h1>
 		Web Clicker
 		</h1>
-		<?php errorHandler(); ?>
 		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
 <<<<<<< HEAD
 	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
@@ -34,7 +33,6 @@ require_once('functions.php');
         </ul>
 	</div>
 </header><!-- /header -->
-=======
 		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
 			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
 				<li data-role="divider" data-theme="b">Choose an option</li>
@@ -53,7 +51,6 @@ require_once('functions.php');
 			</ul>
 		</div>
 	</header><!-- /header -->
->>>>>>> origin/serversignin
 	<div>
 		<article data-role="content" >
 			<h3>
