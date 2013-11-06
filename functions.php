@@ -254,7 +254,7 @@ function search($access){
 			return Poll::createFromDB($sql->fetch(), $db);
 		}
 		else {
-			throw new PollNotFound('Poll Doesnt Exist');
+			throw new PollNotFound('Poll Doesn\'t Exist');
 		}
 	}
 ?>

@@ -1,10 +1,12 @@
 <?php
 	require_once('functions.php');
-
-	if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accessCode'])){
+	header("location:poll.php?accessCode=".$_POST['accessCode']);
+	/*if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accessCode'])){
 		try{
-			$poll = search($_POST['accessCode']);
-			var_dump($poll);
+			search($_POST['accessCode']); 
+			//success
+			
+			//var_dump($poll);
 		}catch (PollNotFound $e) {
 			echo "Poll Not Found";
 		}catch(PDOException $e){
@@ -14,5 +16,5 @@
 		}
 	}else{
 		header("location:index.php");
-	}
+	}*/
 ?>

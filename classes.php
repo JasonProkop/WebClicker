@@ -4,9 +4,9 @@
 	Defines the behaviour we need for database interaction between our objects.
 */
 interface iDatabaseFunctions{
-	public function insert();
-	public function update();
-	public function delete();
+	public function insert($db);
+	public function update($db);
+	public function delete($db);
 	public function createFromDB($row, $db);
 }
 
@@ -39,7 +39,7 @@ class Poll implements iDatabaseFunctions{
 		Creates a Poll object from a given poll row in the database.
 		Includes all Questions, Possible Answers, Right Answers, and Responses.
 		
-		This is useful for gathering poll informationg for taking/viewing results.
+		This is useful for gathering poll information for taking/viewing results.
 	**/
 	function createFromDB($row, $db){
 		$obj = new Poll();
@@ -52,13 +52,22 @@ class Poll implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert(){
+	function insert($db){
+		$db->beginTransaction();
+		$sql = $db->prepare("INSERT INTO \"Polls\" (\"poll_id\", \"poll_name\") VALUES (:id, :name);");
+		$sql->bindValue(':id', $this->Name);
+		$sql->bindValue(':name', $this->AccessCode);
+		$sql->execute();
+		foreach($this->Questions as $question){
+			$question->insert($db);
+		}
+		$db->commit();
 	}
 
-	function update(){
+	function update($db){
 	}
 
-	function delete(){
+	function delete($db){
 	}
 }
 
@@ -69,7 +78,7 @@ class Question implements iDatabaseFunctions{
 	function __construct(){}
 	
 	function createAnswersFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"Answers\" WHERE \"answers_question_id\"=:question;");
+		$sql = $db->prepare("SELECT * FROM \"Answers\" WHERE \"answer_question_id\"=:question;");
 		$sql->bindValue(':question', $obj->ID);
 		$sql->execute();
 		$answers = $sql->fetchAll();
@@ -79,7 +88,7 @@ class Question implements iDatabaseFunctions{
 	}
 	
 	function createPAnswersFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"PossibleAnswers\" WHERE \"panswers_question_id\"=:question;");
+		$sql = $db->prepare("SELECT * FROM \"PossibleAnswers\" WHERE \"panswer_question_id\"=:question;");
 		$sql->bindValue(':question', $obj->ID);
 		$sql->execute();
 		$questions = $sql->fetchAll();
@@ -94,6 +103,7 @@ class Question implements iDatabaseFunctions{
 		$obj->ID = $row['question_id'];
 		$obj->Question = $row['question_question'];
 		$obj->Type = $row['question_type'];
+		$obj->Order = $row['question_order'];
 		$obj->Answers = array();
 		$obj->PAnswers = array();
 		$obj->createAnswersFromDB($db, $obj);
@@ -101,13 +111,25 @@ class Question implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert(){
+	function insert($db){
+		$sql = $db->prepare("INSERT INTO \"Questions\" (\"question_question\", \"question_type\", \"question_poll_id\", \"question_order\") VALUES (:question, :type, :poll, :order);");
+		$sql->bindValue(':question', $this->Question);
+		$sql->bindValue(':type', $this->Type);
+		$sql->bindValue(':poll', $this->Poll);
+		$sql->bindValue(':order', $this->Order);
+		$sql->execute();
+		foreach($this->Answers as $answer){
+			$answer->insert($db);
+		}
+		foreach($this->PAnswers as $panswer){
+			$panswer->insert($db);
+		}
 	}
 	
-	function update(){
+	function update($db){
 	}
 	
-	function delete(){
+	function delete($db){
 	}
 }
 
@@ -119,18 +141,23 @@ class PAnswer implements iDatabaseFunctions{
 	
 	function createFromDB($row, $db){
 		$obj = new PAnswer();
-		$obj->Question = $row['panswers_question_id']; //useful for update/delete
-		$obj->PAnswer = $row['panswers_panswer'];
+		$obj->Question = $row['panswer_question_id']; //useful for update/delete
+		$obj->PAnswer = $row['panswer_panswer'];
+		$obj->ID = $row['panswer_id'];
 		return $obj;
 	}
 	
-	function insert(){
+	function insert($db){
+		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"panswer_panswer\", \"panswer_question_id\") VALUES (:panswer, :question);");
+		$sql->bindValue(':question', $this->Question);
+		$sql->bindValue(':panswer', $this->PAnswer);
+		$sql->execute();
 	}
 
-	function update(){
+	function update($db){
 	}
 
-	function delete(){
+	function delete($db){
 	}
 }
 
@@ -142,18 +169,23 @@ class Answer implements iDatabaseFunctions{
 	
 	function createFromDB($row, $db){
 		$obj = new Answer();
-		$obj->Question = $row['answers_question_id']; //useful for update/delete
-		$obj->Answer = $row['answers_answer'];
+		$obj->Question = $row['answer_question_id']; //useful for update/delete
+		$obj->Answer = $row['answer_answer'];
+		$obj->ID = $row['answer_id'];
 		return $obj;
 	}
 	
-	function insert(){
+	function insert($db){
+		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"answer_answer\", \"answer_question_id\") VALUES (:answer, :question);");
+		$sql->bindValue(':question', $this->Question);
+		$sql->bindValue(':answer', $this->Answer);
+		$sql->execute();
 	}
 
-	function update(){
+	function update($db){
 	}
 
-	function delete(){
+	function delete($db){
 	}
 }
 ?>

@@ -41,9 +41,9 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE "Answers" (
-    answers_question_id integer NOT NULL,
-    answers_answer text NOT NULL,
-    answers_answer_id integer NOT NULL
+    answer_question_id integer NOT NULL,
+    answer_answer text NOT NULL,
+    answer_id integer NOT NULL
 );
 
 
@@ -74,7 +74,7 @@ ALTER TABLE public."Answers_answers_answer_id_seq" OWNER TO ubuntu;
 -- Name: Answers_answers_answer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
 --
 
-ALTER SEQUENCE "Answers_answers_answer_id_seq" OWNED BY "Answers".answers_answer_id;
+ALTER SEQUENCE "Answers_answers_answer_id_seq" OWNED BY "Answers".answer_id;
 
 
 --
@@ -95,7 +95,7 @@ ALTER TABLE public."Answers_answers_question_id_seq" OWNER TO ubuntu;
 -- Name: Answers_answers_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
 --
 
-ALTER SEQUENCE "Answers_answers_question_id_seq" OWNED BY "Answers".answers_question_id;
+ALTER SEQUENCE "Answers_answers_question_id_seq" OWNED BY "Answers".answer_question_id;
 
 
 --
@@ -136,9 +136,9 @@ COMMENT ON COLUMN "Polls".poll_name IS 'Qualified Poll Name';
 --
 
 CREATE TABLE "PossibleAnswers" (
-    panswers_question_id integer NOT NULL,
-    panswers_panswer text NOT NULL,
-    panswers_panswer_id integer NOT NULL
+    panswer_question_id integer NOT NULL,
+    panswer_panswer text NOT NULL,
+    panswer_id integer NOT NULL
 );
 
 
@@ -169,7 +169,7 @@ ALTER TABLE public."PossibleAnswers_panswers_panswer_id_seq" OWNER TO ubuntu;
 -- Name: PossibleAnswers_panswers_panswer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
 --
 
-ALTER SEQUENCE "PossibleAnswers_panswers_panswer_id_seq" OWNED BY "PossibleAnswers".panswers_panswer_id;
+ALTER SEQUENCE "PossibleAnswers_panswers_panswer_id_seq" OWNED BY "PossibleAnswers".panswer_id;
 
 
 --
@@ -190,7 +190,7 @@ ALTER TABLE public."PossibleAnswers_panswers_question_id_seq" OWNER TO ubuntu;
 -- Name: PossibleAnswers_panswers_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
 --
 
-ALTER SEQUENCE "PossibleAnswers_panswers_question_id_seq" OWNED BY "PossibleAnswers".panswers_question_id;
+ALTER SEQUENCE "PossibleAnswers_panswers_question_id_seq" OWNED BY "PossibleAnswers".panswer_question_id;
 
 
 --
@@ -366,17 +366,17 @@ COMMENT ON COLUMN "Users"."Salt" IS 'the salt used for hashing the password';
 
 
 --
--- Name: answers_answer_id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: answer_id; Type: DEFAULT; Schema: public; Owner: ubuntu
 --
 
-ALTER TABLE ONLY "Answers" ALTER COLUMN answers_answer_id SET DEFAULT nextval('"Answers_answers_answer_id_seq"'::regclass);
+ALTER TABLE ONLY "Answers" ALTER COLUMN answer_id SET DEFAULT nextval('"Answers_answers_answer_id_seq"'::regclass);
 
 
 --
--- Name: panswers_panswer_id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: panswer_id; Type: DEFAULT; Schema: public; Owner: ubuntu
 --
 
-ALTER TABLE ONLY "PossibleAnswers" ALTER COLUMN panswers_panswer_id SET DEFAULT nextval('"PossibleAnswers_panswers_panswer_id_seq"'::regclass);
+ALTER TABLE ONLY "PossibleAnswers" ALTER COLUMN panswer_id SET DEFAULT nextval('"PossibleAnswers_panswers_panswer_id_seq"'::regclass);
 
 
 --
@@ -397,10 +397,10 @@ ALTER TABLE ONLY "Responses" ALTER COLUMN responses_question_id SET DEFAULT next
 -- Data for Name: Answers; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY "Answers" (answers_question_id, answers_answer, answers_answer_id) FROM stdin;
-1	'Goku'	1
-2	'Apple'	2
-2	'Orange'	3
+COPY "Answers" (answer_question_id, answer_answer, answer_id) FROM stdin;
+1	Goku	1
+2	Orange	3
+2	Apple	2
 \.
 
 
@@ -432,14 +432,14 @@ aaaaa	Second Poll Here
 -- Data for Name: PossibleAnswers; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY "PossibleAnswers" (panswers_question_id, panswers_panswer, panswers_panswer_id) FROM stdin;
-1	'Batman'	1
-1	'Superman'	2
-1	'Goku'	3
-2	'Apple'	4
-2	'Apple'	5
-2	'Concrete'	6
-2	'Car'	7
+COPY "PossibleAnswers" (panswer_question_id, panswer_panswer, panswer_id) FROM stdin;
+1	Batman	1
+1	Goku	3
+1	Superman	2
+2	Apple	4
+2	Car	7
+2	Concrete	6
+2	Orange	8
 \.
 
 
@@ -447,7 +447,7 @@ COPY "PossibleAnswers" (panswers_question_id, panswers_panswer, panswers_panswer
 -- Name: PossibleAnswers_panswers_panswer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 7, true);
+SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 8, true);
 
 
 --
@@ -462,9 +462,9 @@ SELECT pg_catalog.setval('"PossibleAnswers_panswers_question_id_seq"', 1, false)
 --
 
 COPY "Questions" (question_id, question_type, question_question, question_poll_id, question_order) FROM stdin;
-1	'Radio'	'Who would win in a fight?'	12345	1
-2	'Checkbox'	'Which of these are fruits?'	12345	2
-3	'Text'	'What is your favorite word?'	aaaaa	1
+1	Radio	Who would win in a fight?	12345	1
+3	Text	What is your favorite word?	aaaaa	1
+2	Checkbox	Which of these are fruits?	12345	2
 \.
 
 
@@ -525,6 +525,7 @@ on	on	on	on	3	They made the clicker worth marks. It sucked. Then I almost HAD to
 nr	nr	nr	nr	nr	nr
 on	nr	on	on	4	Test
 on	on	nr	nr	7	Interesting - this was fun
+nr	nr	nr	nr	5	nr
 \.
 
 
@@ -549,7 +550,7 @@ faf@mas.ter	05b7e25ec4293a4515e7c2b87ae2346eb1ae5157		f	55441
 --
 
 ALTER TABLE ONLY "Answers"
-    ADD CONSTRAINT "Answers_pkey" PRIMARY KEY (answers_answer_id, answers_question_id, answers_answer);
+    ADD CONSTRAINT "Answers_pkey" PRIMARY KEY (answer_id, answer_question_id, answer_answer);
 
 
 --
@@ -565,7 +566,7 @@ ALTER TABLE ONLY "Polls"
 --
 
 ALTER TABLE ONLY "PossibleAnswers"
-    ADD CONSTRAINT "PossibleAnswers_pkey" PRIMARY KEY (panswers_question_id, panswers_panswer, panswers_panswer_id);
+    ADD CONSTRAINT "PossibleAnswers_pkey" PRIMARY KEY (panswer_question_id, panswer_panswer, panswer_id);
 
 
 --
@@ -597,7 +598,7 @@ ALTER TABLE ONLY "Users"
 --
 
 ALTER TABLE ONLY "Answers"
-    ADD CONSTRAINT "Answers_answers_question_id_fkey" FOREIGN KEY (answers_question_id) REFERENCES "Questions"(question_id);
+    ADD CONSTRAINT "Answers_answers_question_id_fkey" FOREIGN KEY (answer_question_id) REFERENCES "Questions"(question_id);
 
 
 --
@@ -605,7 +606,7 @@ ALTER TABLE ONLY "Answers"
 --
 
 ALTER TABLE ONLY "PossibleAnswers"
-    ADD CONSTRAINT "PossibleAnswers_panswers_question_id_fkey" FOREIGN KEY (panswers_question_id) REFERENCES "Questions"(question_id);
+    ADD CONSTRAINT "PossibleAnswers_panswers_question_id_fkey" FOREIGN KEY (panswer_question_id) REFERENCES "Questions"(question_id);
 
 
 --
