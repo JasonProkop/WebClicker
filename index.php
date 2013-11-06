@@ -73,7 +73,7 @@
 			<h3>
 				Create polls and vote in seconds!
 			</h3>
-		<a href="temp_CreatePoll.html" data-role="button" data-icon="check" data-ajax="false" >
+		<a href="createQuestion.php" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>
 				Create a poll!
 			</h1>
