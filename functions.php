@@ -1,6 +1,7 @@
 <?php
 include_once('db.php');
 include_once('exception.php');
+include_once('classes.php');
 
 //setup exceptions
 class Account extends CustomException {} //'User with that e-mail already exists.'
@@ -243,14 +244,14 @@ function search($access){
 			throw new MalformedAccessCode('Access code is malformed');
 		}
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"polls\" WHERE \"poll_id\"=:access;");
+		$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
 		$sql->bindValue(':access', $access);
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
 		if($sql->rowCount() == 1){
 			//there is a poll with that access code
-			return  $sql->fetch();
+			return Poll::createFromDB($sql->fetch(), $db);
 		}
 		else {
 			throw new PollNotFound('Poll Doesnt Exist');

@@ -3,8 +3,8 @@
 
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accessCode'])){
 		try{
-			search($_POST['accessCode']);
-			echo "success";
+			$poll = search($_POST['accessCode']);
+			var_dump($poll);
 		}catch (PollNotFound $e) {
 			echo "Poll Not Found";
 		}catch(PDOException $e){
