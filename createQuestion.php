@@ -31,47 +31,45 @@
 
 	<script>
 	$(document).on('pageinit', '#q1', function () {
-		    var current = 2;// number of responds.
+		    var current = 2;
 		    var x = document.getElementById("questionType").selectedIndex;
 		    var y = document.getElementById("questionType").options;
-		    var type = y[x].text; // the type of responds.
+		    var type = y[x].text;
 
 		    $('#remove' ).button('disable');
-		    //if user change the type of responds
-		    $('#questionType').change(function () {\
-		    	//get the type of user choosed.
+		    $('#questionType').change(function () {
   			    x = document.getElementById("questionType").selectedIndex;
 			    y = document.getElementById("questionType").options;
 		    	type = y[x].text;
-		    	//if user choose checkbox as type of question
 		    	if (type == "Checkbox") {
-		    		//clear exist contents.
 		    		$('#q1ar .ui-controlgroup-controls').empty();
 		    		current = 0;
-		    		//add two responds.
 		    		$('#add').click();
 		    		$('#add').click();
-		    		//adjust the add and remove button.
 		            $('#add' ).button('enable');
 		            $('#remove' ).button('disable');
-		        //if user choose radio as type of question
+		        
 		    	} else if (type == "Radio"){
-		    		//clear exist contents.
 		    		$('#q1ar .ui-controlgroup-controls').empty();
 		    		current = 0;
-		    		//add two responds.
 		    		$('#add').click();
 		    		$('#add').click();
-		    		//adjust the add and remove button.
 		            $('#add' ).button('enable');
 		            $('#remove' ).button('disable');
-		    	} else if(type == "Textarea"){
-		    		//clear exist contents.
+		    	} else if (type == "Textline") {
 		    		$('#q1ar .ui-controlgroup-controls').empty();
-		    		//no optional respond needed to add, disable both.
+		    		$('#add' ).button('disable');
+		            $('#remove').button('disable');
+		            current = 1;
+		    	} else if(type == "Textarea"){
+		    		$('#q1ar .ui-controlgroup-controls').empty();
 					$('#add' ).button('disable');
 					$('#remove').button('disable');
-		    	};
+		    	} else if(type == "Slider"){
+		    		$('#q1ar .ui-controlgroup-controls').empty();
+					$('#add' ).button('disable');
+					$('#remove').button('disable');
+				};
 		    })
 		    $('#add').click(function createAnswer() {
 		            current++;        
@@ -155,7 +153,9 @@
 					<select name="questionType" id="questionType" data-mini="true">
 						<option value="1">Radio</option>
 						<option value="2">Checkbox</option>
-						<option value="3">Textarea</option>
+						<option value="3">Textline</option>
+						<option value="4">Textarea</option>
+						<option value="5">Slider</option>
 		    		</select>
 				</div>
              <div data-role="fieldcontain">
@@ -176,22 +176,12 @@
 			<h1> </h1>
     	<input type="submit" data-theme="b" id="submit" value="All Done!" data-icon="check" class="ui-btn-left" data-iconpos="left"/>
     	 <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-			<a href="#" data-role="button" id= "prevq" data-icon ="arrow-l" data-iconpos="notext">Prev Question</a>
-		<a href="#QuestionList" data-rel="popup" data-role="button" data-transition="pop" data-icon="bars">Question List</a>
-			<a href="#" data-role="button" id= "nextq" data-icon ="arrow-r" data-iconpos="notext">Next Question</a>
+			<input type="button"  id="prevq"  data-icon="arrow-l" data-iconpos="notext" value="Prev Question" />
+			<input type="submit"  id="submit" value="Question List" data-icon="bars" data-iconpos="left"/>
+			<input type="button" id="nextq"   data-icon="arrow-r" data-iconpos="notext" value="Next Question" />
 		</div>
-		
      </div>
-    <div data-role="popup" id="QuestionList" data-theme="d" data-overlay-theme="b">
-	        <ul data-role="listview"  style="min-width:160px;" >
-	            <li data-role="divider" data-theme="b">Choose an option</li>
-	            <li><a href="#q1"> Question 1 </a></li>
-	        </ul>
-	        <ul data-role="listview"  style="min-width:160px;">
-	        	<li><a href="#" data-ajax="false" data-role="button" data-icon ="plus" data-mini="true" >Add New Question</a></li>
-	        </ul>
-        	
-	</div>
  </div>
+
 </body>
 </html>
