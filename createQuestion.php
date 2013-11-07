@@ -176,11 +176,22 @@
 			<h1> </h1>
     	<input type="submit" data-theme="b" id="submit" value="All Done!" data-icon="check" class="ui-btn-left" data-iconpos="left"/>
     	 <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-			<input type="button"  id="prevq"  data-icon="arrow-l" data-iconpos="notext" value="Prev Question" />
-			<input type="submit"  id="submit" value="Question List" data-icon="bars" data-iconpos="left"/>
-			<input type="button" id="nextq"   data-icon="arrow-r" data-iconpos="notext" value="Next Question" />
+			<a href="#" data-role="button" id= "prevq" data-icon ="arrow-l" data-iconpos="notext">Prev Question</a>
+		<a href="#QuestionList" data-rel="popup" data-role="button" data-transition="pop" data-icon="bars">Question List</a>
+			<a href="#" data-role="button" id= "nextq" data-icon ="arrow-r" data-iconpos="notext">Next Question</a>
 		</div>
+		
      </div>
+    <div data-role="popup" id="QuestionList" data-theme="d" data-overlay-theme="b">
+	        <ul data-role="listview"  style="min-width:160px;" >
+	            <li data-role="divider" data-theme="b">Choose an option</li>
+	            <li><a href="#q1"> Question 1 </a></li>
+	        </ul>
+	        <ul data-role="listview"  style="min-width:160px;">
+	        	<li><a href="#" data-ajax="false" data-role="button" data-icon ="plus" data-mini="true" >Add New Question</a></li>
+	        </ul>
+        	
+	</div>
  </div>
 
 </body>
