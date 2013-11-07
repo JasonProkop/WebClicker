@@ -31,45 +31,49 @@
 
 	<script>
 	$(document).on('pageinit', '#q1', function () {
+			//current is the number of responds in Question. 
 		    var current = 2;
+
 		    var x = document.getElementById("questionType").selectedIndex;
 		    var y = document.getElementById("questionType").options;
 		    var type = y[x].text;
 
 		    $('#remove' ).button('disable');
+		    //when user change the type of question.
 		    $('#questionType').change(function () {
+		    	//get the type of user choose.
   			    x = document.getElementById("questionType").selectedIndex;
 			    y = document.getElementById("questionType").options;
 		    	type = y[x].text;
+		    	//if user choosed checkbox
 		    	if (type == "Checkbox") {
+		    		//empty all content.
 		    		$('#q1ar .ui-controlgroup-controls').empty();
 		    		current = 0;
+		    		//add two new responds.
 		    		$('#add').click();
 		    		$('#add').click();
+		    		//adjust the button situation.
 		            $('#add' ).button('enable');
 		            $('#remove' ).button('disable');
 		        
 		    	} else if (type == "Radio"){
+		    		//empty all content.
 		    		$('#q1ar .ui-controlgroup-controls').empty();
 		    		current = 0;
+		    		//add two new responds.
 		    		$('#add').click();
 		    		$('#add').click();
+		    		//adjust the button situation.
 		            $('#add' ).button('enable');
 		            $('#remove' ).button('disable');
-		    	} else if (type == "Textline") {
-		    		$('#q1ar .ui-controlgroup-controls').empty();
-		    		$('#add' ).button('disable');
-		            $('#remove').button('disable');
-		            current = 1;
 		    	} else if(type == "Textarea"){
+		    		//empty all content.
 		    		$('#q1ar .ui-controlgroup-controls').empty();
+		    		//disable buttons.
 					$('#add' ).button('disable');
 					$('#remove').button('disable');
-		    	} else if(type == "Slider"){
-		    		$('#q1ar .ui-controlgroup-controls').empty();
-					$('#add' ).button('disable');
-					$('#remove').button('disable');
-				};
+		    	};
 		    })
 		    $('#add').click(function createAnswer() {
 		            current++;        
@@ -153,9 +157,7 @@
 					<select name="questionType" id="questionType" data-mini="true">
 						<option value="1">Radio</option>
 						<option value="2">Checkbox</option>
-						<option value="3">Textline</option>
-						<option value="4">Textarea</option>
-						<option value="5">Slider</option>
+						<option value="3">Textarea</option>
 		    		</select>
 				</div>
              <div data-role="fieldcontain">
