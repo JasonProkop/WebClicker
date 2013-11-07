@@ -158,14 +158,9 @@
 		<h1>Poll X2F4</h1>
 		<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
      </div>
-<<<<<<< HEAD
 
      <form>
      <div data-role="content">    
-=======
-     <div data-role="content">
-         <form>
->>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
          	<textarea name="questionq" id="questionq" form="createPoll" type="text" placeholder="Enter your question here..." rows="4" cols="50"></textarea>
 				<div data-role="fieldcontain">
 					<label for="questionType">Choose the type of answer:</label>
@@ -175,11 +170,7 @@
 						<option value="3">Textarea</option>
 		    		</select>
 				</div>
-<<<<<<< HEAD
             <div data-role="fieldcontain">
-=======
-             <div data-role="fieldcontain">
->>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
                 <fieldset id="questionar" data-role="controlgroup" data-type="vertical">
                      <input type="radio" id="questiona1" name="questiona" value="1" />
                      <label for="questiona1"><textarea id="questionr1" name="questionr1" rows=4 cols=30></textarea></label>
@@ -201,19 +192,11 @@
 			<a href="#popQlist" id="Qlistbtn" data-rel="popup" data-role="button" data-transition="pop" data-icon="bars">Question List</a>
 			<input type="submit" id= "nextq" data-icon ="arrow-r" data-iconpos="notext" value="Next Question"  data-iconpos="notext"/>
 		</div>
-<<<<<<< HEAD
     </div>
 
     <div data-role="popup" id="popQlist" data-theme="d" data-overlay-theme="b">
 	        <fieldset data-role="controlgroup" id="inQList" data-type="vertical" data-inset="true">
 	        	<input type="button" id="q1btn" value="Question 1" onclick="jumpTo()">
-=======
-		
-     </div>
-    <div data-role="popup" id="popQlist" data-theme="d" data-overlay-theme="b">
-	        <fieldset data-role="controlgroup" id="inQList" data-type="vertical" data-inset="true">
-	        <input type="button" id="q1btn" value="Question 1" onclick="jumpTo()">
->>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
 	        </fieldset>
 	        <ul data-role="listview"  style="min-width:160px;">
 	        	<li><input type="button" value="Add New Question" id="Qlistbtn" data-ajax="false" data-icon ="plus" data-mini="true"></li>
