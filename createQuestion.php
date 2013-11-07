@@ -30,9 +30,9 @@
 </style>
 
 	<script>
-	$(document).on('pageinit', '#q1', function () {
-			//current is the number of responds in Question. 
-		    var current = 2;
+	$(document).on('pageinit', '#question', function () {
+			//currentRespondsNum is the number of responds in Question. 
+		    var currentRespondsNum = 2;
 
 		    var x = document.getElementById("questionType").selectedIndex;
 		    var y = document.getElementById("questionType").options;
@@ -48,8 +48,8 @@
 		    	//if user choosed checkbox
 		    	if (type == "Checkbox") {
 		    		//empty all content.
-		    		$('#q1ar .ui-controlgroup-controls').empty();
-		    		current = 0;
+		    		$('#questionar .ui-controlgroup-controls').empty();
+		    		currentRespondsNum = 0;
 		    		//add two new responds.
 		    		$('#add').click();
 		    		$('#add').click();
@@ -59,8 +59,8 @@
 		        
 		    	} else if (type == "Radio"){
 		    		//empty all content.
-		    		$('#q1ar .ui-controlgroup-controls').empty();
-		    		current = 0;
+		    		$('#questionar .ui-controlgroup-controls').empty();
+		    		currentRespondsNum = 0;
 		    		//add two new responds.
 		    		$('#add').click();
 		    		$('#add').click();
@@ -69,43 +69,46 @@
 		            $('#remove' ).button('disable');
 		    	} else if(type == "Textarea"){
 		    		//empty all content.
-		    		$('#q1ar .ui-controlgroup-controls').empty();
+		    		$('#questionar .ui-controlgroup-controls').empty();
 		    		//disable buttons.
 					$('#add' ).button('disable');
 					$('#remove').button('disable');
 		    	};
 		    })
-		    $('#add').click(function createAnswer() {
-		            current++;        
-		            $('#q1ar .ui-controlgroup-controls')
+
+		    $('#add').click(function addRespond() {
+		    		//add one respond into list.
+		            currentRespondsNum++;        
+		            $('#questionar .ui-controlgroup-controls')
 		            .append(
 		                $('<input/>', {
 		                        'type': type,
-		                        'name': 'q1a',
-		                        'id': 'q1a' + current,
-		                        'value': current,
+		                        'name': 'questiona',
+		                        'id': 'questiona' + currentRespondsNum,
+		                        'value': currentRespondsNum,
 		                    })
 		                    .append(
 		                        $('<label/>', {
-		                            'for': 'q1a' + current,
+		                            'for': 'questiona' + currentRespondsNum,
 		                        })
 		                        .html(
 		                            $('<textarea/>', {
-		                                'id': 'q1r' + current,
-		                                'name': 'q1r' + current,
+		                                'id': 'questionr' + currentRespondsNum,
+		                                'name': 'questionr' + currentRespondsNum,
 		                                'rows': 4,
 		                                'cols': 20
 		                            })
 		                        )
 		                )
 		            );
-		        
-		        $("#q1").trigger('create')
-		        
-		        if (current >= 5) {
+		     
+		        $("#question").trigger('create')
+		        //after modify the number of responds,
+		     	//check if need to adjust the situation of buttons.   
+		        if (currentRespondsNum >= 5) {
 		            // Disable Add
 		            $('#add' ).button('disable');
-		        } else if (current <= 2 ) {
+		        } else if (currentRespondsNum <= 2 ) {
 		            // Disable Remove
 		            $('#remove' ).button('disable');
 		        } else {
@@ -116,18 +119,20 @@
 		        }
 		    });
 		    
-		    $('#remove').click(function () {
-		        $('#q1r' + current).parent().remove();       
-		        $('#q1a' + current).parent().remove();
+		    $('#remove').click(function deleteRespond() {
+		    	//delete the last respond.
+		        $('#questionr' + currentRespondsNum).parent().remove();       
+		        $('#questiona' + currentRespondsNum).parent().remove();
 		        
-		        current--;
+		        currentRespondsNum--;
 		        
-		        $("#q1").trigger('create')
-		        
-		        if (current >= 5) {
+		        $("#question").trigger('create')
+		        //after modify the number of responds,
+		     	//check if need to adjust the situation of buttons.  
+		        if (currentRespondsNum >= 5) {
 		            // Disable Add
 		            $('#add' ).button('disable');
-		        } else if (current <= 2 ) {
+		        } else if (currentRespondsNum <= 2 ) {
 		            // Disable Remove
 		            $('#remove' ).button('disable');
 		        } else {
@@ -137,21 +142,31 @@
 		            $('#remove' ).button('enable');
 		        }
 		    });
+
+		    $('#Qlistbtn').click(function () {
+				//TODO
+			})
 		});
+
 	</script>
 
 </head>
 <body>
 
- <div data-role="page" id="q1" data-add-back-btn="true">
+ <div data-role="page" id="question" data-add-back-btn="true">
      <div data-role="header" data-theme="c" >
-        <h1>Poll X2F4</h1>
-       <a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
-
+		<h1>Poll X2F4</h1>
+		<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
      </div>
+<<<<<<< HEAD
+
+     <form>
+     <div data-role="content">    
+=======
      <div data-role="content">
          <form>
-         	<textarea name="q1q" id="q1q" form="createPoll" type="text" placeholder="Enter your question here..." rows="4" cols="50"></textarea>
+>>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
+         	<textarea name="questionq" id="questionq" form="createPoll" type="text" placeholder="Enter your question here..." rows="4" cols="50"></textarea>
 				<div data-role="fieldcontain">
 					<label for="questionType">Choose the type of answer:</label>
 					<select name="questionType" id="questionType" data-mini="true">
@@ -160,40 +175,52 @@
 						<option value="3">Textarea</option>
 		    		</select>
 				</div>
+<<<<<<< HEAD
+            <div data-role="fieldcontain">
+=======
              <div data-role="fieldcontain">
-                <fieldset id="q1ar" data-role="controlgroup" data-type="vertical">
-                     <input type="radio" id="q1a1" name="q1a" value="1" />
-                     <label for="q1a1"><textarea id="q1r1" name="q1r1" rows=4 cols=30></textarea></label>
-                     <input type="radio" id="q1a2" name="q1a" value="2" />
-                     <label for="q1a2"><textarea id="q1r2" name="q1r2" rows=4 cols=30></textarea></label>
+>>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
+                <fieldset id="questionar" data-role="controlgroup" data-type="vertical">
+                     <input type="radio" id="questiona1" name="questiona" value="1" />
+                     <label for="questiona1"><textarea id="questionr1" name="questionr1" rows=4 cols=30></textarea></label>
+                     <input type="radio" id="questiona2" name="questiona" value="2" />
+                     <label for="questiona2"><textarea id="questionr2" name="questionr2" rows=4 cols=30></textarea></label>
                 </fieldset>
                 <fieldset class="ui-grid-a">
                 	<div class="ui-block-a"><input type="button" data-mini="true" id="add" value="Add response" />   </div> 
                 	<div class="ui-block-b"><input type="button" data-mini="true" id="remove" value="Remove response" /></div>
 				</fieldset>
-             </div>
-         </form>
-     </div>
-      <div data-role="footer" data-theme="c" data-position="fixed">
-			<h1> </h1>
+            </div>     
+    </div>
+
+    <div data-role="footer" data-theme="c" data-position="fixed">
+		<h1> </h1>
     	<input type="submit" data-theme="b" id="submit" value="All Done!" data-icon="check" class="ui-btn-left" data-iconpos="left"/>
-    	 <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+    	<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
     	 	<input type="submit" id= "prevq" data-icon ="arrow-l" data-iconpos="notext" value="Prev Question"  data-iconpos="notext"/>
-			<a href="#QuestionList" data-rel="popup" data-role="button" data-transition="pop" data-icon="bars">Question List</a>
+			<a href="#popQlist" id="Qlistbtn" data-rel="popup" data-role="button" data-transition="pop" data-icon="bars">Question List</a>
 			<input type="submit" id= "nextq" data-icon ="arrow-r" data-iconpos="notext" value="Next Question"  data-iconpos="notext"/>
 		</div>
+<<<<<<< HEAD
+    </div>
+
+    <div data-role="popup" id="popQlist" data-theme="d" data-overlay-theme="b">
+	        <fieldset data-role="controlgroup" id="inQList" data-type="vertical" data-inset="true">
+	        	<input type="button" id="q1btn" value="Question 1" onclick="jumpTo()">
+=======
 		
      </div>
-    <div data-role="popup" id="QuestionList" data-theme="d" data-overlay-theme="b">
-	        <ul data-role="listview"  style="min-width:160px;" >
-	            <li data-role="divider" data-theme="b">Question List</li>
-	            <li><a href="#q1"> Question 1 </a></li>
-	        </ul>
+    <div data-role="popup" id="popQlist" data-theme="d" data-overlay-theme="b">
+	        <fieldset data-role="controlgroup" id="inQList" data-type="vertical" data-inset="true">
+	        <input type="button" id="q1btn" value="Question 1" onclick="jumpTo()">
+>>>>>>> bb1294a50cf2c046077d3ce456eec85a5a13df1a
+	        </fieldset>
 	        <ul data-role="listview"  style="min-width:160px;">
-	        	<li><a href="#" data-ajax="false" data-role="button" data-icon ="plus" data-mini="true" >Add New Question</a></li>
+	        	<li><input type="button" value="Add New Question" id="Qlistbtn" data-ajax="false" data-icon ="plus" data-mini="true"></li>
 	        </ul>
         	
 	</div>
+	</form>
  </div>
 
 </body>
