@@ -34,10 +34,10 @@
 			}
 			
 			.question{
-				padding: 10px;
-				border:2px solid;
-				border-radius:25px;
-				box-shadow: 2px 2px 5px #888888;
+				padding: 20px;
+				border:1px solid;
+				border-radius:10px;
+				box-shadow: 1px 1px 3px #888888;
 				margin: 10px;
 			}
 		</style>
@@ -50,8 +50,13 @@
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
 				</div>
 				<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
-					<input type="submit" data-theme="b" id="submit" value="All Done!" data-icon="check" class="ui-btn-left" data-iconpos="left"/>
-					<input type="button" value="Add New Question" id="addNewQuestion" data-ajax="false" data-icon ="plus" data-mini="true" class="ui-btn-right">
+					<div class="ui-grid-a">
+						<div class="ui-block-a"><input type="button" value="Add New Question" id="addNewQuestion" data-ajax="false" data-icon ="plus" data-mini="true" ></div>
+						<div class="ui-block-b"><input type="button" value="Delete Question" id="deleteQuestion" data-ajax="false" data-icon ="minus" data-mini="true" ></div>
+					</div>
+					<div class="ui-grid-solo">
+						<input type="submit" id="submit" value="All Done!"  data-icon="check" data-iconpos="left" />
+					</div>	
 				</div>
 			</form>
 		</div>
