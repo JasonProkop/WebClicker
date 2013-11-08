@@ -17,7 +17,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$db->commit(); //success
 		header("location:results.php?accessCode=".$_POST['poll_id']);
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}
 }else{
 	header("location:index.php");

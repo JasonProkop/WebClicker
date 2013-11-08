@@ -3,14 +3,24 @@ require_once('functions.php');
 
 if(isset($_GET['accessCode'])){
 	try{
-		$poll = search($_GET['accessCode']); 
-		//success
+		validAccessCode($_GET['accessCode']);
+		if(userTakenPoll($_GET['accessCode'])){
+			header("location:results.php?accessCode=".$_GET['accessCode']);
+		}else{
+			$poll = search($_GET['accessCode']);
+		}
 	}catch (PollNotFound $e) {
-		echo "Poll Not Found";
+		//echo "Poll Not Found";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}catch(MalformedAccessCode $e){
-		echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}
 }else{
 	header("location:index.php");
@@ -91,7 +101,7 @@ function displayQuestion($question){
 		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home - '.loggedInUser().'</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn + 1; $i++) {
