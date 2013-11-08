@@ -62,20 +62,22 @@
 			</h1>
 		</a>
 		<h3>
-			Find polls quickly, by name or ID!
+			Find polls quickly, by Access Code!
 		</h3>
     <form action="search.php" method="POST" data-ajax="false">
     <div class="ui-grid-a">
       <div class="ui-block-a">
-        <div data-role="fieldcontain">
-          <label for="accessCode">
+          <label for="accessCode" class="ui-hidden-accessible">
             Access Code:
           </label>
-          <input name="accessCode" id="accessCode" placeholder="49d2" data-inline="true">
-        </div>
+          <input name="accessCode" id="accessCode" placeholder="Access Code Here" data-inline="true">
+
       </div>
-      <div class="ui-block-b" align="right">
-        <input type="submit" value="Submit" data-inline="true">
+      <div class="ui-block-b" align="center">
+        <div>
+            <input type="submit" value="Submit" >          
+        </div>
+
       </div>
     </div>
     </form>
