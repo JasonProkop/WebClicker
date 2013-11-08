@@ -65,21 +65,13 @@
 			Find polls quickly, by Access Code!
 		</h3>
     <form action="search.php" method="POST" data-ajax="false">
-    <div class="ui-grid-a">
-      <div class="ui-block-a">
+
           <label for="accessCode" class="ui-hidden-accessible">
             Access Code:
           </label>
-          <input name="accessCode" id="accessCode" placeholder="Access Code Here" data-inline="true">
+          <input name="accessCode" id="accessCode" placeholder="Input Access Code Here" data-inline="true">
 
-      </div>
-      <div class="ui-block-b" align="center">
-        <div>
-            <input type="submit" value="Submit" >          
-        </div>
 
-      </div>
-    </div>
     </form>
   <h3>
       See the latest public polls!
