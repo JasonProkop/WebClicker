@@ -6,6 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$poll = Poll::createFromPOST($_POST);
 		$access = generateAccessCode();
 		$poll->insert(db_getpdo(), $access);
+		
 		header("location:poll.php?accessCode=".$access);
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";

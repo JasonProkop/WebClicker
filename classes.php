@@ -222,6 +222,7 @@ class Response implements iDatabase{
 		$obj->Response = $row['response_response'];
 		$obj->Email = $row['response_Email'];
 		$obj->Poll = $row['response_poll_id'];
+		$obj->Question = $row['response_question_id'];
 		return $obj;
 	}
 	

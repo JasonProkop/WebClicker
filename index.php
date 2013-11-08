@@ -1,5 +1,6 @@
 <?php
 	require_once('functions.php');
+	$user = loggedInUser();
 ?>
 <!doctype html>
 <html>
@@ -23,30 +24,21 @@
 		<h1>
 		Web Clicker
 		</h1>
-		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
-			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-				<li data-role="divider" data-theme="b">Choose an option</li>
-				<li><a href="#signUpPage">Sign Up!</a></li>
-				<li><a href="#signInPage">Sign In</a></li>
-				<li><a href="toy.php" data-ajax="false">Feedback</a></li>
-			</ul>
-		</div>
+		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-left" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
+		<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin"><?php echo $user; ?></a>
 	</header><!-- /header -->
 		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
 			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
 				<li data-role="divider" data-theme="b">Choose an option</li>
 				<?php
-				$user = loggedInUser();
-				if($user === 'anonymous'){
-					echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
-						<li><a href="#signInPage">Sign In</a></li>
-						<li><a href="#">Feedback</a></li>';
-				}else{
-					echo '<li>Welcome '.$user.'!</li>
-						<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
-						<li><a href="#">Feedback</a></li>';
-				}
+					if($user === 'anonymous'){
+						echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
+							<li><a href="#signInPage">Sign In</a></li>
+							<li><a href="#">Feedback</a></li>';
+					}else{
+						echo '<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
+							<li><a href="#">Feedback</a></li>';
+					}
 				?>
 			</ul>
 		</div>

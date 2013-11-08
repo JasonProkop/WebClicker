@@ -44,12 +44,20 @@ function generateAccessCode($length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
     $code = "";
     randomize();
-    $rand_keys = array_rand($charset, $length);
-    $accessCode = '';
-    for($i = 0; $i < $length; $i++)
-    {
-        $accessCode .= $charset[$rand_keys[$i]];
-    }
+	do{
+		$rand_keys = array_rand($charset, $length);
+		$accessCode = '';
+		for($i = 0; $i < $length; $i++)
+		{
+			$accessCode .= $charset[$rand_keys[$i]];
+		}
+		$db = db_getpdo();
+		$db->beginTransaction();
+		$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
+		$sql->bindValue(':access', $accessCode);
+		$sql->execute();
+	}while($sql->rowCount() > 0);
+	$db->commit();
     return $accessCode;
 }
 
@@ -286,6 +294,26 @@ function displayRecentPolls(){
 		}
 	}catch(PDOException $e){
 		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+	}
+}
+
+function questionBarData($question){
+//[[12],[34],[54]]
+	$responses = array();
+	foreach($question->Responses as $response){
+		$responses[] = $response->Response;
+	}
+	echo json_encode(array_count_values($responses));
+}
+
+function questionBarSeries($question){
+	$occurences = array();
+	foreach($question->Response as $response){
+		$occurences[] = $response->Response;
+	}
+	$occurences = array_unique($occurences);
+	foreach($occurences as $occurence){
+		echo 'series: '.$occurence.',';
 	}
 }
 ?>

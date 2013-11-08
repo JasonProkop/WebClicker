@@ -27,8 +27,7 @@ if(isset($_GET['accessCode'])){
 }
 
 function displayRadio($question){
-	echo '<fieldset data-role="controlgroup" data-type="horizontal">
-					<legend></legend>';
+	echo '<fieldset data-role="controlgroup" data-type="horizontal">';
 	foreach($question->PAnswers as $panswer){
 		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
 					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
@@ -38,10 +37,9 @@ function displayRadio($question){
 }
 
 function displayCheckbox($question){
-	echo '<fieldset data-role="controlgroup">
-			        <legend></legend>';
+	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="checkbox" name="questions['.$panswer->Question.']" id="'.$panswer->ID.' value="'.$panswer->PAnswer.'">
+		echo '<input type="checkbox" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
 			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 	echo '</fieldset>';
@@ -50,9 +48,6 @@ function displayCheckbox($question){
 function displayText($question){
 	echo '<label for="'.$question->ID.'"></label>
     			<textarea cols="40" rows="8" name="questions['.$question->ID.']" id="'.$question->ID.'"></textarea>';
-}
-
-function displaySlider($question){
 }
 
 function displayQuestion($question){
@@ -66,9 +61,6 @@ function displayQuestion($question){
 			return;
 		case 'Textbox':
 			displayText($question);
-			return;
-		case 'Slider':
-			displaySlider($question);
 			return;
 		default:
 			return;
@@ -97,14 +89,15 @@ function displayQuestion($question){
 	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
 	$q=1;
 	$qn = sizeof($poll->Questions);
-	for($q = 1; $q <= $qn + 1; $q++){
+	for($q = 1; $q <= $qn; $q++){
 		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home - '.loggedInUser().'</a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin">'.loggedInUser().'</a>
 				<div data-role="navbar">
 					<ul>';
-		for ($i = 1; $i <= $qn + 1; $i++) {
+		for ($i = 1; $i <= $qn; $i++) {
 			echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
 		}
 		echo		'</ul>
@@ -112,13 +105,13 @@ function displayQuestion($question){
 			</div><!-- /header -->
 			<div data-role="content" >';
 				
-		if($q == $qn + 1){
-			echo '<h3>Are you sure you are ready to submit?</h3>';
-			echo '<input type="submit" value="Submit" data-theme="a">';
-		}else{
-			displayQuestion($poll->Questions[$q]);
-		}
+
+		//displayQuestion($poll->Questions[$q]);
+		questionBarData($poll->Questions[$q]);
 		echo '</div><!-- /content --> 
+		<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
+					<input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="ui-btn-left submit" data-iconpos="left"/>
+				</div>
 		</div><!-- /page -->';
 	}
 ?>
