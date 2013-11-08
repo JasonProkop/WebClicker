@@ -1,25 +1,35 @@
-
+var MAX_CHECK = 5;
+var MAX_RADIO = 5;
+var MIN_CHECK = 2;
+var MIN_RADIO = 2;
 
 
 function addCheckbox(fieldset){
 	fieldset = fieldset.find(".checkboxcontainer");
 	var currentCheckboxes = parseInt(fieldset.attr('checkboxes'));
-	fieldset.attr('checkboxes',  currentCheckboxes + 1);
-	var num = fieldset.attr('checkboxes');
-	var qindex = parseInt($('#createPoll').attr('questions')) - 1;
-	var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : ''});
-	var label = $('<label />', {'for' : 'checkbox' + num});
-	var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'rows' : 4, 'cols' : 30});
-	
-	label.html(textarea);
-	checkbox.append(label);
-	fieldset.append(checkbox);
+	if(currentCheckboxes < MAX_CHECK){
+		fieldset.attr('checkboxes',  currentCheckboxes + 1);
+		var num = fieldset.attr('checkboxes');
+		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
+		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : ''});
+		var label = $('<label />', {'for' : 'checkbox' + num});
+		var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'rows' : 4, 'cols' : 30});
+		
+		label.html(textarea);
+		checkbox.append(label);
+		fieldset.append(checkbox);
+	}
 }
 
 function removeCheckbox(fieldset){
+	
 	fieldset = fieldset.find(".checkboxcontainer");
-	fieldset.find("#checkbox" + fieldset.attr('checkboxes')).parent().remove();
-	fieldset.attr('checkboxes', parseInt(fieldset.attr('checkboxes')) - 1);
+	
+	var currentCheckboxes = parseInt(fieldset.attr('checkboxes'));
+	if(currentCheckboxes > MIN_CHECK){
+		fieldset.attr('checkboxes', currentCheckboxes - 1);
+		fieldset.find("#checkbox" + fieldset.attr('checkboxes')).parent().remove();
+	}
 }
 
 function displayCheckbox(content){
@@ -29,22 +39,27 @@ function displayCheckbox(content){
 function addRadio(fieldset){
 	fieldset = fieldset.find(".radiocontainer");
 	var currentRadios = parseInt(fieldset.attr('radios'));
-	fieldset.attr('radios', currentRadios + 1);
-	var num = fieldset.attr('radios');
-	var qindex = parseInt($('#createPoll').attr('questions')) - 1;
-	var radio = $('<input />', {'class' : 'textb', 'type' : 'radio', 'id' : 'radio' + num, 'name' : 'questions['+qindex+'][answers][0]', 'value' : ''});
-	var label = $('<label />', {'for' : 'radio' + num});
-	var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'rows' : 4, 'cols' : 30});
-	
-	label.html(textarea);
-	radio.append(label);
-	fieldset.append(radio);
+	if(currentRadios < MAX_RADIO){
+		fieldset.attr('radios', currentRadios + 1);
+		var num = fieldset.attr('radios');
+		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
+		var radio = $('<input />', {'class' : 'textb', 'type' : 'radio', 'id' : 'radio' + num, 'name' : 'questions['+qindex+'][answers][0]', 'value' : ''});
+		var label = $('<label />', {'for' : 'radio' + num});
+		var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'rows' : 4, 'cols' : 30});
+		
+		label.html(textarea);
+		radio.append(label);
+		fieldset.append(radio);
+	}
 }
 
 function removeRadio(fieldset){
 	fieldset = fieldset.find(".radiocontainer");
-	fieldset.find("#radio" + fieldset.attr('radios')).parent().remove();
-	fieldset.attr('radios', parseInt(fieldset.attr('radios')) - 1);
+	var currentRadios = parseInt(fieldset.attr('radios'));
+	if(currentRadios > MIN_RADIO){
+		fieldset.attr('radios', currentRadios - 1);
+		fieldset.find("#radio" + fieldset.attr('radios')).parent().remove();
+	}
 }
 
 function displayRadio(content){
