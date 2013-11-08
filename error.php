@@ -1,5 +1,7 @@
 <?php
-if(!isset($_ERROR){
+require_once('functions.php');
+
+if(!isset($_SESSION['error'])){
 	header("location:index.php");
 }
 ?>
@@ -26,9 +28,8 @@ if(!isset($_ERROR){
 		</header><!-- /header -->
 		<div>
 			<article data-role="content" >
-				So sorry blah blah blah...
 				<h3>
-					<?php echo $_E; ?>
+					<?php echo $_SESSION['error']; ?>
 				</h3>
 		<br />
 		</div>

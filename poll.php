@@ -11,15 +11,15 @@ if(isset($_GET['accessCode'])){
 		}
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";
-		global $_ERROR = $e->getMessage();
+		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		global $_ERROR = $e->getMessage();
+		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}catch(MalformedAccessCode $e){
 		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-		global $_ERROR = $e->getMessage();
+		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}
 }else{

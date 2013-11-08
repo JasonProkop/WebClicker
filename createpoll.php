@@ -1,5 +1,5 @@
 <?php
-include_once('functions.php');
+require_once('functions.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	try{
@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		header("location:poll.php?accessCode=".$access);
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		global $_ERROR = $e->getMessage();
+		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}
 }else{
