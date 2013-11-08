@@ -56,7 +56,7 @@ function displayQuestion($question){
 		case 'Checkbox':
 			displayCheckbox($question);
 			return;
-		case 'Text':
+		case 'Textbox':
 			displayText($question);
 			return;
 		case 'Slider':
@@ -78,7 +78,7 @@ function displayQuestion($question){
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.min.css" />
+		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -90,8 +90,9 @@ function displayQuestion($question){
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn + 1; $q++){
 		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
-			<div data-role="header" data-id="question" data-position="fixed">
+			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn + 1; $i++) {

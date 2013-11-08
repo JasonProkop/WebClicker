@@ -240,21 +240,38 @@ function validAccessCode($access)
 }
 
 function search($access){
-		if(!validAccessCode($access)){
-			throw new MalformedAccessCode('Access code is malformed');
-		}
+	if(!validAccessCode($access)){
+		throw new MalformedAccessCode('Access code is malformed');
+	}
+	$db = db_getpdo();
+	$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
+	$sql->bindValue(':access', $access);
+	$db->beginTransaction();
+	$sql->execute();
+	$db->commit();
+	if($sql->rowCount() == 1){
+		//there is a poll with that access code
+		return Poll::createFromDB($sql->fetch(), $db);
+	}
+	else {
+		throw new PollNotFound('Poll Doesn\'t Exist');
+	}
+}
+
+function displayRecentPolls(){
+	try{
+	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
-		$sql->bindValue(':access', $access);
+		$sql = $db->prepare("SELECT * FROM \"Polls\" LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
-		if($sql->rowCount() == 1){
-			//there is a poll with that access code
-			return Poll::createFromDB($sql->fetch(), $db);
+		$polls = $sql->fetchAll();
+		foreach($polls as $poll){
+			echo '<li><a href="poll.php?accessCode='.$poll['poll_id'].'" data-ajax="false">'.$poll['poll_name'].' - '.$poll['poll_id'].'</a></li>';
 		}
-		else {
-			throw new PollNotFound('Poll Doesn\'t Exist');
-		}
+	}catch(PDOException $e){
+		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 	}
+}
 ?>

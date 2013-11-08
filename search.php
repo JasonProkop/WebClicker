@@ -1,5 +1,5 @@
 <?php
-	require_once('functions.php');
+	//require_once('functions.php');
 	header("location:poll.php?accessCode=".$_POST['accessCode']);
 	/*if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['accessCode'])){
 		try{

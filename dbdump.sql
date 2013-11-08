@@ -401,6 +401,15 @@ COPY "Answers" (answer_question_id, answer_answer, answer_id) FROM stdin;
 1	Goku	1
 2	Orange	3
 2	Apple	2
+30	no	7
+31	very unlikely	8
+33	yes	9
+34	douglas	10
+34	firr	11
+36	magic	12
+37	yes	13
+37	absolutely	14
+37	SO COOL	15
 \.
 
 
@@ -408,7 +417,7 @@ COPY "Answers" (answer_question_id, answer_answer, answer_id) FROM stdin;
 -- Name: Answers_answers_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Answers_answers_answer_id_seq"', 3, true);
+SELECT pg_catalog.setval('"Answers_answers_answer_id_seq"', 15, true);
 
 
 --
@@ -425,6 +434,10 @@ SELECT pg_catalog.setval('"Answers_answers_question_id_seq"', 1, false);
 COPY "Polls" (poll_id, poll_name) FROM stdin;
 12345	First Poll
 aaaaa	Second Poll Here
+bnuv2	
+diju0	Poll 5
+l3569	Test
+jkqx8	HORSECOCK
 \.
 
 
@@ -440,6 +453,22 @@ COPY "PossibleAnswers" (panswer_question_id, panswer_panswer, panswer_id) FROM s
 2	Car	7
 2	Concrete	6
 2	Orange	8
+30	yes	9
+30	no	10
+31	no	11
+31	not at all	12
+31	very unlikely	13
+33	yes	14
+33	no	15
+34	douglas	16
+34	firr	17
+34	concrete	18
+36	luck	19
+36	skill	20
+36	magic	21
+37	yes	22
+37	absolutely	23
+37	SO COOL	24
 \.
 
 
@@ -447,7 +476,7 @@ COPY "PossibleAnswers" (panswer_question_id, panswer_panswer, panswer_id) FROM s
 -- Name: PossibleAnswers_panswers_panswer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 8, true);
+SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 24, true);
 
 
 --
@@ -465,6 +494,14 @@ COPY "Questions" (question_id, question_type, question_question, question_poll_i
 1	Radio	Who would win in a fight?	12345	1
 3	Text	What is your favorite word?	aaaaa	1
 2	Checkbox	Which of these are fruits?	12345	2
+30	Radio	res	bnuv2	1
+31	Radio	are you hot	diju0	1
+32	Textbox	once	l3569	1
+33	Radio	twice	l3569	2
+34	Checkbox	a tree?	l3569	3
+35	Textbox	how does this work?	jkqx8	1
+36	Radio	why does this work?	jkqx8	2
+37	Checkbox	is this cool?	jkqx8	3
 \.
 
 
@@ -472,7 +509,7 @@ COPY "Questions" (question_id, question_type, question_question, question_poll_i
 -- Name: Questions_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Questions_question_id_seq"', 3, true);
+SELECT pg_catalog.setval('"Questions_question_id_seq"', 37, true);
 
 
 --

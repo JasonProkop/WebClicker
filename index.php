@@ -11,45 +11,28 @@
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.min.css" />
+		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-
-		<style type='text/css'>
-		/* Style sheet to restrict the page on large browsers */
-
-		html { background-color: #333; }
-		/* this line detects browsers which have a minimum width of 600
-		 * pixels and only applies the changes to them */
-		@media only screen and (min-width: 600px){
-		    .ui-page {
-			width: 600px !important;
-			margin: 0 auto !important;
-			position: relative !important;
-			border-right: 5px #666 outset !important;
-			border-left: 5px #666 outset !important;
-		    }
-        }
-</style>
 	</head>
 <body>
 
 <section id="homepage" data-role="page" >
-	<header data-role="header" data-position="fixed">
+	<header data-role="header"  data-tap-toggle="false">
 		<h1>
 		Web Clicker
 		</h1>
 		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-	<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
-        <ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-            <li data-role="divider" data-theme="b">Choose an option</li>
-            <li><a href="#signUpPage">Sign Up!</a></li>
-            <li><a href="#signInPage">Sign In</a></li>
-            <li><a href="toy.php" data-ajax="false">Feedback</a></li>
-        </ul>
-	</div>
-</header><!-- /header -->
+		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
+			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
+				<li data-role="divider" data-theme="b">Choose an option</li>
+				<li><a href="#signUpPage">Sign Up!</a></li>
+				<li><a href="#signInPage">Sign In</a></li>
+				<li><a href="toy.php" data-ajax="false">Feedback</a></li>
+			</ul>
+		</div>
+	</header><!-- /header -->
 		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
 			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
 				<li data-role="divider" data-theme="b">Choose an option</li>
@@ -73,7 +56,7 @@
 			<h3>
 				Create polls and vote in seconds!
 			</h3>
-		<a href="createQuestion.php" data-role="button" data-icon="check" data-ajax="false" >
+		<a href="create.php" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>
 				Create a poll!
 			</h1>
@@ -84,7 +67,7 @@
     <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >
     Search Poll From Here!
 		</a>
-    
+		
 	<div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
 		<form action="search.php" method="POST" data-ajax="false">
 			<h3>Input the ID of Poll, </h3>
@@ -102,6 +85,10 @@
     <a href="toy.php" data-role="button" data-icon="edit" data-ajax="false">
       Poll Example/FeedBack
     </a>
+	<br />
+	<ul>
+			<?php displayRecentPolls(); ?>
+		</ul>
 	</div>
 </section><!-- /page -->
 

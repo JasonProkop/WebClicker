@@ -3,24 +3,35 @@
 /*
 	Defines the behaviour we need for database interaction between our objects.
 */
-interface iDatabaseFunctions{
-	public function insert($db);
-	public function update($db);
-	public function delete($db);
+interface iDatabase{
+	public function insert($db, $id);
+	public function update($db, $id);
+	public function delete($db, $id);
 	public function createFromDB($row, $db);
 }
 
 /*
 	Defines the behaviour we need for POST creation for our objects.
 */
-interface iPostFunctions{
+interface iPost{
 	public function createFromPOST($POST);
 }
 /**
 	Contains Poll name, Access Code, All questions, answers, possible answers, and responses.
 **/
-class Poll implements iDatabaseFunctions{
+class Poll implements iDatabase, iPost{
 	function __construct(){}
+	
+	function createFromPOST($POST){
+		$obj = new Poll();
+		$obj->Name = $POST['pollname'];
+		
+		for($i = 0; $i < sizeof($POST['questions']); $i++){
+			$POST['questions'][$i]['order'] = $i + 1;
+			$obj->Questions[] = Question::createFromPOST($POST['questions'][$i]);
+		}
+		return $obj;
+	}
 	
 	/**
 		Creates all Question objects that are identified to this poll.
@@ -52,30 +63,48 @@ class Poll implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert($db){
+	function insert($db, $id){
+		$this->AccessCode = $id;
 		$db->beginTransaction();
 		$sql = $db->prepare("INSERT INTO \"Polls\" (\"poll_id\", \"poll_name\") VALUES (:id, :name);");
-		$sql->bindValue(':id', $this->Name);
-		$sql->bindValue(':name', $this->AccessCode);
+		$sql->bindValue(':name', $this->Name);
+		$sql->bindValue(':id', $this->AccessCode);
 		$sql->execute();
 		foreach($this->Questions as $question){
-			$question->insert($db);
+			$question->insert($db, $id);
 		}
 		$db->commit();
 	}
 
-	function update($db){
+	function update($db, $id){
 	}
 
-	function delete($db){
+	function delete($db, $id){
 	}
 }
 
 /*
 	Contains the Question, Type, Answers, and Possible Answers.
 */
-class Question implements iDatabaseFunctions{
+class Question implements iDatabase, iPost{
 	function __construct(){}
+	
+	function createFromPOST($POST){
+		$obj = new Question();
+		//$obj->Poll = $POST['poll'];
+		$obj->Question = $POST['question'];
+		$obj->Type = $POST['type'];
+		$obj->Order = $POST['order'];
+		if($obj->Type != "Textbox"){
+			for($i = 0; $i < sizeof($POST['answers']); $i++){
+				$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
+			}
+			for($i = 0; $i < sizeof($POST['panswers']); $i++){
+				$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+			}
+		}
+		return $obj;
+	}
 	
 	function createAnswersFromDB($db, $obj){
 		$sql = $db->prepare("SELECT * FROM \"Answers\" WHERE \"answer_question_id\"=:question;");
@@ -111,33 +140,43 @@ class Question implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert($db){
+	function insert($db, $id){
 		$sql = $db->prepare("INSERT INTO \"Questions\" (\"question_question\", \"question_type\", \"question_poll_id\", \"question_order\") VALUES (:question, :type, :poll, :order);");
 		$sql->bindValue(':question', $this->Question);
 		$sql->bindValue(':type', $this->Type);
-		$sql->bindValue(':poll', $this->Poll);
+		$sql->bindValue(':poll', $id);
 		$sql->bindValue(':order', $this->Order);
 		$sql->execute();
+		$sql = $db->prepare("SELECT * FROM \"Questions\" ORDER BY question_id DESC;");
+		$sql->execute();
+		$row = $sql->fetch();
+		$q = $row['question_id'];
 		foreach($this->Answers as $answer){
-			$answer->insert($db);
+			$answer->insert($db, $q);
 		}
 		foreach($this->PAnswers as $panswer){
-			$panswer->insert($db);
+			$panswer->insert($db, $q);
 		}
 	}
 	
-	function update($db){
+	function update($db, $id){
 	}
 	
-	function delete($db){
+	function delete($db, $id){
 	}
 }
 
 /*
 	Contains a single possible answer.
 */
-class PAnswer implements iDatabaseFunctions{
+class PAnswer implements iDatabase, iPost{
 	function __construct(){}
+	
+	function createFromPOST($POST){
+		$obj = new PAnswer();
+		$obj->PAnswer = $POST;
+		return $obj;
+	}
 	
 	function createFromDB($row, $db){
 		$obj = new PAnswer();
@@ -147,25 +186,31 @@ class PAnswer implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert($db){
+	function insert($db, $id){
 		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"panswer_panswer\", \"panswer_question_id\") VALUES (:panswer, :question);");
-		$sql->bindValue(':question', $this->Question);
+		$sql->bindValue(':question', $id);
 		$sql->bindValue(':panswer', $this->PAnswer);
 		$sql->execute();
 	}
 
-	function update($db){
+	function update($db, $id){
 	}
 
-	function delete($db){
+	function delete($db, $id){
 	}
 }
 
 /*
 	Contains a single answer.
 */
-class Answer implements iDatabaseFunctions{
+class Answer implements iDatabase, iPost{
 	function __construct(){}
+	
+	function createFromPOST($POST){
+		$obj = new Answer();
+		$obj->Answer = $POST;
+		return $obj;
+	}
 	
 	function createFromDB($row, $db){
 		$obj = new Answer();
@@ -175,17 +220,17 @@ class Answer implements iDatabaseFunctions{
 		return $obj;
 	}
 	
-	function insert($db){
-		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"answer_answer\", \"answer_question_id\") VALUES (:answer, :question);");
-		$sql->bindValue(':question', $this->Question);
+	function insert($db, $id){
+		$sql = $db->prepare("INSERT INTO \"Answers\" (\"answer_answer\", \"answer_question_id\") VALUES (:answer, :question);");
+		$sql->bindValue(':question', $id);
 		$sql->bindValue(':answer', $this->Answer);
 		$sql->execute();
 	}
 
-	function update($db){
+	function update($db, $id){
 	}
 
-	function delete($db){
+	function delete($db, $id){
 	}
 }
 ?>
