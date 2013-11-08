@@ -3,45 +3,45 @@ require_once('functions.php');
 
 if(isset($_GET['accessCode'])){
 	try{
-		validAccessCode($_GET['accessCode']);
-		if(userTakenPoll($_GET['accessCode'])){
-			header("location:results.php?accessCode=".$_GET['accessCode']);
-		}else{
-			$poll = search($_GET['accessCode']);
-		}
+		$poll = search($_GET['accessCode']); 
+		//success
+		//header("location:poll.php?poll=".$_POST['accessCode']);
+		//var_dump($poll);
 	}catch (PollNotFound $e) {
-		//echo "Poll Not Found";
-		global $_ERROR = $e->getMessage();
-		header("location:error.php");
+		echo "Poll Not Found";
 	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		global $_ERROR = $e->getMessage();
-		header("location:error.php");
+		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 	}catch(MalformedAccessCode $e){
-		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-		global $_ERROR = $e->getMessage();
-		header("location:error.php");
+		echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
 	}
 }else{
 	header("location:index.php");
 }
 
 function displayRadio($question){
-	echo '<fieldset data-role="controlgroup" data-type="horizontal">
-					<legend></legend>';
-	foreach($question->PAnswers as $panswer){
-		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
-					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
-	}
-					
-	echo '</fieldset>';
+	echo '
+		$("q'.$q.'").on('pageinit', function()
+			var data = [['Marked Quiz', 1],['Non-marked Quiz', 2],['Questions/Comments', 3];
+
+			var plot = $.jqplot("q'.$q.'", [data], {
+			seriesDefaults:{
+				renderer:$.jqplot.PieRenderer,
+				rendererOptions: {showDataLabels: true}
+			},
+
+			legend: {
+				show: true,
+				location: 'e'
+			}
+		});
+	'
 }
 
 function displayCheckbox($question){
 	echo '<fieldset data-role="controlgroup">
 			        <legend></legend>';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="checkbox" name="questions['.$panswer->Question.']" id="'.$panswer->ID.' value="'.$panswer->PAnswer.'">
+		echo '<input type="checkbox" name="'.$panswer->ID.'" id="'.$panswer->ID.'">
 			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 	echo '</fieldset>';
@@ -49,7 +49,7 @@ function displayCheckbox($question){
 
 function displayText($question){
 	echo '<label for="'.$question->ID.'"></label>
-    			<textarea cols="40" rows="8" name="questions['.$question->ID.']" id="'.$question->ID.'"></textarea>';
+    			<textarea cols="40" rows="8" name="'.$question->ID.'" id="'.$question->ID.'"></textarea>';
 }
 
 function displaySlider($question){
@@ -94,17 +94,16 @@ function displayQuestion($question){
 	<body>
 		<form action="parseresults.php" method="POST" data-ajax="false">
 <?php
-	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
 	$q=1;
 	$qn = sizeof($poll->Questions);
-	for($q = 1; $q <= $qn + 1; $q++){
+	for($q = 1; $q <= $qn; $q++){
 		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home - '.loggedInUser().'</a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
 				<div data-role="navbar">
 					<ul>';
-		for ($i = 1; $i <= $qn + 1; $i++) {
+		for ($i = 1; $i <= $qn; $i++) {
 			echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
 		}
 		echo		'</ul>
@@ -112,12 +111,8 @@ function displayQuestion($question){
 			</div><!-- /header -->
 			<div data-role="content" >';
 				
-		if($q == $qn + 1){
-			echo '<h3>Are you sure you are ready to submit?</h3>';
-			echo '<input type="submit" value="Submit" data-theme="a">';
-		}else{
-			displayQuestion($poll->Questions[$q]);
-		}
+		displayQuestion($poll->Questions[$q]);
+
 		echo '</div><!-- /content --> 
 		</div><!-- /page -->';
 	}

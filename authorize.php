@@ -4,11 +4,15 @@ include_once('functions.php');
 if(isset($_GET['email']) && isset($_GET['key'])){
 	try{
 		authorizeUser($_GET['email'], $_GET['key']);
-		echo 'success';
+		header("location:index.php#signInPage");
 	}catch(Authorization $e){
-		echo "Caught Authorization ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught Authorization ('{$e->getMessage()}')\n{$e}\n";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		global $_ERROR = $e->getMessage();
+		header("location:error.php");
 	}
 }else{
 	header("location:index.php");

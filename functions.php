@@ -236,13 +236,12 @@ function generateHeader(){
 
 function validAccessCode($access)
 {
-	return (strlen($access) == 5);
+	if(strlen($access) != 5){
+		throw new MalformedAccessCode('Access code is malformed');
+	}
 }
 
 function search($access){
-	if(!validAccessCode($access)){
-		throw new MalformedAccessCode('Access code is malformed');
-	}
 	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
 	$sql->bindValue(':access', $access);
@@ -255,6 +254,21 @@ function search($access){
 	}
 	else {
 		throw new PollNotFound('Poll Doesn\'t Exist');
+	}
+}
+
+function userTakenPoll($poll){
+	if($_SESSION['email'] == 'anonymous@anonymous.com'){
+			return false;
+	}else{
+		$db = db_getpdo();
+		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_Email\"=:email AND \"response_poll_id\"=:poll;");
+		$sql->bindValue(':email', $_SESSION['email']);
+		$sql->bindValue(':poll', $poll);
+		$db->beginTransaction();
+		$sql->execute();
+		$db->commit();
+		return($sql->rowCount() > 0);
 	}
 }
 

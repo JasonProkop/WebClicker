@@ -64,29 +64,25 @@
 		<h3>
 			Find polls quickly, by name or ID!
 		</h3>
-    <a href="#searchMenu" data-rel="popup" data-role="button" data-icon="search" data-transition="pop" data-theme="b" >
-    Search Poll From Here!
-		</a>
-		
-	<div data-role="popup" id="searchMenu" data-theme="a" data-overlay-theme="b">
-		<form action="search.php" method="POST" data-ajax="false">
-			<h3>Input the ID of Poll, </h3>
-			<h3>It is a 5 character string of numbers/letters.</h3>
-		  <div data-role="fieldcontain">
-			<label for="textinput1">
-			  Access Code:
-			</label>
-			<input name="accessCode" id="textinput1" placeholder="49d2" value="">
-		  </div>
-		</form>
-          <p> </p>
-	</div>
-    
-    <a href="toy.php" data-role="button" data-icon="edit" data-ajax="false">
-      Poll Example/FeedBack
-    </a>
-	<br />
-	<ul>
+    <form action="search.php" method="POST" data-ajax="false">
+    <div class="ui-grid-a">
+      <div class="ui-block-a">
+        <div data-role="fieldcontain">
+          <label for="accessCode">
+            Access Code:
+          </label>
+          <input name="accessCode" id="accessCode" placeholder="49d2" data-inline="true">
+        </div>
+      </div>
+      <div class="ui-block-b" align="right">
+        <input type="submit" value="Submit" data-inline="true">
+      </div>
+    </div>
+    </form>
+  <h3>
+      See the latest public polls!
+  </h3>
+	<ul data-role="listview" data-filter="true" data-inset="true">
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>

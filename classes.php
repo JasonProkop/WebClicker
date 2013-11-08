@@ -125,6 +125,16 @@ class Question implements iDatabase, iPost{
 			$obj->PAnswers[] = PAnswer::createFromDB($row, $db);
 		}
 	}
+
+	function createResponsesFromDB($db, $obj){
+		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_question_id\"=:question;");
+		$sql->bindValue(':question', $obj->ID);
+		$sql->execute();
+		$responses = $sql->fetchAll();
+		foreach($responses as $row){
+			$obj->Responses[] = Response::createFromDB($row, $db);
+		}
+	}
 	
 	function createFromDB($row, $db){
 		$obj = new Question();
@@ -135,8 +145,12 @@ class Question implements iDatabase, iPost{
 		$obj->Order = $row['question_order'];
 		$obj->Answers = array();
 		$obj->PAnswers = array();
+		$obj->Responses = array();
+		
 		$obj->createAnswersFromDB($db, $obj);
 		$obj->createPAnswersFromDB($db, $obj);
+		$obj->createResponsesFromDB($db, $obj);
+		
 		return $obj;
 	}
 	
@@ -190,6 +204,33 @@ class PAnswer implements iDatabase, iPost{
 		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"panswer_panswer\", \"panswer_question_id\") VALUES (:panswer, :question);");
 		$sql->bindValue(':question', $id);
 		$sql->bindValue(':panswer', $this->PAnswer);
+		$sql->execute();
+	}
+
+	function update($db, $id){
+	}
+
+	function delete($db, $id){
+	}
+}
+
+class Response implements iDatabase{
+	function __construct(){}
+	
+	function createFromDB($row, $db){
+		$obj = new Response();
+		$obj->Response = $row['response_response'];
+		$obj->Email = $row['response_Email'];
+		$obj->Poll = $row['response_poll_id'];
+		return $obj;
+	}
+	
+	function insert($db, $id){
+		$sql = $db->prepare("INSERT INTO \"Response\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
+		$sql->bindValue(':question', $id);
+		$sql->bindValue(':response', $this->Response);
+		$sql->bindValue(':poll', $this->Poll);
+		$sql->bindValue(':email', $this->Email);
 		$sql->execute();
 	}
 
