@@ -5,8 +5,6 @@ if(isset($_GET['accessCode'])){
 	try{
 		$poll = search($_GET['accessCode']); 
 		//success
-		//header("location:poll.php?poll=".$_POST['accessCode']);
-		//var_dump($poll);
 	}catch (PollNotFound $e) {
 		echo "Poll Not Found";
 	}catch(PDOException $e){
@@ -22,7 +20,7 @@ function displayRadio($question){
 	echo '<fieldset data-role="controlgroup" data-type="horizontal">
 					<legend></legend>';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="radio" name="'.$panswer->Question.'" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
+		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
 					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 					
@@ -33,7 +31,7 @@ function displayCheckbox($question){
 	echo '<fieldset data-role="controlgroup">
 			        <legend></legend>';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="checkbox" name="'.$panswer->ID.'" id="'.$panswer->ID.'">
+		echo '<input type="checkbox" name="questions['.$panswer->Question.']" id="'.$panswer->ID.' value="'.$panswer->PAnswer.'">
 			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 	echo '</fieldset>';
@@ -41,7 +39,7 @@ function displayCheckbox($question){
 
 function displayText($question){
 	echo '<label for="'.$question->ID.'"></label>
-    			<textarea cols="40" rows="8" name="'.$question->ID.'" id="'.$question->ID.'"></textarea>';
+    			<textarea cols="40" rows="8" name="questions['.$question->ID.']" id="'.$question->ID.'"></textarea>';
 }
 
 function displaySlider($question){
@@ -86,6 +84,7 @@ function displayQuestion($question){
 	<body>
 		<form action="parseresults.php" method="POST" data-ajax="false">
 <?php
+	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
 	$q=1;
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn + 1; $q++){
