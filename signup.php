@@ -1,7 +1,7 @@
 <?php
 require_once('functions.php');
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['alias']) && isset($_POST['account'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['alias'])){
 	try{
 		signUp($_POST['email'], $_POST['password'], $_POST['alias']);
 		//$message = 'We have sent you an authorization e-mail. Please check your junk/spam folders and follow the link provided in the e-mail to login to your account.';

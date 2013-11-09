@@ -137,7 +137,6 @@ function signUp($email, $password, $alias){
 	}else{
 		//no user with that email exists so lets make a new one
 		$sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);");
-		
 	}
 	$sql->bindValue(':email', $email);
 	$sql->bindValue(':alias', $alias);

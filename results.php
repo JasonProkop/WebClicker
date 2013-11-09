@@ -4,11 +4,7 @@ require_once('functions.php');
 if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
-		if(userTakenPoll($_GET['accessCode'])){
-			header("location:results.php?accessCode=".$_GET['accessCode']);
-		}else{
-			$poll = search($_GET['accessCode']);
-		}
+		$poll = search($_GET['accessCode']);
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";
 		$_SESSION['error'] = $e->getMessage();

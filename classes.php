@@ -97,10 +97,14 @@ class Question implements iDatabase, iPost{
 		$obj->Order = $POST['order'];
 		if($obj->Type != "Textbox"){
 			for($i = 0; $i < sizeof($POST['answers']); $i++){
-				$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
+				if(!empty($POST['answers'][$i])){
+					$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
+				}
 			}
 			for($i = 0; $i < sizeof($POST['panswers']); $i++){
-				$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+				if(!empty($POST['answers'][$i])){
+					$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+				}
 			}
 		}
 		return $obj;
