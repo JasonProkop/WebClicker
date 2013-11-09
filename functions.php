@@ -298,12 +298,16 @@ function displayRecentPolls(){
 }
 
 function questionBarData($question){
-//[[12],[34],[54]]
 	$responses = array();
 	foreach($question->Responses as $response){
 		$responses[] = $response->Response;
 	}
-	echo json_encode(array_count_values($responses));
+	$data = array();
+	$responses = array_count_values($responses);
+	while (list($key, $val) = each($responses) ){
+		$data[] = array($key, $val);
+	}
+	return json_encode($data);
 }
 
 function questionBarSeries($question){
