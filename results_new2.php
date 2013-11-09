@@ -27,38 +27,59 @@ if(isset($_GET['accessCode'])){
 }
 
 function displayRadio($question){
-	echo "<script>$(document).ready(function() {var plot = $.jqplot('chart".$question->Order."', [".questionBarData($question)."], {
-								seriesDefaults:{
-									renderer:$.jqplot.PieRenderer,
-									rendererOptions: {showDataLabels: true}
-								},
-								legend: {
-									show: true,
-									location: 'e'
-								}
-							});});</script>";
+	// Make a pie chart
+	echo "
+		<script>
+		$(document).on('pageinit', ''#resultsPage', function(event) {
+			var plot = $.jqplot(
+				'chart".$question->Order."', // Plot Target
+				[".questionBarData($question)."],  // Plot Data
+				{ // Plot Options
+					title: '".$question->Question."',
+					seriesDefaults: {
+			        	renderer: jQuery.jqplot.PieRenderer, 
+			        	rendererOptions: { showDataLabels: true }
+			        },
+			        legend: { show:true, location: 's' }
+			    }
+			);
+  		});
+    	</script>
+    ";
 }
 
 function displayCheckbox($question){
-	echo "<script>$(document).ready(function() {
-								var plot = $.jqplot('chart".$question->Order."', [".questionBarData($question)."], {
-								title: '".$question->Question."',
-								series:[{renderer:$.jqplot.BarRenderer}],
-								axesDefaults: {
-									tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-									tickOptions: {
-									  angle: -30,
-									  fontSize: '10pt'
-									}
-								},
-								axes: {
-								  xaxis: {
-									renderer: $.jqplot.CategoryAxisRenderer
-								  }
-								}
-								});
-								});
-		</script>";
+	// Make a bar chart
+	echo "
+		<script>
+		$(document).on('pageinit', ''#resultsPage', function(event) {
+			var plot = $.jqplot(
+				'chart".$question->Order."', // Plot Target
+				[".questionBarData($question)."],  // Plot Data
+				{ // Plot Options
+					title: '".$question->Question."',
+					seriesDefaults: {
+			        	renderer: $.jqplot.BarRenderer
+			        },
+			        axesDefaults: {
+				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+				        tickOptions: {
+				          fontFamily: 'Georgia',
+				          fontSize: '10pt',
+				          angle: -30
+				        }
+				    },
+				    axes: {
+				      xaxis: {
+				        renderer: $.jqplot.CategoryAxisRenderer
+				      }
+				    }
+			        legend: { show:true, location: 's' }
+			    }
+			);
+  		});
+    	</script>
+    ";
 }
 
 function displayText($question){
@@ -124,7 +145,8 @@ function displayQuestion($question){
 					<h1></h1>
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home - '.loggedInUser().'</a>
 				</div><!-- /header -->
-				<div data-role="content">
+				<div data-role="content" id="resultsPage">
+// Construct the divs to hold the plots
 <?php	
 					$q=1;
 					$qn = sizeof($poll->Questions);
@@ -138,8 +160,7 @@ function displayQuestion($question){
 					echo '</ul>';
 ?>
 				</div>
-				
-					
+// Create the plots				
 <?php
 					$q=1;
 					$qn = sizeof($poll->Questions);
