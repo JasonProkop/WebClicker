@@ -3,7 +3,7 @@ include_once('db.php');
 include_once('exception.php');
 include_once('classes.php');
 
-//setup exceptions
+//set up the exceptions
 class Account extends CustomException {} //'User with that e-mail already exists.'
 class Credentials extends CustomException {} //'Incorrect user credentials.'
 class Authorization extends CustomException {} //'Account is not authorized.'
@@ -26,6 +26,8 @@ if(empty($_SESSION['email']) && empty($_SESSION['alias'])){
 /*
 	Returns the alias if set or e-mail of the logged in user.
 	Will return anonymous if the user is not logged in.
+	
+	Authored by: Dylan
 */
 function loggedInUser()
 {
@@ -39,6 +41,8 @@ function loggedInUser()
 /*
     Generates a random access code for accessing polls. 
     A random string of characters in the charset with a given length (default 5)
+	
+	Authored by: Dylan
 */
 function generateAccessCode($length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -62,6 +66,7 @@ function generateAccessCode($length=5){
 }
 
 // seed with microseconds
+// found on stack overflow
 function randomize()
 {
   list($usec, $sec) = explode(' ', microtime());
@@ -70,6 +75,8 @@ function randomize()
 
 /*
 	Authorizes a user's account so they can login with it.
+	
+	Authored by: Dylan
 */
 function authorizeUser($email, $key){
 	$db = db_getpdo();
@@ -106,6 +113,8 @@ function authorizeUser($email, $key){
     The UserDetails were unique to existing authenticated Accounts
     The UserDetails were used to create or update an unauthorized Account
     An email was sent to the email address in the UserDetails
+	
+	Authored by: Dylan
 */
 
 function signUp($email, $password, $alias){
@@ -132,7 +141,8 @@ function signUp($email, $password, $alias){
 	}
 	$sql->bindValue(':email', $email);
 	$sql->bindValue(':alias', $alias);
-	$sql->bindValue(':authorized', 'false');
+	//$sql->bindValue(':authorized', 'false');
+	$sql->bindValue(':authorized', 'true'); //this is being used for testing. change to above line in production
 	$sql->bindValue(':hash', $hash);
 	$sql->bindValue(':salt', $salt);
 	$sql->execute();
@@ -144,6 +154,8 @@ function signUp($email, $password, $alias){
 /*
 	Sends an e-mail to the given e-mail with a link that will authorize the account.
 	Uses the given salt to generate a key unique to the e-mail.
+	
+	Authored by: Dylan
 */
 function sendAuthorizationEmail($email, $salt)
 {
@@ -174,6 +186,7 @@ function sendAuthorizationEmail($email, $salt)
 
 /*
 	Signs the user out by clearing the SESSION and any cookies that were set.
+	Authored by: Dylan
 */
 function signOut(){
     // Delete all the values (don't try to unset $_SESSION)
@@ -192,6 +205,8 @@ function signOut(){
 /*
 	Tries to sign the user in with the supplied credentials.
 	If credentials are valid then the SESSION is set otherwise throws an exception.
+	
+	Authored by: Dylan
 */
 function signIn($email, $password){
 	$db = db_getpdo();
@@ -218,30 +233,10 @@ function signIn($email, $password){
 	}
 }
 
-function generateHeader(){
-	echo '<header data-role="header" data-position="fixed">
-		<h1>
-		Web Clicker
-		</h1>
-		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b" data-ajax="false">
-			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-				<li data-role="divider" data-theme="b">Choose an option</li>';
-	$user = loggedInUser();
-	if($user === 'anonymous'){
-		echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
-			<li><a href="#signInPage">Sign In</a></li>
-			<li><a href="#">Feedback</a></li>';
-	}else{
-		echo '<li>Welcome '.$user.'!</li>
-			<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
-			<li><a href="#">Feedback</a></li>';
-	}
-	echo '</ul>
-		</div>
-	</header><!-- /header -->';
-}
-
+/*
+	Preliminary check for validity of an access code.
+	Authored by: Dylan
+*/
 function validAccessCode($access)
 {
 	if(strlen($access) != 5){
@@ -249,6 +244,10 @@ function validAccessCode($access)
 	}
 }
 
+/*
+	Returns a poll object if found in the database with the supplied access code.
+	Authored by: Max
+*/
 function search($access){
 	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
@@ -265,6 +264,11 @@ function search($access){
 	}
 }
 
+/*
+	Determines if the current user has taken a poll. 
+	Will return false if not currently logged in.
+	Authored by: Dylan
+*/
 function userTakenPoll($poll){
 	if($_SESSION['email'] == 'anonymous@anonymous.com'){
 			return false;
@@ -280,11 +284,15 @@ function userTakenPoll($poll){
 	}
 }
 
+/*
+	Grabs the 10 most recent polls from the database to display on the homepage
+	Authored by: Dylan
+*/
 function displayRecentPolls(){
 	try{
 	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM \"Polls\" ORDER BY poll_date_created LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
@@ -297,7 +305,11 @@ function displayRecentPolls(){
 	}
 }
 
-function questionBarData($question){
+/*
+	Generates the proper data array for jqPlot to make a bar/pie graph out of from a single question.
+	Authored by: Dylan/Jason
+*/
+function questionTojQplot($question){
 	$responses = array();
 	foreach($question->Responses as $response){
 		$responses[] = $response->Response;
@@ -310,14 +322,4 @@ function questionBarData($question){
 	return json_encode($data);
 }
 
-function questionBarSeries($question){
-	$occurences = array();
-	foreach($question->Response as $response){
-		$occurences[] = $response->Response;
-	}
-	$occurences = array_unique($occurences);
-	foreach($occurences as $occurence){
-		echo 'series: '.$occurence.',';
-	}
-}
 ?>

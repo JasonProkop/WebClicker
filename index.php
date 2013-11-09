@@ -31,6 +31,8 @@
 			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
 				<li data-role="divider" data-theme="b">Choose an option</li>
 				<?php
+					//displays sign in/ sign up / feed back if you are not logged in
+					//displays sign out / feedback if you are logged in
 					if($user === 'anonymous'){
 						echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
 							<li><a href="#signInPage">Sign In</a></li>

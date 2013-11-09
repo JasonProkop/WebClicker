@@ -2,7 +2,8 @@ var MAX_CHECK = 5;
 var MAX_RADIO = 5;
 var MIN_CHECK = 2;
 var MIN_RADIO = 2;
-
+var MAX_QUESTION = 10;
+var MIN_QUESTION = 1;
 
 function addCheckbox(fieldset){
 	fieldset = fieldset.find(".checkboxcontainer");
@@ -91,30 +92,41 @@ function addButtons(add, remove){
 	return buttonFieldSet;
 }
 $(document).on('pageinit', function () {
+	$('#deleteQuestion').click(
+	function (){
+		var questions = parseInt($('#createPoll').attr('questions'));
+		if(questions > MIN_QUESTION){
+			$('#createPoll').attr('questions',  questions - 1);
+			var id = "qc" + (questions - 1);
+			$("#" + id).remove();
+		}
+	}),
 	$('#addNewQuestion').click(
 	function (){
-		$('#createPoll').attr('questions', parseInt($('#createPoll').attr('questions')) + 1);
-		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
-		var content = $('<div />', {'class' : 'question', 'data-role' : 'content', 'data-content-theme' : 'c'});
-		var textarea = $('<textarea />', { 'name' : 'questions['+qindex+'][question]', 'id' : 'questions['+qindex+'][question]', 'type' : 'text', 'placeholder' : 'Enter your question here...', 'rows' : 4, 'cols' : 50});
-		var fieldcontain = $('<div />', {'data-role' : 'fieldcontain'});
-		var label = $('<label />', {'for' : 'questions['+qindex+'][type]', 'html' : 'Choose the type of answer:'});
-		var select = $('<select />', {'class' : 'type', 'name' : 'questions['+qindex+'][type]', 'id' : 'questions['+qindex+'][type]', 'data-mini':'true'});
-		var textbox = $('<option />', {'value' : 'Textbox', 'html' : 'Textbox'});
-		var radio = $('<option />', {'value' : 'Radio', 'html' : 'Radio'});
-		var checkbox = $('<option />', {'value' : 'Checkbox', 'html' : 'Checkbox'});
+		var questions = parseInt($('#createPoll').attr('questions'));
+		if(questions < MAX_QUESTION){
+			$('#createPoll').attr('questions',  questions + 1);
+			var content = $('<div />', {'id' : 'qc'+questions+'', 'class' : 'bordered', 'data-role' : 'content', 'data-content-theme' : 'c'});
+			var textarea = $('<textarea />', { 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'type' : 'text', 'placeholder' : 'Enter your question here...', 'rows' : 4, 'cols' : 50});
+			var fieldcontain = $('<div />', {'data-role' : 'fieldcontain'});
+			var label = $('<label />', {'for' : 'questions['+questions+'][type]', 'html' : 'Choose the type of answer:'});
+			var select = $('<select />', {'class' : 'type', 'name' : 'questions['+questions+'][type]', 'id' : 'questions['+questions+'][type]', 'data-mini':'true'});
+			var textbox = $('<option />', {'value' : 'Textbox', 'html' : 'Textbox'});
+			var radio = $('<option />', {'value' : 'Radio', 'html' : 'Radio'});
+			var checkbox = $('<option />', {'value' : 'Checkbox', 'html' : 'Checkbox'});
 
-		
-		select.append(radio);
-		select.append(checkbox);
-		select.append(textbox);
-		fieldcontain.append(label);
-		fieldcontain.append(select);
-		content.append(textarea);
-		content.append(fieldcontain);
-		$('#footer').before(content);
-		content.find('.type').val('Textbox');
-		content.trigger('create');
+			
+			select.append(radio);
+			select.append(checkbox);
+			select.append(textbox);
+			fieldcontain.append(label);
+			fieldcontain.append(select);
+			content.append(textarea);
+			content.append(fieldcontain);
+			$('#footer').before(content);
+			content.find('.type').val('Textbox');
+			content.trigger('create');
+		}
 	})
 	$('#addNewQuestion').click();
 });
@@ -128,8 +140,8 @@ $(document).on('create', function(){
 		$(this).parent().parent().parent().parent().find(".textb").attr('value', $(this).val());
     })
 });
-$(document).on('pageinit click', function () {
 
+$(document).on('pageinit click', function () {
 	$('.type').change(function (){
 		var content = $(this).parent().parent().parent().parent();
 		content.find('#answer').remove();
@@ -161,7 +173,3 @@ $(document).on('pageinit click', function () {
 		}
 	})
 });
-
-function deleteQuestion(){
-
-}

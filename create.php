@@ -7,7 +7,7 @@
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.min.css" />
+		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -16,31 +16,8 @@
 
 		</style>
 		<script>
-			$(document).on('load', $('#addNewQuestion').click());
+			$(document).on('load', $('#addNewQuestion').click()); //add a single question right off the start.
 		</script>
-		<style type='text/css'>
-			/* Style sheet to restrict the page on large browsers */
-
-			/* this line detects browsers which have a minimum width of 600
-			 * pixels and only applies the changes to them */
-			@media only screen and (min-width: 600px){
-				.ui-page {
-				width: 600px !important;
-				margin: 0 auto !important;
-				position: relative !important;
-				border-right: 5px #666 outset !important;
-				border-left: 5px #666 outset !important;
-				}
-			}
-			
-			.question{
-				padding: 20px;
-				border:1px solid;
-				border-radius:10px;
-				box-shadow: 1px 1px 3px #888888;
-				margin: 10px;
-			}
-		</style>
 	</head>
 	<body>
 		<div data-role="page">

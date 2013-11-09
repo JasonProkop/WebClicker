@@ -30,10 +30,10 @@ function displayRadio($question){
 	// Make a pie chart
 	echo "
 		<script>
-		$(document).on('pageinit', ''#resultsPage', function(event) {
+		$(document).on('pageshow', function(event) {
 			var plot = $.jqplot(
 				'chart".$question->Order."', // Plot Target
-				[".questionBarData($question)."],  // Plot Data
+				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
@@ -52,10 +52,10 @@ function displayCheckbox($question){
 	// Make a bar chart
 	echo "
 		<script>
-		$(document).on('pageinit', ''#resultsPage', function(event) {
+		$(document).on('pageshow', function(event) {
 			var plot = $.jqplot(
 				'chart".$question->Order."', // Plot Target
-				[".questionBarData($question)."],  // Plot Data
+				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
@@ -73,21 +73,31 @@ function displayCheckbox($question){
 				      xaxis: {
 				        renderer: $.jqplot.CategoryAxisRenderer
 				      }
-				    }
+				    },
 			        legend: { show:true, location: 's' }
 			    }
 			);
-  		});
+		});
     	</script>
     ";
 }
 
 function displayText($question){
-	/*echo "<ul>";
-	foreach($question->Responses as $response){
-		echo '<li>'.$response->Response.'</li>';
-	}
-	echo "</ul>";*/
+	echo "
+		<script>
+		$(document).on('pageinit', function(event) {
+			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
+			var list = $('<ul>', {'data-role' : 'listview', 'date-filter' : 'true', 'data-inset' : 'true'});
+			$('#chart".$question->Order."').append(title);
+			";
+		foreach($question->Responses as $response){
+			echo "list.append($('<li/>', {'html' : \"".$response->Response." - ".$response->Email."\"}));\n";
+		}
+	echo	"$('#chart".$question->Order."').append(list);
+			$('#chart".$question->Order."').trigger('create');
+		});
+    	</script>
+    ";
 }
 
 function displayQuestion($question){
@@ -120,55 +130,46 @@ function displayQuestion($question){
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-		<script src="static/js/magic.js"></script>
 		<script type="text/javascript" src="static/js/excanvas.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.jqplot.min.js"></script>
 		<script type="text/javascript" src="static/js/plugins/jqplot.barRenderer.min.js"></script>
 		<script type="text/javascript" src="static/js/plugins/jqplot.pieRenderer.min.js"></script>
 		<script type="text/javascript" src="static/js/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 		<script type="text/javascript" src="static/js/plugins/jqplot.pointLabels.min.js"></script>
-		<script type="text/javascript" src="../src/plugins/jqplot.dateAxisRenderer.min.js"></script>
-		<script type="text/javascript" src="../src/plugins/jqplot.canvasTextRenderer.min.js"></script>
-		<script type="text/javascript" src="../src/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+		<script type="text/javascript" src="static/js/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<script type="text/javascript" src="static/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
+		<script type="text/javascript" src="static/js/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="static/jquery.jqplot.min.css" />
-		<style>
-			.chart{
-				display: inline-block;
-				min-height: 300px;
-				min-width: 200px;
-			}
-		</style>
 	</head>
 	<body>
-		<div data-role="page" data-theme="a">
-				<div data-role="header" data-id="question" data-tap-toggle="false">
-					<h1></h1>
-					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home - '.loggedInUser().'</a>
-				</div><!-- /header -->
-				<div data-role="content" id="resultsPage">
-// Construct the divs to hold the plots
+		<div data-role="page" data-theme="a" id="resultsPage">
+			<div data-role="header" data-tap-toggle="false">
+				<h1><?php echo $poll->Name ?></h1>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin"><?php echo loggedInUser() ?></a>
+			</div><!-- /header -->
+
 <?php	
-					$q=1;
-					$qn = sizeof($poll->Questions);
-					echo '<ul style="list-style-type: none;">';
-					for($q = 1; $q <= $qn; $q++){
-					//<div id="chart3" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"
-						echo "<li><div style=\"height: 300px; width: 500px; position: relative;\" class=\"jqplot-target\" data-role='none' id='chart$q'>";
-							//echo '<h3>'.$poll->Questions[$q]->Question.'</h3>';
-						echo '</div></li>';
-					}
-					echo '</ul>';
+				// Construct the divs to hold the plots
+				$q=1;
+				$qn = sizeof($poll->Questions);
+				for($q = 1; $q <= $qn; $q++){
+					echo "<div data-role=\"content\" class=\"jqplot-target bordered\" id='chart$q'>";
+					echo '</div>';
+				}
 ?>
-				</div>
-// Create the plots				
+			</div>
+			
 <?php
-					$q=1;
-					$qn = sizeof($poll->Questions);
-					for($q = 1; $q <= $qn; $q++){
-						displayQuestion($poll->Questions[$q]);
-					}
+			// Create the plots	
+			$q=1;
+			$qn = sizeof($poll->Questions);
+			for($q = 1; $q <= $qn; $q++){
+				displayQuestion($poll->Questions[$q]);
+			}
 ?>
-		</div>
+			<div data-role="footer" data-tap-toggle="false">
+			</div>
 	<body>
 </html>
 

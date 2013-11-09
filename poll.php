@@ -104,10 +104,7 @@ function displayQuestion($question){
 				</div><!-- /navbar -->
 			</div><!-- /header -->
 			<div data-role="content" >';
-				
-
-		//displayQuestion($poll->Questions[$q]);
-		questionBarData($poll->Questions[$q]);
+		displayQuestion($poll->Questions[$q]);
 		echo '</div><!-- /content --> 
 		<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
 					<input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="ui-btn-left submit" data-iconpos="left"/>
