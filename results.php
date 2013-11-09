@@ -83,7 +83,7 @@ function displayText($question){
 		<script>
 		$(document).on('pageinit', function(event) {
 			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
-			var list = $('<ul>', {'data-role' : 'listview', 'date-filter' : 'true', 'data-inset' : 'true'});
+			var list = $('<ul>', {'data-role' : 'listview', 'data-filter' : 'true', 'data-inset' : 'true'});
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
