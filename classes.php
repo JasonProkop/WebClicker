@@ -102,7 +102,7 @@ class Question implements iDatabase, iPost{
 				}
 			}
 			for($i = 0; $i < sizeof($POST['panswers']); $i++){
-				if(!empty($POST['answers'][$i])){
+				if(!empty($POST['panswers'][$i])){
 					$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
 				}
 			}

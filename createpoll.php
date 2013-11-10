@@ -3,6 +3,7 @@ require_once('functions.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	try{
+		//var_dump($_POST);
 		$poll = Poll::createFromPOST($_POST);
 		$access = generateAccessCode();
 		$poll->insert(db_getpdo(), $access);
