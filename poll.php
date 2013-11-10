@@ -27,7 +27,7 @@ if(isset($_GET['accessCode'])){
 }
 
 function displayRadio($question){
-	echo '<fieldset data-role="controlgroup" data-type="horizontal">';
+	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
 		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
 					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
