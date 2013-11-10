@@ -36,7 +36,7 @@ function displayRadio($question){
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
 			        },
-			        legend: { show:true, location: 's' }
+			        legend: { show:true, location: 'e' }
 			    }
 			);
   		});
@@ -55,23 +55,26 @@ function displayCheckbox($question){
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
-			        	renderer: $.jqplot.BarRenderer
-			        },
-			        axesDefaults: {
-				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-				        tickOptions: {
-				          fontFamily: 'Georgia',
-				          fontSize: '10pt',
-				          angle: -30
-				        }
-				    },
-				    axes: {
-				      xaxis: {
-				        renderer: $.jqplot.CategoryAxisRenderer
-				      }
-				    },
-			        legend: { show:true, location: 's' }
-			    }
+	      		renderer: $.jqplot.BarRenderer,
+	      		rendererOptions: {
+	        					varyBarColor: true
+	    			}
+      		},
+					axesDefaults: {
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							fontFamily: 'Georgia',
+							fontSize: '10pt',
+							angle: -30
+						}
+					},
+					axes: {
+						xaxis: {
+							renderer: $.jqplot.CategoryAxisRenderer
+						}
+					},
+					legend: { show:false, location: 's' }
+				}
 			);
 		});
     	</script>
