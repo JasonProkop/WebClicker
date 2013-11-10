@@ -28,8 +28,8 @@ function removeCheckbox(fieldset){
 	
 	var currentCheckboxes = parseInt(fieldset.attr('checkboxes'));
 	if(currentCheckboxes > MIN_CHECK){
-		fieldset.attr('checkboxes', currentCheckboxes - 1);
 		fieldset.find("#checkbox" + fieldset.attr('checkboxes')).parent().remove();
+		fieldset.attr('checkboxes', currentCheckboxes - 1);
 	}
 }
 
@@ -58,8 +58,8 @@ function removeRadio(fieldset){
 	fieldset = fieldset.find(".radiocontainer");
 	var currentRadios = parseInt(fieldset.attr('radios'));
 	if(currentRadios > MIN_RADIO){
-		fieldset.attr('radios', currentRadios - 1);
 		fieldset.find("#radio" + fieldset.attr('radios')).parent().remove();
+		fieldset.attr('radios', currentRadios - 1);
 	}
 }
 
