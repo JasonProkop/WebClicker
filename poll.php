@@ -98,7 +98,12 @@ function displayQuestion($question){
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
-			echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
+			if ($i == $q$) {
+				echo '<li><a href="#q'.$i.'" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
+			}else {
+				echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
+			}
+			
 		}
 		echo		'</ul>
 				</div><!-- /navbar -->
