@@ -93,12 +93,12 @@ function displayQuestion($question){
 		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin">'.loggedInUser().'</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
-			if ($i == $q$) {
+			if ($i == $q) {
 				echo '<li><a href="#q'.$i.'" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
 			}else {
 				echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
