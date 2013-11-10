@@ -311,14 +311,14 @@ function displayRecentPolls(){
 function questionTojQplot($question){
 	$responses = array();
 	foreach($question->Responses as $response){
-		$responses[] = $response->Response;
+		$responses[] = $response->Response; //gather responses
 	}
 	$data = array();
-	$responses = array_count_values($responses);
+	$responses = array_count_values($responses); //count how many of each
 	while (list($key, $val) = each($responses) ){
-		$data[] = array($key, $val);
+		$data[] = array($key, $val); //turn into jQplot aray
 	}
-	return json_encode($data);
+	return json_encode($data); //turn into javascript array
 }
 
 ?>

@@ -39,7 +39,7 @@ function displayRadio($question){
 function displayCheckbox($question){
 	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="checkbox" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
+		echo '<input type="checkbox" name="questions['.$panswer->Question.']['.$panswer->ID.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
 			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 	echo '</fieldset>';

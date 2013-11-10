@@ -6,13 +6,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		var_dump($_POST);
 		$db = db_getpdo();
 		$db->beginTransaction();
-		while(list($key, $value) = each($_POST['questions'])){
-			$sql = $db->prepare("INSERT INTO \"Responses\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
-			$sql->bindValue(':question', $key);
-			$sql->bindValue(':response', $value);
-			$sql->bindValue(':poll', $_POST['poll_id']);
-			$sql->bindValue(':email', $_SESSION['email']);
-			$sql->execute();
+		while(list($key, $value) = each($_POST['questions'])){ //for each response
+			if(is_array($value)){ //if the question was a checkbox multiple responses
+				while(list($ikey, $ivalue) = each($value)){ //for all checkbox responses
+					insertResponse($db, $key, $ivalue); 
+				}
+			}else{
+				insertResponse($db, $key, $value);
+			}
 		}
 		$db->commit(); //success
 		header("location:results.php?accessCode=".$_POST['poll_id']);
@@ -23,5 +24,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 }else{
 	header("location:index.php");
+}
+
+/*
+	Inserts a single response into the database.
+	Authored by: Dylan
+*/
+function insertResponse($db, $question, $response){
+	$sql = $db->prepare("INSERT INTO \"Responses\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
+			$sql->bindValue(':question', $question);
+			$sql->bindValue(':response', $response);
+			$sql->bindValue(':poll', $_POST['poll_id']);
+			$sql->bindValue(':email', $_SESSION['email']);
+			$sql->execute();
 }
 ?>
