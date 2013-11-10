@@ -291,7 +291,7 @@ function displayRecentPolls(){
 	try{
 	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" ORDER BY poll_date_created LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM \"Polls\" ORDER BY poll_date_created DESC LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();

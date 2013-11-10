@@ -38,7 +38,7 @@
 					}else{
 						echo '<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>';
 					}
-					echo '<li><a href="poll.php?accessCode=amo24">Feedback</a></li>';
+					echo '<li><a href="poll.php?accessCode=amo24" data-ajax="false">Feedback</a></li>';
 				?>
 			</ul>
 		</div>
