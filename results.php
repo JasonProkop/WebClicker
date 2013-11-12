@@ -57,23 +57,25 @@ function displayCheckbox($question){
 					seriesDefaults: {
 	      		renderer: $.jqplot.BarRenderer,
 	      		rendererOptions: {
-	        					varyBarColor: true
+	        					varyBarColor: true,
 	    			}
       		},
 					axesDefaults: {
 						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						min: 0,  
+						tickInterval: 1,
 						tickOptions: {
 							fontFamily: 'Georgia',
 							fontSize: '10pt',
-							angle: -30
+							angle: -30,
+							formatString:'%d'
 						}
 					},
 					axes: {
 						xaxis: {
 							renderer: $.jqplot.CategoryAxisRenderer
 						}
-					},
-					legend: { show:false, location: 's' }
+					}
 				}
 			);
 		});
