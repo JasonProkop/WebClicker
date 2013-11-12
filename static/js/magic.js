@@ -14,7 +14,7 @@ function addCheckbox(fieldset){
 		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
 		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : ''});
 		var label = $('<label />', {'for' : 'checkbox' + num});
-		var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'rows' : 4, 'cols' : 30, 'required' : 'required'});
+		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
 		
 		label.html(textarea);
 		checkbox.append(label);
@@ -46,8 +46,8 @@ function addRadio(fieldset){
 		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
 		var radio = $('<input />', {'class' : 'textb', 'type' : 'radio', 'id' : 'radio' + num, 'name' : 'questions['+qindex+'][answers][0]', 'value' : ''});
 		var label = $('<label />', {'for' : 'radio' + num});
-		var textarea = $('<textarea />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'rows' : 4, 'cols' : 30, 'required' : 'required'});
-		
+		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
+
 		label.html(textarea);
 		radio.append(label);
 		fieldset.append(radio);
