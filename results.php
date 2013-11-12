@@ -90,7 +90,7 @@ function displayText($question){
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
-			echo "list.append($('<li/>', {'html' : \"".$response->Response." - ".$response->Email."\"}));\n";
+			echo "list.append($('<li/>', {'html' : \"".$response->Response."\"}));\n";
 		}
 	echo	"$('#chart".$question->Order."').append(list);
 			$('#chart".$question->Order."').trigger('create');
