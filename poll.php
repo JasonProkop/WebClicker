@@ -94,7 +94,7 @@ function displayQuestion($question){
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin">'.loggedInUser().'</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-theme="b" data-position-to="origin">'.substr(loggedInUser(), 0, 10).'</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {

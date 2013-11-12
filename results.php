@@ -145,7 +145,7 @@ function displayQuestion($question){
 			<div data-role="header" data-tap-toggle="false">
 				<h1><?php echo $poll->Name ?></h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin"><?php echo loggedInUser() ?></a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-theme="b" data-position-to="origin"><?php echo substr(loggedInUser(), 0, 9); ?></a>
 			</div><!-- /header -->
 
 <?php	

@@ -1,6 +1,17 @@
 <?php
 	require_once('functions.php');
 	$user = loggedInUser();
+	if($user === 'anonymous'){
+		$icon = 'alert';
+		$header = '<h1>You are not logged in.</h1>';
+		$content = '<h4>Any polls you create or take will be public and anonymous.</h4>';
+		$links = '<a href="#signUpPage" data-role="button" data-mini="true">Sign Up</a><a href="#signInPage" data-role="button" data-mini="true">Sign In</a>';
+	}else{
+		$icon = 'star';
+		$header = '<h1>You are logged in as: '.$user.'</h1>';
+		$content = '<h4>Polls you create will not be listed on the main page and you may only take a poll once.</h4>';
+		$links = '<a href="signout.php" data-role="button" data-mini="true" data-ajax="false">Sign Out</a>';
+	}
 ?>
 <!doctype html>
 <html>
@@ -19,63 +30,43 @@
 	</head>
 <body>
 
-<section id="homepage" data-role="page" >
+<section id="homepage" data-role="page" data-title="WebClicker - homepage">
 	<header data-role="header"  data-tap-toggle="false">
-		<h1>
-		Web Clicker
-		</h1>
-		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin"><?php echo $user; ?></a>
+		<h1>Web Clicker</h1>
 	</header><!-- /header -->
-		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b">
-			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-				<li data-role="divider" data-theme="b">Choose an option</li>
-				<?php
-					//displays sign in/ sign up / feed back if you are not logged in
-					//displays sign out / feedback if you are logged in
-					if($user === 'anonymous'){
-						echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
-							<li><a href="#signInPage">Sign In</a></li>';
-					}else{
-						echo '<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>';
-					}
-					echo '<li><a href="poll.php?accessCode=amo24" data-ajax="false">Feedback</a></li>';
-				?>
-			</ul>
-		</div>
-	</header><!-- /header -->
-	<div>
-		<article data-role="content" >
-			<h3>
-				Create polls and vote in seconds!
-			</h3>
+	<div data-role="collapsible">
+		<?php 
+			echo $header;
+			echo $content;
+			echo $links;
+		?>
+		
+	</div>
+	<div data-role="content">
 		<a href="create.php" data-role="button" data-icon="check" data-ajax="false" >
-			<h1>
-				Create a poll!
-			</h1>
+			<h1>Create a Poll</h1>
 		</a>
-		<h3>
-			Find polls quickly, by Access Code!
-		</h3>
-    <form action="search.php" method="POST" data-ajax="false">
-
-          <label for="accessCode" class="ui-hidden-accessible">
-            Access Code:
-          </label>
-          <input name="accessCode" id="accessCode" placeholder="Input Access Code Here" data-inline="true">
-
-
-    </form>
-  <h3>
-      See the latest public polls!
-  </h3>
-	<ul data-role="listview" data-filter="true" data-inset="true">
+	</div>
+	<div data-role="collapsible" data-collapsed="false">
+		<h3>Find poll by Access Code</h3>
+		<form action="search.php" method="POST" data-ajax="false">
+			  <input name="accessCode" id="accessCode" placeholder="Eg: axd21" data-inline="true">
+		</form>
+	</div>
+	<div data-role="collapsible" data-collapsed="false">
+	  <h3>Latest Public Polls</h3>
+		<ul data-role="listview" data-filter="true" data-inset="true">
 			<?php displayRecentPolls(); ?>
 		</ul>
+	</div>
+	<div data-role="collapsible" data-collapsed="false">
+	  <h3>Feedback</h3>
+		<a href="poll.php?accessCode=amo24" data-role="button" data-ajax="false">Take our Feedback Poll</a>
 	</div>
 </section><!-- /page -->
 
 <!-- SignUp-->
-<div data-role="page" id="signUpPage">
+<div data-role="page" id="signUpPage" data-title="WebClicker - Sign Up">
   <div data-theme="a" data-role="header">
     <h3>
       Sign Up
@@ -133,7 +124,7 @@
 </div>
   <!-- Sign In -->
 
-<div data-role="page" id="signInPage">
+<div data-role="page" id="signInPage"  data-title="WebClicker - Sign In">
   <div data-theme="a" data-role="header">
     <h3>
       Sign In
