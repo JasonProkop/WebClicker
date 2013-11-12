@@ -107,7 +107,7 @@ $(document).on('pageinit', function () {
 		if(questions < MAX_QUESTION){
 			$('#createPoll').attr('questions',  questions + 1);
 			var content = $('<div />', {'id' : 'qc'+questions+'', 'class' : 'bordered', 'data-role' : 'content', 'data-content-theme' : 'c', 'question' : questions});
-			var textarea = $('<textarea />', { 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'type' : 'text', 'placeholder' : 'Enter your question here...', 'rows' : 4, 'cols' : 50, 'required' : 'required'});
+			var textarea = $('<input />', { 'type' : 'text', 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'placeholder' : 'Enter your question here...', 'required' : 'required'});
 			var fieldcontain = $('<div />', {'data-role' : 'fieldcontain'});
 			var label = $('<label />', {'for' : 'questions['+questions+'][type]', 'html' : 'Choose the type of answer:'});
 			var select = $('<select />', {'class' : 'type', 'name' : 'questions['+questions+'][type]', 'id' : 'questions['+questions+'][type]', 'data-mini':'true'});
