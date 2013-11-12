@@ -82,6 +82,49 @@ function displayQuestion($question){
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script>
+		$(document).on('click', '#goforward', function () {
+			if ($.mobile.activePage.next('.ui-page').length !== 0) {
+				var next = $.mobile.activePage.next('.ui-page');
+				$.mobile.changePage(next, {
+					transition: 'flip'
+				});
+			} else {
+				alert('There\'s no next page');
+			}
+		});
+
+		$(document).on('click', '#goback', function () {
+			if ($.mobile.activePage.prev('.ui-page').length !== 0) {
+				var prev = $.mobile.activePage.prev('.ui-page');
+				$.mobile.changePage(prev, {
+					transition: 'flip',
+					reverse: true
+				});
+			} else {
+				alert('There\'s no previous page');
+			}
+		});
+		
+		$(document).on('swipeleft', function () {
+		    if ($.mobile.activePage.next('[data-role="page"]').length !== 0) {
+		        var next = $.mobile.activePage.next('[data-role="page"]');
+		        $.mobile.changePage(next, {
+		            transition: 'flip'
+		        });
+		    }
+		});
+
+		$(document).on('swiperight', function () {
+		    if ($.mobile.activePage.prev('[data-role="page"]').length !== 0) {
+		        var prev = $.mobile.activePage.prev('[data-role="page"]');
+		        $.mobile.changePage(prev, {
+		            transition: 'flip',
+		            reverse: true
+		        });
+		    }
+		});
+		</script>
 	</head>
 	<body>
 		<form action="parseresults.php" method="POST" data-ajax="false">
@@ -90,7 +133,7 @@ function displayQuestion($question){
 	$q=1;
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn; $q++){
-		echo '<div id="q'.$q.'" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create"data-theme="a">
+		echo '<div id="q'.$q.'" class="ui-page" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
@@ -110,10 +153,19 @@ function displayQuestion($question){
 			</div><!-- /header -->
 			<div data-role="content" >';
 		displayQuestion($poll->Questions[$q]);
-		echo '</div><!-- /content --> 
-		<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
-					<input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="ui-btn-left submit" data-iconpos="left"/>
-				</div>
+		echo '</div><!-- /content -->';
+		echo '<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">';
+		if($q == 1){
+			echo '
+					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
+		}else if($q == $qn){
+			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
+					<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+		}else{
+			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
+					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
+		}
+		echo '</div><!-- /footer -->
 		</div><!-- /page -->';
 	}
 ?>
