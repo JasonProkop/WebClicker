@@ -1,3 +1,6 @@
+<?php
+	require_once('functions.php');
+?>
 <!DOCTYPE html> 
 <html>
 	<head>
@@ -23,7 +26,7 @@
 		<div data-role="page">
 			<form id="createPoll" action="createpoll.php" method="POST" data-ajax="false" questions=0>
 				<div data-role="header" data-theme="c" >
-					<h1><input type="text" name="pollname" id="pollName" placeholder="Name (optional)"></h1>
+					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				</div>
 				<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">

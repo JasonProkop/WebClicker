@@ -321,4 +321,16 @@ function questionTojQplot($question){
 	return json_encode($data); //turn into javascript array
 }
 
+/*
+	Generates a random poll name for users who are too lazy to make up their own.
+	Authored by: Dylan
+	Source List of words: http://www.supereasystorytelling.com/awesome_adjectives_list.html
+*/
+function randomPollName(){
+	$words = array("Fast", "Quick", "Speedy", "Swift", "Hasty", "Zippy", "Rapid", "Slow", "Sluggish", "Creeping", "Dawdling", "Meandering", "Crawling", "Beautiful ", "Striking", "Stunning", "Gorgeous", "Picturesque", "Lovely", "Charming", "Enchanting", "Exquisite", "Delicate", "Ugly", "Hideous", "Horrid", "Dreadful ", "Obnoxious", "Nasty", "Ghastly ", "Cruel ", "Revolting", "Intimidating", "Menacing ", "Miserable", "Dangerous", "Rude", "Spoiled", "Wild", "Lazy", "Selfish", "Delinquent", "Greedy", "Vile", "Ridiculous", "Kind", "Gentle ", "Quiet", "Caring", "Fair", "Compassionate", "Benevolent", "Polite", "Amusing", "Generous", "Entertaining", "Hopeful", "Lively", "Creative", "Brave", "Good", "Fantastic", "Marvelous", "Fabulous", "Splendid", "Brilliant", "Superb", "Dynamite", "Bad", "Dreadful", "Terrible", "Ghastly", "Filthy", "Repulsive", "Awful", "Happy", "Joyful", "Ecstatic", "Cheerful", "Delighted", "Blithe", "Carefree", "Bored", "Hardworking", "Mysterious", "Verbose", "Laconic", "Curious", "Bucolic", "Silly", "Contrary", "Shocking", "Wild", "Rambunctious ", "Courageous", "Cowardly", "Ornery", "Gullible", "Thrifty", "Famous", "Infamous", "Brazen", "Cold", "Hard ", "Subtle", "Gullible", "Hungry", "Anxious", "Nervous", "Antsy", "Impatient", "Shining", "Crispy", "Soaring", "Endless", "Sparkling", "Fluttering", "Spiky", "Scrumptious", "Eternal", "Slimy", "Slick", "Gilded", "Ancient", "Smelly", "Glowing", "Rotten", "Decrepit", "Lousy", "Grimy", "Rusty", "Sloppy", "Muffled", "Foul", "Rancid", "Fetid", "Small", "Itty-bitty", "Tiny", "Puny", "Miniscule", "Minute", "Diminutive", "Petite", "Slight", "Big", "Huge", "Gigantic", "Monstrous", "Immense", "Great", "Tremendous", "Enormous", "Massive ", "Whopping", "Vast", "Brawny", "Hulking", "Bulky ", "Towering", "Hot", "Steaming", "Sweltering", "Scorching", "Blistering", "Sizzling", "Muggy", "Stifling", "Sultry", "Oppressive", "Cold", "Chilly", "Freezing", "Icy", "Frosty", "Bitter", "Arctic", "Difficult", "Demanding", "Trying", "Challenging", "Easy", "Simple", "Effortless", "Relaxed", "Calm", "Tranquil", "Heavy", "Serious", "Grave", "Profound", "Intense", "Severe"); 
+	randomize();
+	$key = array_rand($words, 1);
+	
+	return $words[$key]." Poll #".rand(10,99);
+}
 ?>
