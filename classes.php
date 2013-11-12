@@ -56,6 +56,7 @@ class Poll implements iDatabase, iPost{
 		$obj = new Poll();
 		$obj->Name = $row['poll_name'];
 		$obj->AccessCode = $row['poll_id'];
+		$obj->DateCreated = $row['poll_date_created'];
 		$db->beginTransaction();
 		$obj->Questions = array();
 		$obj->createQuestionsFromDB($db, $obj);

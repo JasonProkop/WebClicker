@@ -101,19 +101,37 @@ function displayText($question){
     ";
 }
 
+function displayNone($question){
+	echo "
+		<script>
+		$(document).on('pageinit', function(event) {
+			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
+			var none = $('<h4/>', {'html' : 'No Responses to this Question.'});
+			$('#chart".$question->Order."').append(title);
+			$('#chart".$question->Order."').append(none);
+			$('#chart".$question->Order."').trigger('create');
+		});
+    	</script>
+    ";
+}
+
 function displayQuestion($question){
-	switch($question->Type){
-		case 'Radio':
-			displayRadio($question);
-			return;
-		case 'Checkbox':
-			displayCheckbox($question);
-			return;
-		case 'Textbox':
-			displayText($question);
-			return;
-		default:
-			return;
+	if(sizeof($question->Responses) < 1){
+		displayNone($question);
+	}else{
+		switch($question->Type){
+			case 'Radio':
+				displayRadio($question);
+				return;
+			case 'Checkbox':
+				displayCheckbox($question);
+				return;
+			case 'Textbox':
+				displayText($question);
+				return;
+			default:
+				return;
+		}
 	}
 }
 ?>

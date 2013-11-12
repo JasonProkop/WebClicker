@@ -297,7 +297,22 @@ function displayRecentPolls(){
 		$db->commit();
 		$polls = $sql->fetchAll();
 		foreach($polls as $poll){
-			echo '<li><a href="poll.php?accessCode='.$poll['poll_id'].'" data-ajax="false">['.$poll['poll_id'].'] '.$poll['poll_name'].'</a></li>';
+			echo 	'<li style="padding:4px;">
+						<div data-mini="true" data-role="collapsible" data-collapsed="true">
+							<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
+							<div class="ui-grid-b">
+								<div class="ui-block-a">
+									<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take Poll</a>
+								</div>
+								<div class="ui-block-b">
+									<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">View Results</a>
+								</div>
+								<div class="ui-block-c">
+									<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
+								</div>
+							</div>
+						</div>
+					</li>';
 		}
 	}catch(PDOException $e){
 		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
@@ -326,6 +341,9 @@ function questionTojQplot($question){
 	Authored by: Dylan
 */
 function tickInterval($question, $ticks = 5){
+	if(sizeof($question->Responses) < 1){
+		return 1;
+	}
 	$responses = array();
 	foreach($question->Responses as $response){
 		$responses[] = $response->Response; //gather responses
