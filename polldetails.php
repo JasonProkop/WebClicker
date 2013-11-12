@@ -53,7 +53,7 @@ if(isset($_GET['accessCode'])){
 			<li>Responses: <?php echo $total_responses; ?></li>
 			<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($poll->DateCreated)); ?></li>
 		</ul>
-		<div data-role="content" class="ui-grid-b">
+		<div data-role="content" class="ui-grid-a">
 			<div class="ui-block-a">
 				<a href="poll.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">Take Poll</a>
 			</div>
