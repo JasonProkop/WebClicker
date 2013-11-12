@@ -1,6 +1,19 @@
+<?php
+require_once('functions.php');
+function displaySiteStats(){
+	try{
+		$stats = new SiteStats(db_getpdo());
+		echo "<li>$stats->Users Users</li>";
+		echo "<li>$stats->Polls Polls</li>";
+		echo "<li>$stats->Questions Questions</li>";
+		echo "<li>$stats->Responses Responses</li>";
+	}catch(PDOException $e){
+		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+	}
+}
+?>
 <!doctype html>
 <html>
-
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -36,6 +49,12 @@
 	<div data-role="collapsible" data-collapsed="false">
 		<h1>Links</h2>
 		<a href="https://github.com/JasonProkop/cmpt370/" data-role="button">Our Gitub</a>
+	</div>
+	<div data-role="collapsible" data-collapsed="false">
+		<h1>Site Statistics</h1>
+		<ul data-role="listview">
+			<?php displaySiteStats(); ?>
+		</ul>
 	</div>
 </div>
 </body>

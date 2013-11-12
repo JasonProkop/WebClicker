@@ -280,4 +280,28 @@ class Answer implements iDatabase, iPost{
 	function delete($db, $id){
 	}
 }
+
+class SiteStats{
+	function __construct($db){
+		$db->beginTransaction();
+		$sql = $db->prepare("SELECT * FROM \"Polls\";");
+		$sql->execute();
+		$this->Polls = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Users\";");
+		$sql->execute();
+		$this->Users = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Questions\";");
+		$sql->execute();
+		$this->Questions = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Responses\";");
+		$sql->execute();
+		$this->Responses = $sql->rowCount();
+		
+		$db->commit();
+		return $this;
+	}
+}
 ?>
