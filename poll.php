@@ -155,12 +155,13 @@ function displayQuestion($question){
 		displayQuestion($poll->Questions[$q]);
 		echo '</div><!-- /content -->';
 		echo '<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">';
-		if($q == 1){
-			echo '
-					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
+		if($qn == 1){
+			echo '<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
 		}else if($q == $qn){
 			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
 					<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+		}else if($q == 1){
+			echo '<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
 		}else{
 			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
 					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
