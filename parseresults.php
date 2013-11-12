@@ -12,7 +12,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 					insertResponse($db, $key, $ivalue); 
 				}
 			}else{
-				insertResponse($db, $key, $value);
+				if(!empty($value)){
+					insertResponse($db, $key, $value);
+				}
 			}
 		}
 		$db->commit(); //success
