@@ -63,6 +63,9 @@
 	  <h3>Feedback</h3>
 		<a href="poll.php?accessCode=amo24" data-role="button" data-ajax="false">Take our Feedback Poll</a>
 	</div>
+	<div data-role="content">
+		<a href="about.php" data-role="button" data-ajax="false">About WebClicker</a>
+	</div>
 </section><!-- /page -->
 
 <!-- SignUp-->
