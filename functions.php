@@ -297,7 +297,7 @@ function displayRecentPolls(){
 		$db->commit();
 		$polls = $sql->fetchAll();
 		foreach($polls as $poll){
-			echo '<li><a href="poll.php?accessCode='.$poll['poll_id'].'" data-ajax="false">'.$poll['poll_name'].' - '.$poll['poll_id'].'</a></li>';
+			echo '<li><a href="poll.php?accessCode='.$poll['poll_id'].'" data-ajax="false">['.$poll['poll_id'].'] '.$poll['poll_name'].'</a></li>';
 		}
 	}catch(PDOException $e){
 		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
