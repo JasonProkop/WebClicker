@@ -141,7 +141,7 @@ function displayQuestion($question){
 		<link rel="stylesheet" type="text/css" href="static/jquery.jqplot.min.css" />
 	</head>
 	<body>
-		<div data-role="page" data-theme="a" id="resultsPage">
+		<div data-role="page" data-title="Webclicker - <?php echo $poll->Name; ?> - Results" data-theme="a" id="resultsPage">
 			<div data-role="header" data-tap-toggle="false">
 				<h1><?php echo $poll->Name ?></h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>

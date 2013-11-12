@@ -29,7 +29,7 @@ if(isset($_GET['accessCode'])){
 function displayRadio($question){
 	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
+		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
 					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 					
@@ -47,7 +47,7 @@ function displayCheckbox($question){
 
 function displayText($question){
 	echo '<label for="'.$question->ID.'"></label>
-    			<textarea cols="40" rows="8" name="questions['.$question->ID.']" id="'.$question->ID.'"></textarea>';
+    			<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'">';
 }
 
 function displayQuestion($question){
@@ -90,7 +90,7 @@ function displayQuestion($question){
 	$q=1;
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn; $q++){
-		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
+		echo '<div id="q'.$q.'" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create"data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
