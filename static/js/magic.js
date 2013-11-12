@@ -11,7 +11,7 @@ function addCheckbox(fieldset){
 	if(currentCheckboxes < MAX_CHECK){
 		fieldset.attr('checkboxes',  currentCheckboxes + 1);
 		var num = fieldset.attr('checkboxes');
-		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
+		var qindex = parseInt(fieldset.parent().parent().attr('question'));
 		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : ''});
 		var label = $('<label />', {'for' : 'checkbox' + num});
 		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
@@ -43,7 +43,7 @@ function addRadio(fieldset){
 	if(currentRadios < MAX_RADIO){
 		fieldset.attr('radios', currentRadios + 1);
 		var num = fieldset.attr('radios');
-		var qindex = parseInt($('#createPoll').attr('questions')) - 1;
+		var qindex = parseInt(fieldset.parent().parent().attr('question'));
 		var radio = $('<input />', {'class' : 'textb', 'type' : 'radio', 'id' : 'radio' + num, 'name' : 'questions['+qindex+'][answers][0]', 'value' : ''});
 		var label = $('<label />', {'for' : 'radio' + num});
 		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
@@ -106,7 +106,7 @@ $(document).on('pageinit', function () {
 		var questions = parseInt($('#createPoll').attr('questions'));
 		if(questions < MAX_QUESTION){
 			$('#createPoll').attr('questions',  questions + 1);
-			var content = $('<div />', {'id' : 'qc'+questions+'', 'class' : 'bordered', 'data-role' : 'content', 'data-content-theme' : 'c'});
+			var content = $('<div />', {'id' : 'qc'+questions+'', 'class' : 'bordered', 'data-role' : 'content', 'data-content-theme' : 'c', 'question' : questions});
 			var textarea = $('<textarea />', { 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'type' : 'text', 'placeholder' : 'Enter your question here...', 'rows' : 4, 'cols' : 50, 'required' : 'required'});
 			var fieldcontain = $('<div />', {'data-role' : 'fieldcontain'});
 			var label = $('<label />', {'for' : 'questions['+questions+'][type]', 'html' : 'Choose the type of answer:'});
