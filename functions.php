@@ -322,6 +322,24 @@ function questionTojQplot($question){
 }
 
 /*
+	Returns the tick interval based on the maximum responses in the question and the specified amount of ticks.
+	Authored by: Dylan
+*/
+function tickInterval($question, $ticks = 5){
+	$responses = array();
+	foreach($question->Responses as $response){
+		$responses[] = $response->Response; //gather responses
+	}
+	//return integer of max value of the counts of responses divided by ticks
+	$interval = max(array_count_values($responses)) / $ticks;
+	if($interval < 1){
+		return 1;
+	}else{
+		return intval($interval);
+	}
+}
+
+/*
 	Generates a random poll name for users who are too lazy to make up their own.
 	Authored by: Dylan
 	Source List of words: http://www.supereasystorytelling.com/awesome_adjectives_list.html

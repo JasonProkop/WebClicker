@@ -63,7 +63,7 @@ function displayCheckbox($question){
 					axesDefaults: {
 						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
 						min: 0,  
-						tickInterval: 1,
+						tickInterval: ".tickInterval($question).",
 						tickOptions: {
 							fontFamily: 'Georgia',
 							fontSize: '10pt',
