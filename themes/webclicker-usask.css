@@ -15,9 +15,8 @@
 -----------------------------------------------------------------------------------------------------------*/
 /* Style sheet to restrict the page on large browsers */
 
-html { background-color: #333; }
 /* this line detects browsers which have a minimum width of 600
- * pixels and only applies the changes to them */
+* pixels and only applies the changes to them */
 @media only screen and (min-width: 600px){
 	.ui-page {
 	width: 600px !important;
@@ -26,6 +25,18 @@ html { background-color: #333; }
 	border-right: 5px #666 outset !important;
 	border-left: 5px #666 outset !important;
 	}
+}
+
+h4{
+	color : #B72E22;
+}
+
+.bordered{
+	padding: 20px;
+	border:1px solid;
+	border-radius:10px;
+	box-shadow: 1px 1px 3px #888888;
+	margin: 10px;
 }
 
 .ui-bar-a {

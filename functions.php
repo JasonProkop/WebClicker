@@ -3,7 +3,7 @@ include_once('db.php');
 include_once('exception.php');
 include_once('classes.php');
 
-//setup exceptions
+//set up the exceptions
 class Account extends CustomException {} //'User with that e-mail already exists.'
 class Credentials extends CustomException {} //'Incorrect user credentials.'
 class Authorization extends CustomException {} //'Account is not authorized.'
@@ -26,6 +26,8 @@ if(empty($_SESSION['email']) && empty($_SESSION['alias'])){
 /*
 	Returns the alias if set or e-mail of the logged in user.
 	Will return anonymous if the user is not logged in.
+	
+	Authored by: Dylan
 */
 function loggedInUser()
 {
@@ -39,21 +41,32 @@ function loggedInUser()
 /*
     Generates a random access code for accessing polls. 
     A random string of characters in the charset with a given length (default 5)
+	
+	Authored by: Dylan
 */
 function generateAccessCode($length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
     $code = "";
     randomize();
-    $rand_keys = array_rand($charset, $length);
-    $accessCode = '';
-    for($i = 0; $i < $length; $i++)
-    {
-        $accessCode .= $charset[$rand_keys[$i]];
-    }
+	do{
+		$rand_keys = array_rand($charset, $length);
+		$accessCode = '';
+		for($i = 0; $i < $length; $i++)
+		{
+			$accessCode .= $charset[$rand_keys[$i]];
+		}
+		$db = db_getpdo();
+		$db->beginTransaction();
+		$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
+		$sql->bindValue(':access', $accessCode);
+		$sql->execute();
+	}while($sql->rowCount() > 0);
+	$db->commit();
     return $accessCode;
 }
 
 // seed with microseconds
+// found on stack overflow
 function randomize()
 {
   list($usec, $sec) = explode(' ', microtime());
@@ -62,6 +75,8 @@ function randomize()
 
 /*
 	Authorizes a user's account so they can login with it.
+	
+	Authored by: Dylan
 */
 function authorizeUser($email, $key){
 	$db = db_getpdo();
@@ -98,6 +113,8 @@ function authorizeUser($email, $key){
     The UserDetails were unique to existing authenticated Accounts
     The UserDetails were used to create or update an unauthorized Account
     An email was sent to the email address in the UserDetails
+	
+	Authored by: Dylan
 */
 
 function signUp($email, $password, $alias){
@@ -120,11 +137,11 @@ function signUp($email, $password, $alias){
 	}else{
 		//no user with that email exists so lets make a new one
 		$sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);");
-		
 	}
 	$sql->bindValue(':email', $email);
 	$sql->bindValue(':alias', $alias);
-	$sql->bindValue(':authorized', 'false');
+	//$sql->bindValue(':authorized', 'false');
+	$sql->bindValue(':authorized', 'true'); //this is being used for testing. change to above line in production
 	$sql->bindValue(':hash', $hash);
 	$sql->bindValue(':salt', $salt);
 	$sql->execute();
@@ -136,6 +153,8 @@ function signUp($email, $password, $alias){
 /*
 	Sends an e-mail to the given e-mail with a link that will authorize the account.
 	Uses the given salt to generate a key unique to the e-mail.
+	
+	Authored by: Dylan
 */
 function sendAuthorizationEmail($email, $salt)
 {
@@ -166,6 +185,7 @@ function sendAuthorizationEmail($email, $salt)
 
 /*
 	Signs the user out by clearing the SESSION and any cookies that were set.
+	Authored by: Dylan
 */
 function signOut(){
     // Delete all the values (don't try to unset $_SESSION)
@@ -184,6 +204,8 @@ function signOut(){
 /*
 	Tries to sign the user in with the supplied credentials.
 	If credentials are valid then the SESSION is set otherwise throws an exception.
+	
+	Authored by: Dylan
 */
 function signIn($email, $password){
 	$db = db_getpdo();
@@ -210,39 +232,22 @@ function signIn($email, $password){
 	}
 }
 
-function generateHeader(){
-	echo '<header data-role="header" data-position="fixed">
-		<h1>
-		Web Clicker
-		</h1>
-		<a href="#popupMenu" data-rel="popup" data-role="button" class="ui-btn-right" data-inline="true" data-transition="pop" data-icon="gear" data-theme="b" data-position-to="origin">Options...</a>
-		<div data-role="popup" id="popupMenu" data-theme="d" data-overlay-theme="b" data-ajax="false">
-			<ul data-role="listview" data-inset="true" style="min-width:160px;" data-theme="d" >
-				<li data-role="divider" data-theme="b">Choose an option</li>';
-	$user = loggedInUser();
-	if($user === 'anonymous'){
-		echo '<li><a href="#signUpPage"><h4>Sign Up!</h4></a></li>
-			<li><a href="#signInPage">Sign In</a></li>
-			<li><a href="#">Feedback</a></li>';
-	}else{
-		echo '<li>Welcome '.$user.'!</li>
-			<li><a href="signout.php" data-ajax="false"><h4>Sign Out</h4></a></li>
-			<li><a href="#">Feedback</a></li>';
-	}
-	echo '</ul>
-		</div>
-	</header><!-- /header -->';
-}
-
+/*
+	Preliminary check for validity of an access code.
+	Authored by: Dylan
+*/
 function validAccessCode($access)
 {
-	return (strlen($access) == 5);
-}
-
-function search($access){
-	if(!validAccessCode($access)){
+	if(strlen($access) != 5){
 		throw new MalformedAccessCode('Access code is malformed');
 	}
+}
+
+/*
+	Returns a poll object if found in the database with the supplied access code.
+	Authored by: Max
+*/
+function search($access){
 	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
 	$sql->bindValue(':access', $access);
@@ -258,20 +263,110 @@ function search($access){
 	}
 }
 
+/*
+	Determines if the current user has taken a poll. 
+	Will return false if not currently logged in.
+	Authored by: Dylan
+*/
+function userTakenPoll($poll){
+	if($_SESSION['email'] == 'anonymous@anonymous.com'){
+			return false;
+	}else{
+		$db = db_getpdo();
+		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_Email\"=:email AND \"response_poll_id\"=:poll;");
+		$sql->bindValue(':email', $_SESSION['email']);
+		$sql->bindValue(':poll', $poll);
+		$db->beginTransaction();
+		$sql->execute();
+		$db->commit();
+		return($sql->rowCount() > 0);
+	}
+}
+
+/*
+	Grabs the 10 most recent polls from the database to display on the homepage
+	Authored by: Dylan
+*/
 function displayRecentPolls(){
 	try{
 	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM \"Polls\" ORDER BY poll_date_created DESC LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
 		$polls = $sql->fetchAll();
 		foreach($polls as $poll){
-			echo '<li><a href="poll.php?accessCode='.$poll['poll_id'].'" data-ajax="false">'.$poll['poll_name'].' - '.$poll['poll_id'].'</a></li>';
+			echo 	'<li style="padding:4px;">
+						<div data-mini="true" data-role="collapsible" data-collapsed="true">
+							<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
+							<div class="ui-grid-b">
+								<div class="ui-block-a">
+									<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take Poll</a>
+								</div>
+								<div class="ui-block-b">
+									<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">View Results</a>
+								</div>
+								<div class="ui-block-c">
+									<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
+								</div>
+							</div>
+						</div>
+					</li>';
 		}
 	}catch(PDOException $e){
 		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 	}
+}
+
+/*
+	Generates the proper data array for jqPlot to make a bar/pie graph out of from a single question.
+	Authored by: Dylan/Jason
+*/
+function questionTojQplot($question){
+	$responses = array();
+	foreach($question->Responses as $response){
+		$responses[] = $response->Response; //gather responses
+	}
+	$data = array();
+	$responses = array_count_values($responses); //count how many of each
+	while (list($key, $val) = each($responses) ){
+		$data[] = array($key, $val); //turn into jQplot aray
+	}
+	return json_encode($data); //turn into javascript array
+}
+
+/*
+	Returns the tick interval based on the maximum responses in the question and the specified amount of ticks.
+	Authored by: Dylan
+*/
+function tickInterval($question, $ticks = 5){
+	if(sizeof($question->Responses) < 1){
+		return 1;
+	}
+	$responses = array();
+	foreach($question->Responses as $response){
+		$responses[] = $response->Response; //gather responses
+	}
+	//return integer of max value of the counts of responses divided by ticks
+	$interval = max(array_count_values($responses)) / $ticks;
+	if($interval < 1){
+		return 1;
+	}else{
+		return intval($interval);
+	}
+}
+
+/*
+	Generates a random poll name for users who are too lazy to make up their own.
+	Authored by: Dylan
+	Source List of words: http://www.supereasystorytelling.com/awesome_adjectives_list.html
+*/
+function randomPollName(){
+	$words = array("Fast", "Quick", "Speedy", "Swift", "Hasty", "Zippy", "Rapid", "Slow", "Sluggish", "Creeping", "Dawdling", "Meandering", "Crawling", "Beautiful ", "Striking", "Stunning", "Gorgeous", "Picturesque", "Lovely", "Charming", "Enchanting", "Exquisite", "Delicate", "Ugly", "Hideous", "Horrid", "Dreadful ", "Obnoxious", "Nasty", "Ghastly ", "Cruel ", "Revolting", "Intimidating", "Menacing ", "Miserable", "Dangerous", "Rude", "Spoiled", "Wild", "Lazy", "Selfish", "Delinquent", "Greedy", "Vile", "Ridiculous", "Kind", "Gentle ", "Quiet", "Caring", "Fair", "Compassionate", "Benevolent", "Polite", "Amusing", "Generous", "Entertaining", "Hopeful", "Lively", "Creative", "Brave", "Good", "Fantastic", "Marvelous", "Fabulous", "Splendid", "Brilliant", "Superb", "Dynamite", "Bad", "Dreadful", "Terrible", "Ghastly", "Filthy", "Repulsive", "Awful", "Happy", "Joyful", "Ecstatic", "Cheerful", "Delighted", "Blithe", "Carefree", "Bored", "Hardworking", "Mysterious", "Verbose", "Laconic", "Curious", "Bucolic", "Silly", "Contrary", "Shocking", "Wild", "Rambunctious ", "Courageous", "Cowardly", "Ornery", "Gullible", "Thrifty", "Famous", "Infamous", "Brazen", "Cold", "Hard ", "Subtle", "Gullible", "Hungry", "Anxious", "Nervous", "Antsy", "Impatient", "Shining", "Crispy", "Soaring", "Endless", "Sparkling", "Fluttering", "Spiky", "Scrumptious", "Eternal", "Slimy", "Slick", "Gilded", "Ancient", "Smelly", "Glowing", "Rotten", "Decrepit", "Lousy", "Grimy", "Rusty", "Sloppy", "Muffled", "Foul", "Rancid", "Fetid", "Small", "Itty-bitty", "Tiny", "Puny", "Miniscule", "Minute", "Diminutive", "Petite", "Slight", "Big", "Huge", "Gigantic", "Monstrous", "Immense", "Great", "Tremendous", "Enormous", "Massive ", "Whopping", "Vast", "Brawny", "Hulking", "Bulky ", "Towering", "Hot", "Steaming", "Sweltering", "Scorching", "Blistering", "Sizzling", "Muggy", "Stifling", "Sultry", "Oppressive", "Cold", "Chilly", "Freezing", "Icy", "Frosty", "Bitter", "Arctic", "Difficult", "Demanding", "Trying", "Challenging", "Easy", "Simple", "Effortless", "Relaxed", "Calm", "Tranquil", "Heavy", "Serious", "Grave", "Profound", "Intense", "Severe"); 
+	randomize();
+	$key = array_rand($words, 1);
+	
+	return $words[$key]." Poll #".rand(10,99);
 }
 ?>

@@ -3,26 +3,33 @@ require_once('functions.php');
 
 if(isset($_GET['accessCode'])){
 	try{
-		$poll = search($_GET['accessCode']); 
-		//success
-		//header("location:poll.php?poll=".$_POST['accessCode']);
-		//var_dump($poll);
+		validAccessCode($_GET['accessCode']);
+		if(userTakenPoll($_GET['accessCode'])){
+			header("location:results.php?accessCode=".$_GET['accessCode']);
+		}else{
+			$poll = search($_GET['accessCode']);
+		}
 	}catch (PollNotFound $e) {
-		echo "Poll Not Found";
+		//echo "Poll Not Found";
+		$_SESSION['error'] = $e->getMessage();
+		header("location:error.php");
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		$_SESSION['error'] = $e->getMessage();
+		header("location:error.php");
 	}catch(MalformedAccessCode $e){
-		echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+		$_SESSION['error'] = $e->getMessage();
+		header("location:error.php");
 	}
 }else{
 	header("location:index.php");
 }
 
 function displayRadio($question){
-	echo '<fieldset data-role="controlgroup" data-type="horizontal">
-					<legend></legend>';
+	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="radio" name="'.$panswer->Question.'" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'" />
+		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
 					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 					
@@ -30,10 +37,9 @@ function displayRadio($question){
 }
 
 function displayCheckbox($question){
-	echo '<fieldset data-role="controlgroup">
-			        <legend></legend>';
+	echo '<fieldset data-role="controlgroup">';
 	foreach($question->PAnswers as $panswer){
-		echo '<input type="checkbox" name="'.$panswer->ID.'" id="'.$panswer->ID.'">
+		echo '<input type="checkbox" name="questions['.$panswer->Question.']['.$panswer->ID.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
 			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
 	echo '</fieldset>';
@@ -41,10 +47,7 @@ function displayCheckbox($question){
 
 function displayText($question){
 	echo '<label for="'.$question->ID.'"></label>
-    			<textarea cols="40" rows="8" name="'.$question->ID.'" id="'.$question->ID.'"></textarea>';
-}
-
-function displaySlider($question){
+    			<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'">';
 }
 
 function displayQuestion($question){
@@ -58,9 +61,6 @@ function displayQuestion($question){
 			return;
 		case 'Textbox':
 			displayText($question);
-			return;
-		case 'Slider':
-			displaySlider($question);
 			return;
 		default:
 			return;
@@ -82,34 +82,91 @@ function displayQuestion($question){
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script>
+		$(document).on('click', '#goforward', function () {
+			if ($.mobile.activePage.next('.ui-page').length !== 0) {
+				var next = $.mobile.activePage.next('.ui-page');
+				$.mobile.changePage(next, {
+					transition: 'flip'
+				});
+			} else {
+				alert('There\'s no next page');
+			}
+		});
+
+		$(document).on('click', '#goback', function () {
+			if ($.mobile.activePage.prev('.ui-page').length !== 0) {
+				var prev = $.mobile.activePage.prev('.ui-page');
+				$.mobile.changePage(prev, {
+					transition: 'flip',
+					reverse: true
+				});
+			} else {
+				alert('There\'s no previous page');
+			}
+		});
+		
+		$(document).on('swipeleft', function () {
+		    if ($.mobile.activePage.next('[data-role="page"]').length !== 0) {
+		        var next = $.mobile.activePage.next('[data-role="page"]');
+		        $.mobile.changePage(next, {
+		            transition: 'flip'
+		        });
+		    }
+		});
+
+		$(document).on('swiperight', function () {
+		    if ($.mobile.activePage.prev('[data-role="page"]').length !== 0) {
+		        var prev = $.mobile.activePage.prev('[data-role="page"]');
+		        $.mobile.changePage(prev, {
+		            transition: 'flip',
+		            reverse: true
+		        });
+		    }
+		});
+		</script>
 	</head>
 	<body>
 		<form action="parseresults.php" method="POST" data-ajax="false">
 <?php
+	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
 	$q=1;
 	$qn = sizeof($poll->Questions);
-	for($q = 1; $q <= $qn + 1; $q++){
-		echo '<div id="q'.$q.'" data-role="page" data-theme="a">
+	for($q = 1; $q <= $qn; $q++){
+		echo '<div id="q'.$q.'" class="ui-page" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create" data-theme="a">
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-theme="b" data-position-to="origin">'.substr(loggedInUser(), 0, 10).'</a>
 				<div data-role="navbar">
 					<ul>';
-		for ($i = 1; $i <= $qn + 1; $i++) {
-			echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
+		for ($i = 1; $i <= $qn; $i++) {
+			if ($i == $q) {
+				echo '<li><a href="#q'.$i.'" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
+			}else {
+				echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
+			}
+			
 		}
 		echo		'</ul>
 				</div><!-- /navbar -->
 			</div><!-- /header -->
 			<div data-role="content" >';
-				
-		if($q == $qn + 1){
-			echo '<h3>Are you sure you are ready to submit?</h3>';
-			echo '<input type="submit" value="Submit" data-theme="a">';
+		displayQuestion($poll->Questions[$q]);
+		echo '</div><!-- /content -->';
+		echo '<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">';
+		if($qn == 1){
+			echo '<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+		}else if($q == $qn){
+			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
+					<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+		}else if($q == 1){
+			echo '<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
 		}else{
-			displayQuestion($poll->Questions[$q]);
+			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
+					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
 		}
-		echo '</div><!-- /content --> 
+		echo '</div><!-- /footer -->
 		</div><!-- /page -->';
 	}
 ?>

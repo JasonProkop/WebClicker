@@ -56,6 +56,7 @@ class Poll implements iDatabase, iPost{
 		$obj = new Poll();
 		$obj->Name = $row['poll_name'];
 		$obj->AccessCode = $row['poll_id'];
+		$obj->DateCreated = $row['poll_date_created'];
 		$db->beginTransaction();
 		$obj->Questions = array();
 		$obj->createQuestionsFromDB($db, $obj);
@@ -97,10 +98,14 @@ class Question implements iDatabase, iPost{
 		$obj->Order = $POST['order'];
 		if($obj->Type != "Textbox"){
 			for($i = 0; $i < sizeof($POST['answers']); $i++){
-				$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
+				if(!empty($POST['answers'][$i])){
+					$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
+				}
 			}
 			for($i = 0; $i < sizeof($POST['panswers']); $i++){
-				$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+				if(!empty($POST['panswers'][$i])){
+					$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+				}
 			}
 		}
 		return $obj;
@@ -125,6 +130,16 @@ class Question implements iDatabase, iPost{
 			$obj->PAnswers[] = PAnswer::createFromDB($row, $db);
 		}
 	}
+
+	function createResponsesFromDB($db, $obj){
+		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_question_id\"=:question;");
+		$sql->bindValue(':question', $obj->ID);
+		$sql->execute();
+		$responses = $sql->fetchAll();
+		foreach($responses as $row){
+			$obj->Responses[] = Response::createFromDB($row, $db);
+		}
+	}
 	
 	function createFromDB($row, $db){
 		$obj = new Question();
@@ -135,8 +150,12 @@ class Question implements iDatabase, iPost{
 		$obj->Order = $row['question_order'];
 		$obj->Answers = array();
 		$obj->PAnswers = array();
+		$obj->Responses = array();
+		
 		$obj->createAnswersFromDB($db, $obj);
 		$obj->createPAnswersFromDB($db, $obj);
+		$obj->createResponsesFromDB($db, $obj);
+		
 		return $obj;
 	}
 	
@@ -200,6 +219,34 @@ class PAnswer implements iDatabase, iPost{
 	}
 }
 
+class Response implements iDatabase{
+	function __construct(){}
+	
+	function createFromDB($row, $db){
+		$obj = new Response();
+		$obj->Response = $row['response_response'];
+		$obj->Email = $row['response_Email'];
+		$obj->Poll = $row['response_poll_id'];
+		$obj->Question = $row['response_question_id'];
+		return $obj;
+	}
+	
+	function insert($db, $id){
+		$sql = $db->prepare("INSERT INTO \"Response\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
+		$sql->bindValue(':question', $id);
+		$sql->bindValue(':response', $this->Response);
+		$sql->bindValue(':poll', $this->Poll);
+		$sql->bindValue(':email', $this->Email);
+		$sql->execute();
+	}
+
+	function update($db, $id){
+	}
+
+	function delete($db, $id){
+	}
+}
+
 /*
 	Contains a single answer.
 */
@@ -231,6 +278,30 @@ class Answer implements iDatabase, iPost{
 	}
 
 	function delete($db, $id){
+	}
+}
+
+class SiteStats{
+	function __construct($db){
+		$db->beginTransaction();
+		$sql = $db->prepare("SELECT * FROM \"Polls\";");
+		$sql->execute();
+		$this->Polls = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Users\";");
+		$sql->execute();
+		$this->Users = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Questions\";");
+		$sql->execute();
+		$this->Questions = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM \"Responses\";");
+		$sql->execute();
+		$this->Responses = $sql->rowCount();
+		
+		$db->commit();
+		return $this;
 	}
 }
 ?>

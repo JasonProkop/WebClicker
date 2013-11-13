@@ -104,7 +104,8 @@ ALTER SEQUENCE "Answers_answers_question_id_seq" OWNED BY "Answers".answer_quest
 
 CREATE TABLE "Polls" (
     poll_id character(5) NOT NULL,
-    poll_name text DEFAULT 'Unnamed Poll'::text NOT NULL
+    poll_name text DEFAULT 'Unnamed Poll'::text NOT NULL,
+    poll_date_created timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -248,10 +249,11 @@ ALTER SEQUENCE "Questions_question_id_seq" OWNED BY "Questions".question_id;
 --
 
 CREATE TABLE "Responses" (
-    responses_question_id integer NOT NULL,
-    responses_poll_id character(5),
-    responses_response text,
-    "responses_Email" text NOT NULL
+    response_question_id integer DEFAULT 0 NOT NULL,
+    response_poll_id character(5) DEFAULT 0 NOT NULL,
+    "response_Email" text NOT NULL,
+    response_id integer NOT NULL,
+    response_response text
 );
 
 
@@ -262,6 +264,27 @@ ALTER TABLE public."Responses" OWNER TO ubuntu;
 --
 
 COMMENT ON TABLE "Responses" IS 'contains the responses for each question';
+
+
+--
+-- Name: Responses_response_id_seq; Type: SEQUENCE; Schema: public; Owner: ubuntu
+--
+
+CREATE SEQUENCE "Responses_response_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Responses_response_id_seq" OWNER TO ubuntu;
+
+--
+-- Name: Responses_response_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
+--
+
+ALTER SEQUENCE "Responses_response_id_seq" OWNED BY "Responses".response_id;
 
 
 --
@@ -282,7 +305,7 @@ ALTER TABLE public."Responses_responses_question_id_seq" OWNER TO ubuntu;
 -- Name: Responses_responses_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
 --
 
-ALTER SEQUENCE "Responses_responses_question_id_seq" OWNED BY "Responses".responses_question_id;
+ALTER SEQUENCE "Responses_responses_question_id_seq" OWNED BY "Responses".response_question_id;
 
 
 --
@@ -387,10 +410,10 @@ ALTER TABLE ONLY "Questions" ALTER COLUMN question_id SET DEFAULT nextval('"Ques
 
 
 --
--- Name: responses_question_id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: response_id; Type: DEFAULT; Schema: public; Owner: ubuntu
 --
 
-ALTER TABLE ONLY "Responses" ALTER COLUMN responses_question_id SET DEFAULT nextval('"Responses_responses_question_id_seq"'::regclass);
+ALTER TABLE ONLY "Responses" ALTER COLUMN response_id SET DEFAULT nextval('"Responses_response_id_seq"'::regclass);
 
 
 --
@@ -398,18 +421,6 @@ ALTER TABLE ONLY "Responses" ALTER COLUMN responses_question_id SET DEFAULT next
 --
 
 COPY "Answers" (answer_question_id, answer_answer, answer_id) FROM stdin;
-1	Goku	1
-2	Orange	3
-2	Apple	2
-30	no	7
-31	very unlikely	8
-33	yes	9
-34	douglas	10
-34	firr	11
-36	magic	12
-37	yes	13
-37	absolutely	14
-37	SO COOL	15
 \.
 
 
@@ -417,7 +428,7 @@ COPY "Answers" (answer_question_id, answer_answer, answer_id) FROM stdin;
 -- Name: Answers_answers_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Answers_answers_answer_id_seq"', 15, true);
+SELECT pg_catalog.setval('"Answers_answers_answer_id_seq"', 20, true);
 
 
 --
@@ -431,13 +442,7 @@ SELECT pg_catalog.setval('"Answers_answers_question_id_seq"', 1, false);
 -- Data for Name: Polls; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY "Polls" (poll_id, poll_name) FROM stdin;
-12345	First Poll
-aaaaa	Second Poll Here
-bnuv2	
-diju0	Poll 5
-l3569	Test
-jkqx8	HORSECOCK
+COPY "Polls" (poll_id, poll_name, poll_date_created) FROM stdin;
 \.
 
 
@@ -446,29 +451,6 @@ jkqx8	HORSECOCK
 --
 
 COPY "PossibleAnswers" (panswer_question_id, panswer_panswer, panswer_id) FROM stdin;
-1	Batman	1
-1	Goku	3
-1	Superman	2
-2	Apple	4
-2	Car	7
-2	Concrete	6
-2	Orange	8
-30	yes	9
-30	no	10
-31	no	11
-31	not at all	12
-31	very unlikely	13
-33	yes	14
-33	no	15
-34	douglas	16
-34	firr	17
-34	concrete	18
-36	luck	19
-36	skill	20
-36	magic	21
-37	yes	22
-37	absolutely	23
-37	SO COOL	24
 \.
 
 
@@ -476,7 +458,7 @@ COPY "PossibleAnswers" (panswer_question_id, panswer_panswer, panswer_id) FROM s
 -- Name: PossibleAnswers_panswers_panswer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 24, true);
+SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 32, true);
 
 
 --
@@ -491,17 +473,6 @@ SELECT pg_catalog.setval('"PossibleAnswers_panswers_question_id_seq"', 1, false)
 --
 
 COPY "Questions" (question_id, question_type, question_question, question_poll_id, question_order) FROM stdin;
-1	Radio	Who would win in a fight?	12345	1
-3	Text	What is your favorite word?	aaaaa	1
-2	Checkbox	Which of these are fruits?	12345	2
-30	Radio	res	bnuv2	1
-31	Radio	are you hot	diju0	1
-32	Textbox	once	l3569	1
-33	Radio	twice	l3569	2
-34	Checkbox	a tree?	l3569	3
-35	Textbox	how does this work?	jkqx8	1
-36	Radio	why does this work?	jkqx8	2
-37	Checkbox	is this cool?	jkqx8	3
 \.
 
 
@@ -509,15 +480,22 @@ COPY "Questions" (question_id, question_type, question_question, question_poll_i
 -- Name: Questions_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Questions_question_id_seq"', 37, true);
+SELECT pg_catalog.setval('"Questions_question_id_seq"', 40, true);
 
 
 --
 -- Data for Name: Responses; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY "Responses" (responses_question_id, responses_poll_id, responses_response, "responses_Email") FROM stdin;
+COPY "Responses" (response_question_id, response_poll_id, "response_Email", response_id, response_response) FROM stdin;
 \.
+
+
+--
+-- Name: Responses_response_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
+--
+
+SELECT pg_catalog.setval('"Responses_response_id_seq"', 12, true);
 
 
 --
@@ -579,6 +557,7 @@ COPY "Users" ("Email", "Hash", "Alias", "Authorized", "Salt") FROM stdin;
 'mike@example.com'	626303e0ce302d89e6d417094759a9fcbc7319b2	'mikee'	f	30050
 fafmaster@hotmail.com	83256a8ca4732a6777c51384a641d839fc9d5ab1	Dylan	t	73224
 faf@mas.ter	05b7e25ec4293a4515e7c2b87ae2346eb1ae5157		f	55441
+anonymous@anonymous.com	casdaskdhioqwue80u12iodjklas	Anonymous	t	12345
 \.
 
 
@@ -596,6 +575,14 @@ ALTER TABLE ONLY "Answers"
 
 ALTER TABLE ONLY "Polls"
     ADD CONSTRAINT "Polls_pkey" PRIMARY KEY (poll_id);
+
+
+--
+-- Name: PossibleAnswers_panswer_id_key; Type: CONSTRAINT; Schema: public; Owner: ubuntu; Tablespace: 
+--
+
+ALTER TABLE ONLY "PossibleAnswers"
+    ADD CONSTRAINT "PossibleAnswers_panswer_id_key" UNIQUE (panswer_id);
 
 
 --
@@ -619,7 +606,15 @@ ALTER TABLE ONLY "Questions"
 --
 
 ALTER TABLE ONLY "Responses"
-    ADD CONSTRAINT "Responses_pkey" PRIMARY KEY ("responses_Email", responses_question_id);
+    ADD CONSTRAINT "Responses_pkey" PRIMARY KEY (response_id);
+
+
+--
+-- Name: Responses_response_id_key; Type: CONSTRAINT; Schema: public; Owner: ubuntu; Tablespace: 
+--
+
+ALTER TABLE ONLY "Responses"
+    ADD CONSTRAINT "Responses_response_id_key" UNIQUE (response_id);
 
 
 --
@@ -631,19 +626,19 @@ ALTER TABLE ONLY "Users"
 
 
 --
--- Name: Answers_answers_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: Answers_answer_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
 --
 
 ALTER TABLE ONLY "Answers"
-    ADD CONSTRAINT "Answers_answers_question_id_fkey" FOREIGN KEY (answer_question_id) REFERENCES "Questions"(question_id);
+    ADD CONSTRAINT "Answers_answer_question_id_fkey" FOREIGN KEY (answer_question_id) REFERENCES "Questions"(question_id) ON DELETE CASCADE;
 
 
 --
--- Name: PossibleAnswers_panswers_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: PossibleAnswers_panswer_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
 --
 
 ALTER TABLE ONLY "PossibleAnswers"
-    ADD CONSTRAINT "PossibleAnswers_panswers_question_id_fkey" FOREIGN KEY (panswer_question_id) REFERENCES "Questions"(question_id);
+    ADD CONSTRAINT "PossibleAnswers_panswer_question_id_fkey" FOREIGN KEY (panswer_question_id) REFERENCES "Questions"(question_id) ON DELETE CASCADE;
 
 
 --
@@ -651,7 +646,23 @@ ALTER TABLE ONLY "PossibleAnswers"
 --
 
 ALTER TABLE ONLY "Questions"
-    ADD CONSTRAINT "Questions_question_poll_id_fkey" FOREIGN KEY (question_poll_id) REFERENCES "Polls"(poll_id);
+    ADD CONSTRAINT "Questions_question_poll_id_fkey" FOREIGN KEY (question_poll_id) REFERENCES "Polls"(poll_id) ON DELETE CASCADE;
+
+
+--
+-- Name: Responses_response_poll_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+--
+
+ALTER TABLE ONLY "Responses"
+    ADD CONSTRAINT "Responses_response_poll_id_fkey" FOREIGN KEY (response_poll_id) REFERENCES "Polls"(poll_id) ON DELETE CASCADE;
+
+
+--
+-- Name: Responses_response_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+--
+
+ALTER TABLE ONLY "Responses"
+    ADD CONSTRAINT "Responses_response_question_id_fkey" FOREIGN KEY (response_question_id) REFERENCES "Questions"(question_id) ON DELETE CASCADE;
 
 
 --
@@ -659,23 +670,7 @@ ALTER TABLE ONLY "Questions"
 --
 
 ALTER TABLE ONLY "Responses"
-    ADD CONSTRAINT "Responses_responses_Email_fkey" FOREIGN KEY ("responses_Email") REFERENCES "Users"("Email");
-
-
---
--- Name: Responses_responses_poll_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
---
-
-ALTER TABLE ONLY "Responses"
-    ADD CONSTRAINT "Responses_responses_poll_id_fkey" FOREIGN KEY (responses_poll_id) REFERENCES "Polls"(poll_id);
-
-
---
--- Name: Responses_responses_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
---
-
-ALTER TABLE ONLY "Responses"
-    ADD CONSTRAINT "Responses_responses_question_id_fkey" FOREIGN KEY (responses_question_id) REFERENCES "Questions"(question_id);
+    ADD CONSTRAINT "Responses_responses_Email_fkey" FOREIGN KEY ("response_Email") REFERENCES "Users"("Email");
 
 
 --

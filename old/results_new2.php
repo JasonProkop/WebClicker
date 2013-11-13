@@ -4,7 +4,11 @@ require_once('functions.php');
 if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
-		$poll = search($_GET['accessCode']);
+		if(userTakenPoll($_GET['accessCode'])){
+			header("location:results.php?accessCode=".$_GET['accessCode']);
+		}else{
+			$poll = search($_GET['accessCode']);
+		}
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";
 		$_SESSION['error'] = $e->getMessage();
@@ -29,14 +33,14 @@ function displayRadio($question){
 		$(document).on('pageshow', function(event) {
 			var plot = $.jqplot(
 				'chart".$question->Order."', // Plot Target
-				[".questionTojQplot($question)."],  // Plot Data
+				[".questionBarData($question)."],  // Plot Data
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
 			        },
-			        legend: { show:true, location: 'e' }
+			        legend: { show:true, location: 's' }
 			    }
 			);
   		});
@@ -51,30 +55,27 @@ function displayCheckbox($question){
 		$(document).on('pageshow', function(event) {
 			var plot = $.jqplot(
 				'chart".$question->Order."', // Plot Target
-				[".questionTojQplot($question)."],  // Plot Data
+				[".questionBarData($question)."],  // Plot Data
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
-	      		renderer: $.jqplot.BarRenderer,
-	      		rendererOptions: {
-	        					varyBarColor: true,
-	    			}
-      		},
-					axes: {
-						xaxis: {
-							renderer: $.jqplot.CategoryAxisRenderer,
-							tickOptions: {
-								angle: -30,
-								formatString:'%d'
-							}
-						},
-						yaxis: {
-							tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-							min: 0,  
-							tickInterval: ".tickInterval($question)."
-						}
-					}
-				}
+			        	renderer: $.jqplot.BarRenderer
+			        },
+			        axesDefaults: {
+				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+				        tickOptions: {
+				          fontFamily: 'Georgia',
+				          fontSize: '10pt',
+				          angle: -30
+				        }
+				    },
+				    axes: {
+				      xaxis: {
+				        renderer: $.jqplot.CategoryAxisRenderer
+				      }
+				    },
+			        legend: { show:true, location: 's' }
+			    }
 			);
 		});
     	</script>
@@ -86,11 +87,11 @@ function displayText($question){
 		<script>
 		$(document).on('pageinit', function(event) {
 			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
-			var list = $('<ul>', {'data-role' : 'listview', 'data-filter' : 'true', 'data-inset' : 'true'});
+			var list = $('<ul>', {'data-role' : 'listview', 'date-filter' : 'true', 'data-inset' : 'true'});
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
-			echo "list.append($('<li/>', {'html' : \"".$response->Response."\"}));\n";
+			echo "list.append($('<li/>', {'html' : \"".$response->Response." - ".$response->Email."\"}));\n";
 		}
 	echo	"$('#chart".$question->Order."').append(list);
 			$('#chart".$question->Order."').trigger('create');
@@ -99,37 +100,19 @@ function displayText($question){
     ";
 }
 
-function displayNone($question){
-	echo "
-		<script>
-		$(document).on('pageinit', function(event) {
-			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
-			var none = $('<h4/>', {'html' : 'No Responses to this Question.'});
-			$('#chart".$question->Order."').append(title);
-			$('#chart".$question->Order."').append(none);
-			$('#chart".$question->Order."').trigger('create');
-		});
-    	</script>
-    ";
-}
-
 function displayQuestion($question){
-	if(sizeof($question->Responses) < 1){
-		displayNone($question);
-	}else{
-		switch($question->Type){
-			case 'Radio':
-				displayRadio($question);
-				return;
-			case 'Checkbox':
-				displayCheckbox($question);
-				return;
-			case 'Textbox':
-				displayText($question);
-				return;
-			default:
-				return;
-		}
+	switch($question->Type){
+		case 'Radio':
+			displayRadio($question);
+			return;
+		case 'Checkbox':
+			displayCheckbox($question);
+			return;
+		case 'Textbox':
+			displayText($question);
+			return;
+		default:
+			return;
 	}
 }
 ?>
@@ -159,11 +142,11 @@ function displayQuestion($question){
 		<link rel="stylesheet" type="text/css" href="static/jquery.jqplot.min.css" />
 	</head>
 	<body>
-		<div data-role="page" data-title="Webclicker - <?php echo $poll->Name; ?> - Results" data-theme="a" id="resultsPage">
+		<div data-role="page" data-theme="a" id="resultsPage">
 			<div data-role="header" data-tap-toggle="false">
 				<h1><?php echo $poll->Name ?></h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-theme="b" data-position-to="origin"><?php echo substr(loggedInUser(), 0, 9); ?></a>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-icon="star" data-theme="b" data-position-to="origin"><?php echo loggedInUser() ?></a>
 			</div><!-- /header -->
 
 <?php	
