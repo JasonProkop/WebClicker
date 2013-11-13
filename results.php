@@ -60,20 +60,18 @@ function displayCheckbox($question){
 	        					varyBarColor: true,
 	    			}
       		},
-					axesDefaults: {
-						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-						min: 0,  
-						tickInterval: ".tickInterval($question).",
-						tickOptions: {
-							fontFamily: 'Georgia',
-							fontSize: '10pt',
-							angle: -30,
-							formatString:'%d'
-						}
-					},
 					axes: {
 						xaxis: {
-							renderer: $.jqplot.CategoryAxisRenderer
+							renderer: $.jqplot.CategoryAxisRenderer,
+							tickOptions: {
+								angle: -30,
+								formatString:'%d'
+							}
+						},
+						yaxis: {
+							tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+							min: 0,  
+							tickInterval: ".tickInterval($question)."
 						}
 					}
 				}
