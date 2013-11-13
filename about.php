@@ -8,7 +8,9 @@ function displaySiteStats(){
 		echo "<li>$stats->Questions Questions</li>";
 		echo "<li>$stats->Responses Responses</li>";
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		$_SESSION['error'] = $e->getMessage();
+		header("location:error.php");
 	}
 }
 ?>
