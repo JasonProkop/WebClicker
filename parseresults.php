@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	Authored by: Dylan
 */
 function insertResponse($db, $question, $response){
-	$sql = $db->prepare("INSERT INTO \"Responses\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
+	$sql = $db->prepare("INSERT INTO responses (response_response, response_question_id, response_poll_id, response_user_email) VALUES (:response, :question, :poll, :email);");
 			$sql->bindValue(':question', $question);
 			$sql->bindValue(':response', $response);
 			$sql->bindValue(':poll', $_POST['poll_id']);

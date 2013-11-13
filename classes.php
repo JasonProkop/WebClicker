@@ -25,7 +25,14 @@ class Poll implements iDatabase, iPost{
 	function createFromPOST($POST){
 		$obj = new Poll();
 		$obj->Name = $POST['pollname'];
-		
+		$obj->Creator = $_SESSION['email'];
+		if($POST['groupname'] == 'Public'){
+			$obj->Group = array( 'name' => 'Public', 'owner' => 'anonymous@anonymous.com' );
+		}else{
+			$obj->Group = array( 'name' => $POST['groupname'], 'owner' => $_SESSION['email'] );
+		}
+		//$obj->DateClosing = $POST['enddate'];
+		$obj->Active = (bool)$POST['pollactive'];
 		for($i = 0; $i < sizeof($POST['questions']); $i++){
 			$POST['questions'][$i]['order'] = $i + 1;
 			$obj->Questions[] = Question::createFromPOST($POST['questions'][$i]);
@@ -37,7 +44,7 @@ class Poll implements iDatabase, iPost{
 		Creates all Question objects that are identified to this poll.
 	**/
 	function createQuestionsFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"Questions\" WHERE \"question_poll_id\"=:access ORDER BY \"question_order\" ASC;");
+		$sql = $db->prepare("SELECT * FROM questions WHERE question_poll_id=:access ORDER BY question_order ASC;");
 		$sql->bindValue(':access', $obj->AccessCode);
 		$sql->execute();
 		$questions = $sql->fetchAll();
@@ -57,9 +64,15 @@ class Poll implements iDatabase, iPost{
 		$obj->Name = $row['poll_name'];
 		$obj->AccessCode = $row['poll_id'];
 		$obj->DateCreated = $row['poll_date_created'];
+		$obj->DateClosing = $row['poll_date_end'];
+		$obj->Creator = $row['poll_user_email'];
+		$obj->Group = array( 'name' => $row['poll_group_name'], 'owner' => $row['poll_group_user_email'] );
+		$obj->Active = (bool)$row['poll_active'];
 		$db->beginTransaction();
+		
 		$obj->Questions = array();
 		$obj->createQuestionsFromDB($db, $obj);
+		
 		$db->commit();
 		return $obj;
 	}
@@ -67,9 +80,13 @@ class Poll implements iDatabase, iPost{
 	function insert($db, $id){
 		$this->AccessCode = $id;
 		$db->beginTransaction();
-		$sql = $db->prepare("INSERT INTO \"Polls\" (\"poll_id\", \"poll_name\") VALUES (:id, :name);");
+		$sql = $db->prepare("INSERT INTO polls (poll_id, poll_name, poll_user_email, poll_group_name, poll_group_user_email, poll_active) VALUES (:id, :name, :creator, :group, :groupowner, :active);");
 		$sql->bindValue(':name', $this->Name);
 		$sql->bindValue(':id', $this->AccessCode);
+		$sql->bindValue(':creator', $this->Creator);
+		$sql->bindValue(':group', $this->Group['name']);
+		$sql->bindValue(':groupowner', $this->Group['owner']);
+		$sql->bindValue(':active', $this->Active);
 		$sql->execute();
 		foreach($this->Questions as $question){
 			$question->insert($db, $id);
@@ -112,7 +129,7 @@ class Question implements iDatabase, iPost{
 	}
 	
 	function createAnswersFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"Answers\" WHERE \"answer_question_id\"=:question;");
+		$sql = $db->prepare("SELECT * FROM answers WHERE answer_question_id=:question;");
 		$sql->bindValue(':question', $obj->ID);
 		$sql->execute();
 		$answers = $sql->fetchAll();
@@ -122,7 +139,7 @@ class Question implements iDatabase, iPost{
 	}
 	
 	function createPAnswersFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"PossibleAnswers\" WHERE \"panswer_question_id\"=:question;");
+		$sql = $db->prepare("SELECT * FROM possibleanswers WHERE panswer_question_id=:question;");
 		$sql->bindValue(':question', $obj->ID);
 		$sql->execute();
 		$questions = $sql->fetchAll();
@@ -132,7 +149,7 @@ class Question implements iDatabase, iPost{
 	}
 
 	function createResponsesFromDB($db, $obj){
-		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_question_id\"=:question;");
+		$sql = $db->prepare("SELECT * FROM responses WHERE response_question_id=:question;");
 		$sql->bindValue(':question', $obj->ID);
 		$sql->execute();
 		$responses = $sql->fetchAll();
@@ -160,13 +177,13 @@ class Question implements iDatabase, iPost{
 	}
 	
 	function insert($db, $id){
-		$sql = $db->prepare("INSERT INTO \"Questions\" (\"question_question\", \"question_type\", \"question_poll_id\", \"question_order\") VALUES (:question, :type, :poll, :order);");
+		$sql = $db->prepare("INSERT INTO questions (question_question, question_type, question_poll_id, question_order) VALUES (:question, :type, :poll, :order);");
 		$sql->bindValue(':question', $this->Question);
 		$sql->bindValue(':type', $this->Type);
 		$sql->bindValue(':poll', $id);
 		$sql->bindValue(':order', $this->Order);
 		$sql->execute();
-		$sql = $db->prepare("SELECT * FROM \"Questions\" ORDER BY question_id DESC;");
+		$sql = $db->prepare("SELECT * FROM questions ORDER BY question_id DESC;");
 		$sql->execute();
 		$row = $sql->fetch();
 		$q = $row['question_id'];
@@ -206,7 +223,7 @@ class PAnswer implements iDatabase, iPost{
 	}
 	
 	function insert($db, $id){
-		$sql = $db->prepare("INSERT INTO \"PossibleAnswers\" (\"panswer_panswer\", \"panswer_question_id\") VALUES (:panswer, :question);");
+		$sql = $db->prepare("INSERT INTO possibleanswers (panswer_panswer, panswer_question_id) VALUES (:panswer, :question);");
 		$sql->bindValue(':question', $id);
 		$sql->bindValue(':panswer', $this->PAnswer);
 		$sql->execute();
@@ -232,7 +249,7 @@ class Response implements iDatabase{
 	}
 	
 	function insert($db, $id){
-		$sql = $db->prepare("INSERT INTO \"Response\" (\"response_response\", \"response_question_id\", \"response_poll_id\", \"response_Email\") VALUES (:response, :question, :poll, :email);");
+		$sql = $db->prepare("INSERT INTO response (response_response, response_question_id, response_poll_id, response_Email) VALUES (:response, :question, :poll, :email);");
 		$sql->bindValue(':question', $id);
 		$sql->bindValue(':response', $this->Response);
 		$sql->bindValue(':poll', $this->Poll);
@@ -268,7 +285,7 @@ class Answer implements iDatabase, iPost{
 	}
 	
 	function insert($db, $id){
-		$sql = $db->prepare("INSERT INTO \"Answers\" (\"answer_answer\", \"answer_question_id\") VALUES (:answer, :question);");
+		$sql = $db->prepare("INSERT INTO answers (answer_answer, answer_question_id) VALUES (:answer, :question);");
 		$sql->bindValue(':question', $id);
 		$sql->bindValue(':answer', $this->Answer);
 		$sql->execute();
@@ -284,21 +301,25 @@ class Answer implements iDatabase, iPost{
 class SiteStats{
 	function __construct($db){
 		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM \"Polls\";");
+		$sql = $db->prepare("SELECT * FROM polls;");
 		$sql->execute();
 		$this->Polls = $sql->rowCount();
 		
-		$sql = $db->prepare("SELECT * FROM \"Users\";");
+		$sql = $db->prepare("SELECT * FROM users;");
 		$sql->execute();
 		$this->Users = $sql->rowCount();
 		
-		$sql = $db->prepare("SELECT * FROM \"Questions\";");
+		$sql = $db->prepare("SELECT * FROM questions;");
 		$sql->execute();
 		$this->Questions = $sql->rowCount();
 		
-		$sql = $db->prepare("SELECT * FROM \"Responses\";");
+		$sql = $db->prepare("SELECT * FROM responses;");
 		$sql->execute();
 		$this->Responses = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM groups;");
+		$sql->execute();
+		$this->Groups = $sql->rowCount();
 		
 		$db->commit();
 		return $this;

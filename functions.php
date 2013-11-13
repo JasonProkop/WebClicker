@@ -57,7 +57,7 @@ function generateAccessCode($length=5){
 		}
 		$db = db_getpdo();
 		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access;");
 		$sql->bindValue(':access', $accessCode);
 		$sql->execute();
 	}while($sql->rowCount() > 0);
@@ -81,7 +81,7 @@ function randomize()
 function authorizeUser($email, $key){
 	$db = db_getpdo();
 	$db->beginTransaction();
-	$sql = $db->prepare("SELECT \"Authorized\", \"Email\", \"Salt\" FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
+	$sql = $db->prepare("SELECT user_authorized, user_mail, user_salt FROM users WHERE user_email=:email LIMIT 1;");
 	$sql->bindValue(':email', $email);
 	$sql->execute();
 	if($sql->rowCount() == 1){
@@ -89,7 +89,7 @@ function authorizeUser($email, $key){
 		$user = $sql->fetch();
 		if($key === sha1($user['Email'] . $user['Salt'])){
 			//correct authorization link. authorize the e-mail
-			$sql = $db->prepare("UPDATE \"Users\" SET \"Authorized\"='true' WHERE \"Email\"=:email;");
+			$sql = $db->prepare("UPDATE users SET user_authorized='true' WHERE user_email=:email;");
 			$sql->bindValue(':email', $email);
 			$sql->execute();
 			$db->commit();
@@ -123,7 +123,7 @@ function signUp($email, $password, $alias){
 	$hash = sha1($password . $salt);
 	$db = db_getpdo();
 	$db->beginTransaction();
-	$sql = $db->prepare("SELECT \"Authorized\" FROM \"Users\" WHERE \"Email\"=:email;");
+	$sql = $db->prepare("SELECT user_authorized FROM users WHERE user_email=:email;");
 	$sql->bindValue(':email', $email);
 	$sql->execute();
 	if($sql->rowCount() > 0){
@@ -132,11 +132,11 @@ function signUp($email, $password, $alias){
 		if($user['Authorized'] == 'true'){
 			throw new Account('Duplicate e-mail.');
 		}else{
-			$sql = $db->prepare("UPDATE \"Users\" SET \"Hash\"=:hash, \"Salt\"=:salt, \"Alias\"=:alias, \"Authorized\"=:authorized WHERE \"Email\"=:email;");
+			$sql = $db->prepare("UPDATE users SET user_hash=:hash, user_salt=:salt, user_alias=:alias, user_authorized=:authorized WHERE user_email=:email;");
 		}
 	}else{
 		//no user with that email exists so lets make a new one
-		$sql = $db->prepare("INSERT INTO \"Users\" (\"Email\", \"Hash\", \"Salt\", \"Alias\", \"Authorized\") VALUES (:email, :hash, :salt, :alias, :authorized);");
+		$sql = $db->prepare("INSERT INTO users (user_email, user_hash, user_salt, user_alias, user_authorized) VALUES (:email, :hash, :salt, :alias, :authorized);");
 	}
 	$sql->bindValue(':email', $email);
 	$sql->bindValue(':alias', $alias);
@@ -209,7 +209,7 @@ function signOut(){
 */
 function signIn($email, $password){
 	$db = db_getpdo();
-	$sql = $db->prepare("SELECT * FROM \"Users\" WHERE \"Email\"=:email LIMIT 1;");
+	$sql = $db->prepare("SELECT * FROM users WHERE user_email=:email LIMIT 1;");
 	$sql->bindValue(':email', $email);
 	$db->beginTransaction();
 	$sql->execute();
@@ -249,7 +249,7 @@ function validAccessCode($access)
 */
 function search($access){
 	$db = db_getpdo();
-	$sql = $db->prepare("SELECT * FROM \"Polls\" WHERE \"poll_id\"=:access;");
+	$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access AND poll_active='true';");
 	$sql->bindValue(':access', $access);
 	$db->beginTransaction();
 	$sql->execute();
@@ -273,7 +273,7 @@ function userTakenPoll($poll){
 			return false;
 	}else{
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Responses\" WHERE \"response_Email\"=:email AND \"response_poll_id\"=:poll;");
+		$sql = $db->prepare("SELECT * FROM responses WHERE response_user_email=:email AND response_poll_id=:poll;");
 		$sql->bindValue(':email', $_SESSION['email']);
 		$sql->bindValue(':poll', $poll);
 		$db->beginTransaction();
@@ -291,7 +291,7 @@ function displayRecentPolls(){
 	try{
 	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM \"Polls\" ORDER BY poll_date_created DESC LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' ORDER BY poll_date_created DESC LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
@@ -368,5 +368,17 @@ function randomPollName(){
 	$key = array_rand($words, 1);
 	
 	return $words[$key]." Poll #".rand(10,99);
+}
+
+/*
+	Redirects the user to the correct page even with URL rewriting enabled.
+	$url should be relative and not an absolute path
+	Authored by: Dylan
+	Source taken from: http://php.net/manual/en/function.header.php
+*/
+function redirectTo($extra){
+	$host  = $_SERVER['HTTP_HOST'];
+	$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+	header("Location: http://$host$uri/$extra");
 }
 ?>

@@ -5,22 +5,22 @@ if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
 		if(userTakenPoll($_GET['accessCode'])){
-			header("location:results.php?accessCode=".$_GET['accessCode']);
+			redirectTo('results.php?accessCode='.$_GET['accessCode']);
 		}else{
 			$poll = search($_GET['accessCode']);
 		}
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";
 		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
+		redirectTo('error.php');
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
+		redirectTo('error.php');
 	}catch(MalformedAccessCode $e){
 		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
+		redirectTo('error.php');
 	}
 }else{
 	header("location:index.php");
