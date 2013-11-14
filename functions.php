@@ -217,12 +217,12 @@ function signIn($email, $password){
 	
 	if($sql->rowCount() == 1){
 		$user = $sql->fetch();
-		if(!(bool)$user['Authorized']){
+		if(!(bool)$user['user_authorized']){
 			throw new Authorization('Account is not yet authorized.');
 		}
-		if(sha1($password . $user['Salt']) === $user['Hash']){
-			$_SESSION['email'] = $user['Email'];
-			$_SESSION['alias'] = $user['Alias'];
+		if(sha1($password . $user['user_salt']) === $user['user_hash']){
+			$_SESSION['email'] = $user['user_email'];
+			$_SESSION['alias'] = $user['user_email'];
 			return; //success
 		}else{
 			throw new Credentials('Incorrect password.');
