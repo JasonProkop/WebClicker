@@ -4,7 +4,7 @@ require_once('functions.php');
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POST['password'])){
 	try{
 		signIn($_POST['email'], $_POST['password']); 
-		header("location:index.php"); //success
+		header("location:user.php"); //success
 	}catch(Credentials $e){
 		//echo "Caught IncorrectCredentials ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();

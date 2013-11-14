@@ -284,6 +284,35 @@ function userTakenPoll($poll){
 }
 
 /*
+	Displays the givens rows of polls in a list
+	Authored by: Dylan
+*/
+function displayPollsList($polls){
+	foreach($polls as $poll){
+		echo 	'<li style="padding:4px;">
+							<div data-mini="true" data-role="collapsible" data-collapsed="true">
+								<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
+								<div class="ui-grid-b">
+									<div class="ui-block-a">
+										<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
+									</div>
+									<div class="ui-block-b">
+										<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
+									</div>
+									<div class="ui-block-c">
+										<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
+									</div>';
+		if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
+			echo					'<div class="ui-block-d">
+										<a href="deactivate.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Deactivate</a>
+									</div>';
+		}		
+		echo				'</div>
+							</div>
+						</li>';
+	}
+}
+/*
 	Grabs the 10 most recent polls from the database to display on the homepage
 	Authored by: Dylan
 */
@@ -295,25 +324,7 @@ function displayRecentPolls(){
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
-		$polls = $sql->fetchAll();
-		foreach($polls as $poll){
-			echo 	'<li style="padding:4px;">
-						<div data-mini="true" data-role="collapsible" data-collapsed="true">
-							<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
-							<div class="ui-grid-b">
-								<div class="ui-block-a">
-									<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take Poll</a>
-								</div>
-								<div class="ui-block-b">
-									<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">View Results</a>
-								</div>
-								<div class="ui-block-c">
-									<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
-								</div>
-							</div>
-						</div>
-					</li>';
-		}
+		displayPollsList($sql->fetchAll());
 	}catch(PDOException $e){
 		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 	}
@@ -421,6 +432,7 @@ function groupsOwnedByUser(){
 		foreach($rows as $group){
 			$groups[] = $group['group_name'];
 		}
+		$db->commit();
 	}
 	return $groups;
 }

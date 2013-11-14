@@ -5,7 +5,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POS
 	try{
 		signUp($_POST['email'], $_POST['password'], $_POST['alias']);
 		//$message = 'We have sent you an authorization e-mail. Please check your junk/spam folders and follow the link provided in the e-mail to login to your account.';
-		header("location:index.php#signInPage");
+		//header("location:index.php#signInPage");
+		signIn($_POST['email'], $_POST['password']); 
+		header("location:user.php");
 	}catch(Account $e){
 		//echo "Caught Account ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
