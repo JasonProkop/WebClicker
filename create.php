@@ -1,5 +1,13 @@
 <?php
 	require_once('functions.php');
+	
+	try{
+		$groups = groupsOwnedByUser();
+	}catch(PDOException $e){
+		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		$_SESSION['error'] = $e->getMessage();
+		header("location:error.php");
+	}
 ?>
 <!DOCTYPE html> 
 <html>
@@ -29,8 +37,21 @@
 					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				</div>
-				<input name="pollactive" type="checkbox" value="active">
-				<input name="groupname" type="checkbox" value="public">
+				<div data-role="collapsible" data-collapsed="true"  data-theme="a" data-icon="gear">
+					<h1>Poll options...</h1>
+					<div data-role="fieldcontain">
+						<input type="checkbox" name="pollactive" id="checkbox-0" checked="true"/>
+						<label for="checkbox-0">Active</label>
+						<label for="select-choice-0" class="select">Group</label>
+						<select name="groupname" id="select-choice-0">
+							<?php
+							foreach($groups as $group){
+								echo "<option value=\"$group\">$group</option>";
+							}
+							?>
+						</select>
+					</div>
+				</div>
 				<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
 					<div class="ui-grid-a">
 						<div class="ui-block-a"><input type="button" value="Add Question" id="addNewQuestion" data-ajax="false" data-icon ="plus" data-mini="true" ></div>

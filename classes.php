@@ -242,7 +242,7 @@ class Response implements iDatabase{
 	function createFromDB($row, $db){
 		$obj = new Response();
 		$obj->Response = $row['response_response'];
-		$obj->Email = $row['response_Email'];
+		$obj->Email = $row['response_user_email'];
 		$obj->Poll = $row['response_poll_id'];
 		$obj->Question = $row['response_question_id'];
 		return $obj;
