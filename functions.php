@@ -10,6 +10,7 @@ class Authorization extends CustomException {} //'Account is not authorized.'
 class PollNotFound extends CustomException {} //'Poll is not in database.'
 class MalformedAccessCode extends CustomException {} //'Access code is malformed.'
 class Subscription extends CustomException {} //'Key is not correct'
+class GroupNotFound extends CustomException {} //'Group is not in database'
 
 /******* Start SESSION manager ********
 	Sets the user to the anonymous user if no session exists.
@@ -422,6 +423,25 @@ function redirectTo($extra){
 	$host  = $_SERVER['HTTP_HOST'];
 	$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 	header("Location: http://$host$uri/$extra");
+}
+
+/* 
+	Returns the specified group if it exists
+	Authored by: Dylan
+*/
+function searchGroup($name, $creator){
+	$db = db_getpdo();
+	$db->beginTransaction();
+	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:creator AND group_name=:name;");
+	$sql->bindValue(':creator', $creator);
+	$sql->bindValue(':name', $name);
+	$sql->execute();
+	$db->commit();
+	if($sql->rowCount() == 1){
+		return new Group($sql->fetch());
+	}else{
+		throw new GroupNotFound('Group Doesn\'t exist');
+	}
 }
 
 /*

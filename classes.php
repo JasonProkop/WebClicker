@@ -303,6 +303,7 @@ class Group{
 		$this->Name = $row['group_name'];
 		$this->Creator = $row['group_user_email'];
 		$this->Key = $row['group_key'];
+		$this->DateCreated = $row['group_date_created'];
 		return $this;
 	}
 }

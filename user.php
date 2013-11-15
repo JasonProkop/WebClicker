@@ -51,7 +51,7 @@ try{
 			foreach($groups as $group){
 				echo '<div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
-				echo '<a href="groupdetails.php?name='.$group->Name.'&creator='.$group->Creator.'" data-role="button" data-icon="gear">Details</a>';
+				if($group->Creator == $_SESSION['email']) { echo '<a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" data-icon="gear">Details</a>'; }
 				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
 				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
 				$sql->bindValue(':group', $group->Name);
