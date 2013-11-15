@@ -54,14 +54,25 @@ if(isset($_GET['accessCode'])){
 			<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($poll->DateCreated)); ?></li>
 			<li>Active: <?php echo var_export($poll->Active, true); ?>
 		</ul>
-		<div data-role="content" class="ui-grid-a">
+		<div data-role="content" class="ui-grid-b">
 			<div class="ui-block-b">
-				<a href="results.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">View Results</a>
+				<a href="results.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">Results</a>
 			</div>
 			<?php
 				if($poll->Active){
 					echo '<div class="ui-block-b">
-					<a href="poll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Take Poll</a>
+					<a href="poll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Take</a>
+				</div>';
+				}
+			?>
+			<?php
+				if($poll->Active){
+					echo '<div class="ui-block-c">
+					<a href="deactivatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Deactivate</a>
+				</div>';
+				}else{
+					echo '<div class="ui-block-c">
+					<a href="activatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Activate</a>
 				</div>';
 				}
 			?>

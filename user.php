@@ -24,7 +24,7 @@ try{
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<title>
-			WebClicker
+			WebClicker - Poll Management
 		</title>
 		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
@@ -34,12 +34,12 @@ try{
 <body>
 	<section id="homepage" data-role="page" >
 		<header data-role="header"  data-tap-toggle="false">
-			<h1>Web Clicker</h1>
+			<h1>Poll Management</h1>
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
 		<div data-role="content">
 			<form  action="creategroup.php" method="POST" data-ajax="false">
-				<div data-role="ui-grid-b">
+				<div data-role="ui-grid-c">
 						<div class="ui-block-a"><input type="text" name="groupname" placeholder="Group Name" required></div>
 						<div class="ui-block-b"><input type="text" name="groupkey" placeholder="Group Key" required></div>
 						<div class="ui-block-c"><input type="Submit" name="Submit" value="Create a Group"></div>
@@ -51,16 +51,14 @@ try{
 			foreach($groups as $group){
 				echo '<div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
-				if($group->Name != 'Public'){
-					echo '<a href="groupdetails.php?name='.$group->Name.'&creator='.$group->Creator.'" data-role="button" data-icon="gear">Details</a>';
-					echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
-					$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:user;");
-					$sql->bindValue(':group', $group->Name);
-					$sql->bindValue(':user', $group->Creator);
-					$sql->execute();
-					displayPollsList($sql->fetchAll());
-					echo 	'</ul><!-- /list -->';
-				}
+				echo '<a href="groupdetails.php?name='.$group->Name.'&creator='.$group->Creator.'" data-role="button" data-icon="gear">Details</a>';
+				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
+				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
+				$sql->bindValue(':group', $group->Name);
+				$sql->bindValue(':user', $_SESSION['email']);
+				$sql->execute();
+				displayPollsList($sql->fetchAll());
+				echo 	'</ul><!-- /list -->';
 				echo '</div><!-- /collapsible -->';
 			}
 			$db->commit();

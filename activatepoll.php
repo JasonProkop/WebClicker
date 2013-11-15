@@ -9,7 +9,7 @@ if(isset($_GET['accessCode'])){
 			$db = db_getpdo();
 			$db->beginTransaction();
 			
-			$sql = $db->prepare("UPDATE polls SET poll_active='false' WHERE poll_id=:access;");
+			$sql = $db->prepare("UPDATE polls SET poll_active='true' WHERE poll_id=:access;");
 			$sql->bindValue(':access', $poll->AccessCode);
 			$sql->execute();
 			
