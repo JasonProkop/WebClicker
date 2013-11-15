@@ -48,12 +48,14 @@ if(isset($_GET['accessCode'])){
 		</header><!-- /header -->
 		<ul data-role="listview">
 			<li>Access Code: <?php echo $poll->AccessCode; ?></li>
-			<li>Share Link: http://webclicker.tk/poll.php?accessCode=<?php echo $poll->AccessCode; ?></li>
+			<li>Share: http://webclicker.tk/poll.php?accessCode=<?php echo $poll->AccessCode; ?></li>
 			<li>Questions: <?php echo sizeof($poll->Questions); ?></li>
 			<li>Responses: <?php echo $total_responses; ?></li>
 			<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($poll->DateCreated)); ?></li>
 			<li>Active: <?php echo var_export($poll->Active, true); ?>
 		</ul>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 		<div data-role="content" class="ui-grid-b">
 			<div class="ui-block-b">
 				<a href="results.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">Results</a>

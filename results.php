@@ -165,7 +165,10 @@ function displayQuestion($question){
 				<h1><?php echo $poll->Name ?></h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				<a href=""  class="ui-btn-right" data-inline="true" data-position-to="origin"><?php echo substr(loggedInUser(), 0, 9); ?></a>
-			</div><!-- /header -->
+			</div>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			<!-- /header -->
 
 <?php	
 				// Construct the divs to hold the plots
