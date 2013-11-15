@@ -40,13 +40,13 @@ if(isset($_GET['name'])){
 		<title>
 			WebClicker - Group Details
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.css" />
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	</head>
 <body>
-	<div id="homepage" data-role="page" data-title="WebClicker - <?php echo $group->Name; ?> - Group Details">
+	<div id="homepage" data-role="page" data-title="WebClicker - <?php echo $group->Name; ?> - Group Details" data-theme='a'>
 		<header data-role="header"  data-tap-toggle="false">
 			<h1><?php echo $group->Name; ?> - Group Details</h1>
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>

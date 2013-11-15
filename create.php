@@ -18,7 +18,7 @@
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.css" />
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -31,7 +31,7 @@
 		</script>
 	</head>
 	<body>
-		<div data-role="page">
+		<div data-role="page" data-theme='a'>
 			<form id="createPoll" action="createpoll.php" method="POST" data-ajax="false" questions=0>
 				<div data-role="header" data-theme="c" >
 					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>

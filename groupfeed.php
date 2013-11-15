@@ -26,13 +26,13 @@ try{
 		<title>
 			WebClicker - Group Subscriptions
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.css" />
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	</head>
 <body>
-	<section id="homepage" data-role="page" >
+	<section id="homepage" data-role="page" data-theme='a' >
 		<header data-role="header"  data-tap-toggle="false">
 			<h1>Group Subscriptions</h1>
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>

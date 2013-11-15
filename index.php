@@ -25,14 +25,14 @@
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.css" />
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	</head>
 <body>
 
-<section id="homepage" data-role="page" data-title="WebClicker - homepage">
+<section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
 	<header data-role="header"  data-tap-toggle="false">
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
@@ -71,7 +71,7 @@
 </section><!-- /page -->
 
 <!-- SignUp-->
-<div data-role="page" id="signUpPage" data-title="WebClicker - Sign Up">
+<div data-role="page" id="signUpPage" data-title="WebClicker - Sign Up" data-theme='a'>
   <div data-theme="a" data-role="header">
     <h3>
       Sign Up
@@ -123,7 +123,7 @@
 </div>
   <!-- Sign In -->
 
-<div data-role="page" id="signInPage"  data-title="WebClicker - Sign In">
+<div data-role="page" id="signInPage"  data-title="WebClicker - Sign In" data-theme='a'>
   <div data-theme="a" data-role="header">
     <h3>
       Sign In
