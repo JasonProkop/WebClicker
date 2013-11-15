@@ -279,9 +279,10 @@ ALTER SEQUENCE "Responses_responses_question_id_seq" OWNED BY responses.response
 --
 
 CREATE TABLE groups (
-    group_name character(40) NOT NULL,
-    group_key integer DEFAULT 100 NOT NULL,
-    group_user_email text NOT NULL
+    group_name text NOT NULL,
+    group_key text NOT NULL,
+    group_user_email text NOT NULL,
+    group_date_created timestamp with time zone DEFAULT now()
 );
 
 
@@ -323,7 +324,8 @@ CREATE TABLE groupusers (
     groupuser_group_name text NOT NULL,
     groupuser_user_email_user text NOT NULL,
     groupuser_verified boolean DEFAULT false NOT NULL,
-    groupuser_user_email_group text NOT NULL
+    groupuser_user_email_group text NOT NULL,
+    groupuser_date_joined timestamp with time zone DEFAULT now()
 );
 
 
@@ -520,7 +522,7 @@ SELECT pg_catalog.setval('"Answers_answers_question_id_seq"', 1, false);
 -- Name: PossibleAnswers_panswers_panswer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 42, true);
+SELECT pg_catalog.setval('"PossibleAnswers_panswers_panswer_id_seq"', 45, true);
 
 
 --
@@ -534,14 +536,14 @@ SELECT pg_catalog.setval('"PossibleAnswers_panswers_question_id_seq"', 1, false)
 -- Name: Questions_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Questions_question_id_seq"', 53, true);
+SELECT pg_catalog.setval('"Questions_question_id_seq"', 65, true);
 
 
 --
 -- Name: Responses_response_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
 --
 
-SELECT pg_catalog.setval('"Responses_response_id_seq"', 32, true);
+SELECT pg_catalog.setval('"Responses_response_id_seq"', 33, true);
 
 
 --
@@ -563,8 +565,11 @@ COPY answers (answer_question_id, answer_answer, answer_id) FROM stdin;
 -- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY groups (group_name, group_key, group_user_email) FROM stdin;
-Public                                  	100	anonymous@anonymous.com
+COPY groups (group_name, group_key, group_user_email, group_date_created) FROM stdin;
+Public	100	anonymous@anonymous.com	2013-11-15 00:15:56.482-06
+test	test	dylan@cool.com	2013-11-15 00:15:56.482-06
+ANOTHER GROUP	100	dylan@cool.com	2013-11-15 00:15:56.482-06
+dylan2's group	500	dylan2@cool.com	2013-11-15 00:15:56.482-06
 \.
 
 
@@ -572,8 +577,11 @@ Public                                  	100	anonymous@anonymous.com
 -- Data for Name: groupusers; Type: TABLE DATA; Schema: public; Owner: ubuntu
 --
 
-COPY groupusers (groupuser_group_name, groupuser_user_email_user, groupuser_verified, groupuser_user_email_group) FROM stdin;
-Public                                  	anonymous@anonymous.com	t	anonymous@anonymous.com
+COPY groupusers (groupuser_group_name, groupuser_user_email_user, groupuser_verified, groupuser_user_email_group, groupuser_date_joined) FROM stdin;
+Public	anonymous@anonymous.com	t	anonymous@anonymous.com	2013-11-15 00:15:28.994-06
+ANOTHER GROUP	dylan@cool.com	t	dylan@cool.com	2013-11-15 00:15:28.994-06
+Public	dylan2@cool.com	t	anonymous@anonymous.com	2013-11-15 00:15:28.994-06
+Public	dylan@cool.com	t	anonymous@anonymous.com	2013-11-15 00:15:28.994-06
 \.
 
 
@@ -583,6 +591,17 @@ Public                                  	anonymous@anonymous.com	t	anonymous@ano
 
 COPY polls (poll_id, poll_name, poll_date_created, poll_date_end, poll_active, poll_user_email, poll_group_name, poll_group_user_email) FROM stdin;
 fkqv4	Grave Poll #41	2013-11-14 14:46:52.134-06	\N	t	anonymous@anonymous.com	Public	anonymous@anonymous.com
+agku9	Marvellous Poll #59	2013-11-14 15:31:54.267-06	\N	t	anonymous@anonymous.com	Public	anonymous@anonymous.com
+bcnt9	Dynamite Poll #83	2013-11-14 19:12:37.076-06	\N	t	dylan2@cool.com	Public	anonymous@anonymous.com
+ewy05	Shocking Poll #71	2013-11-14 21:00:03.126-06	\N	t	anonymous@anonymous.com	Public	anonymous@anonymous.com
+afksw	Cruel  Poll #10	2013-11-14 22:36:34.054-06	\N	t	anonymous@anonymous.com	Public	anonymous@anonymous.com
+fhrx7	Cowardly Poll #45	2013-11-14 22:41:13.011-06	\N	f	anonymous@anonymous.com	Public	anonymous@anonymous.com
+kux49	Glowing Poll #76	2013-11-14 22:43:45.311-06	\N	f	anonymous@anonymous.com	Public	anonymous@anonymous.com
+dqrtz	Easy Poll #44	2013-11-14 18:12:48.677-06	\N	f	dylan@cool.com	test	dylan@cool.com
+hksz3	Rude Poll #27	2013-11-14 15:37:44.099-06	\N	f	dylan@cool.com	Public	anonymous@anonymous.com
+eprw4	Difficult Poll #91	2013-11-14 18:07:23.085-06	\N	f	dylan@cool.com	Public	anonymous@anonymous.com
+fhvy7	Mysterious Poll #56	2013-11-14 23:30:50.904-06	\N	f	dylan@cool.com	Public	anonymous@anonymous.com
+efgk1	Gigantic Poll #77	2013-11-14 15:47:41.262-06	\N	t	dylan@cool.com	Public	anonymous@anonymous.com
 \.
 
 
@@ -598,6 +617,9 @@ SELECT pg_catalog.setval('polls_poll_group_user_email_seq', 1, false);
 --
 
 COPY possibleanswers (panswer_question_id, panswer_panswer, panswer_id) FROM stdin;
+61	yes	43
+61	no	44
+61	why	45
 \.
 
 
@@ -607,6 +629,17 @@ COPY possibleanswers (panswer_question_id, panswer_panswer, panswer_id) FROM std
 
 COPY questions (question_id, question_type, question_question, question_poll_id, question_order) FROM stdin;
 53	Textbox	test	fkqv4	1
+54	Textbox	ghgjh	agku9	1
+55	Textbox	oh yea	hksz3	1
+56	Textbox	fzxzx	efgk1	1
+58	Textbox	TEST	eprw4	1
+59	Textbox	SHOULD BE IN TEST GROUP	dqrtz	1
+60	Textbox	test	bcnt9	1
+61	Checkbox	eqwewqewqeq	ewy05	1
+62	Textbox	hjgh	afksw	1
+63	Textbox	asfasfsa	fhrx7	1
+64	Textbox	eqweqwewq	kux49	1
+65	Textbox	test	fhvy7	1
 \.
 
 
@@ -616,6 +649,7 @@ COPY questions (question_id, question_type, question_question, question_poll_id,
 
 COPY responses (response_question_id, response_poll_id, response_user_email, response_id, response_response) FROM stdin;
 53	fkqv4	anonymous@anonymous.com	32	hgjh
+62	afksw	anonymous@anonymous.com	33	what is this
 \.
 
 
@@ -625,6 +659,9 @@ COPY responses (response_question_id, response_poll_id, response_user_email, res
 
 COPY users (user_email, user_hash, user_alias, user_authorized, user_salt) FROM stdin;
 anonymous@anonymous.com	casdaskdhioqwue80u12iodjklas	Anonymous	t	12345
+test@test.com	033cc361cb85071ba1b09e1d63869c3afa5a1451	test	t	23498
+dylan2@cool.com	d9b00fa7019ae01c7dc6bf0ebb48aa4296db3b14	Dylan2	t	32855
+dylan@cool.com	dfa5e0815676ac71a85a9bc2c036b0ef814cd29d	dylan	t	38657
 \.
 
 

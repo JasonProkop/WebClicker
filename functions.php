@@ -570,6 +570,10 @@ function displayPossibleSubscriptions(){
 	$db->commit();
 }
 
+/*
+	Returns the current error to display the current error message.
+	Authored by: Dylan
+*/
 function currentError(){
 	if(!empty($_SESSION['error'])){
 		$error = $_SESSION['error'];
