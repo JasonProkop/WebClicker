@@ -76,6 +76,8 @@
     <h3>
       Sign Up
     </h3>
+	<h4><?php if(isset($_GET['error'])){ echo $_GET['error']; } ?></h4>
+	<a href="index.php#homepage"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
   </div>
   <div data-role="content">
     <form action="signup.php" method="POST" data-ajax="false">
@@ -115,14 +117,6 @@
           }
         </script>
       </div>
-      <div id="checkboxes1" data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
-          <input id="checkbox1" name="subscribe" type="checkbox">
-          <label for="checkbox1">
-            Subscribe to email updates?
-          </label>
-        </fieldset>
-      </div>
 	  <input type="submit" value="Submit">
     </form>
   </div>
@@ -134,7 +128,8 @@
     <h3>
       Sign In
     </h3>
-    
+    <h4><?php if(isset($_GET['error'])){ echo $_GET['error']; } ?></h4>
+	<a href="index.php#homepage"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
   </div>
   <div data-role="content">
   	<form action="signin.php" method="POST" data-ajax="false">
@@ -149,14 +144,6 @@
           Password
         </label>
         <input name="password" id="textinput2" placeholder="" value="" type="password">
-      </div>
-      <div id="checkboxes1" data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
-          <input id="checkbox1" name="remember" type="checkbox">
-          <label for="checkbox1">
-            Remember my login
-          </label>
-        </fieldset>
       </div>
       <input type="submit" value="Submit">
     </form>

@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POS
 	}catch(Credentials $e){
 		//echo "Caught IncorrectCredentials ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
-		header("location:index.php#signInPage");
+		header("location:index.php?error=Incorrect%20Credentials.#signInPage");
 	}catch(Authorization $e){
 		//"Caught AccountNotAuthorized ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();

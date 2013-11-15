@@ -47,6 +47,7 @@ try{
 			</form>
 		</div>
 		<?php
+			
 			foreach($groups as $group){
 				echo '<div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";

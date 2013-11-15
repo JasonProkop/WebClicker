@@ -130,7 +130,7 @@ function signUp($email, $password, $alias){
 	if($sql->rowCount() > 0){
 		//there is a user with that email already
 		$user = $sql->fetch();
-		if($user['Authorized'] == 'true'){
+		if((bool)$user['user_authorized']){
 			throw new Account('Duplicate e-mail.');
 		}else{
 			$sql = $db->prepare("UPDATE users SET user_hash=:hash, user_salt=:salt, user_alias=:alias, user_authorized=:authorized WHERE user_email=:email;");
