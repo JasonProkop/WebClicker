@@ -26,7 +26,7 @@ class Poll implements iDatabase, iPost{
 		$obj = new Poll();
 		$obj->Name = $POST['pollname'];
 		$obj->Creator = $_SESSION['email'];
-		if($POST['groupname'] == 'Public'){
+		if($POST['groupname'] === 'Public'){
 			$obj->Group = array( 'name' => 'Public', 'owner' => 'anonymous@anonymous.com' );
 		}else{
 			$obj->Group = array( 'name' => $POST['groupname'], 'owner' => $_SESSION['email'] );
