@@ -66,7 +66,7 @@ if(isset($_GET['accessCode'])){
 				}
 			?>
 			<?php
-				if($_SESSION['email'] == $poll->Creator){
+				if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll->Creator){
 					if($poll->Active){
 						echo '<div class="ui-block-c">
 						<a href="deactivatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Deactivate</a>
