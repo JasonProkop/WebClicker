@@ -81,7 +81,7 @@ function displayQuestion($question){
 		<title>
 			WebClicker
 		</title>
-		<link rel="stylesheet" href="themes/webclicker-usask.css" />
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -140,7 +140,7 @@ function displayQuestion($question){
 			<div data-role="header" data-id="question" data-tap-toggle="false">
 				<h1>'.$poll->Name.'</h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-theme="b" data-position-to="origin">'.substr(loggedInUser(), 0, 10).'</a>
+				<a href=""  class="ui-btn-right" data-inline="true" data-position-to="origin">'.substr(loggedInUser(), 0, 10).'</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
@@ -157,12 +157,12 @@ function displayQuestion($question){
 			<div data-role="content" >';
 		displayQuestion($poll->Questions[$q]);
 		echo '</div><!-- /content -->';
-		echo '<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">';
+		echo '<div id="footer" data-role="footer" data-tap-toggle="false">';
 		if($qn == 1){
-			echo '<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+			echo '<div class="ui-btn-right"><input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
 		}else if($q == $qn){
 			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
-					<div class="ui-btn-right"><input type="submit" data-theme="b" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+					<div class="ui-btn-right"><input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
 		}else if($q == 1){
 			echo '<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
 		}else{
