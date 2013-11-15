@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POS
 		//header("location:index.php#signInPage");
 		signIn($_POST['email'], $_POST['password']);  //sign them in automatically since we disable authorization
 		subscribe('Public', 'anonymous@anonymous.com', 100); //subscribe them to the public polls group
-		header("location:user.php");
+		header("location:index.php");
 	}catch(Account $e){
 		//echo "Caught Account ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
