@@ -72,7 +72,7 @@
 
 <!-- SignUp-->
 <div data-role="page" id="signUpPage" data-title="WebClicker - Sign Up" data-theme='a'>
-  <div data-theme="a" data-role="header">
+  <div data-role="header">
     <h3>
       Sign Up
     </h3>
@@ -124,7 +124,7 @@
   <!-- Sign In -->
 
 <div data-role="page" id="signInPage"  data-title="WebClicker - Sign In" data-theme='a'>
-  <div data-theme="a" data-role="header">
+  <div data-role="header">
     <h3>
       Sign In
     </h3>
