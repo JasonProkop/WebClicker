@@ -1226,7 +1226,7 @@ a.ui-link-inherit {
 	}
 }
 
-.ui-input-text input {
+.ui-input-text:not(label) {
 	background-color: white;
 }
 .error {
@@ -1236,6 +1236,11 @@ a.ui-link-inherit {
 }
 h4{
 	color : #B72E22;
+}
+label {
+	text-align:right;
+	font-weight:bold;
+	vertical-align:middle;
 }
 .bordered{
 	padding: 20px;

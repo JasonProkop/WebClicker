@@ -291,19 +291,19 @@ function userTakenPoll($poll){
 */
 function displayPollsList($polls){
 	foreach($polls as $poll){
-		echo 	'<li style="padding:4px;">
-							<div data-mini="true" data-role="collapsible" data-collapsed="true">
-								<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
-								<div class="ui-grid-b">
-									<div class="ui-block-a">
-										<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
-									</div>
-									<div class="ui-block-b">
-										<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
-									</div>
-									<div class="ui-block-c">
-										<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
-									</div>';
+		echo 	'<li style="padding:1px;">
+					<div data-mini="true" data-role="collapsible" data-collapsed="true">
+							<h1><span class="code">['.$poll['poll_id'].']</span> '.$poll['poll_name'].'</h1>
+							<div class="ui-grid-b">
+								<div class="ui-block-a">
+									<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
+								</div>
+								<div class="ui-block-b">
+									<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
+								</div>
+								<div class="ui-block-c">
+									<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
+								</div>';
 		/*if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
 			echo					'<div class="ui-block-d">';
 			if((bool)$poll['poll_active']){
@@ -314,8 +314,8 @@ function displayPollsList($polls){
 			echo					'</div>';
 		}*/		
 		echo				'</div>
-							</div>
-						</li>';
+					</div>
+				</li>';
 	}
 }
 /*
@@ -580,4 +580,28 @@ function currentError(){
 		return $error;
 	}
 }
+
+function outputHeader(){
+	echo '
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>
+			WebClicker
+		</title>
+		<link rel="stylesheet" href="themes/WebClicker_main.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+		<!-- Import fonts and apply them -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet" type="text/css">
+		<style>
+			*{font-family: "Open Sans", sans-serif; font-size: 1em;}
+			.code{font-family: "Droid Sans Mono", monospace; font-size: 1em; margin: auto;}
+		</style>
+	';
+}
 ?>
+
