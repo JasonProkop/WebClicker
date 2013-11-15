@@ -41,7 +41,13 @@
 					<h1>Poll options...</h1>
 					<div data-role="fieldcontain">
 						<div class="containing-element">
-							<select name="pollactive" id="flip-min" data-role="slider">
+							<?php
+							if (loggedInUser() === 'anonymous') {
+								echo "<select name=\"pollactive\" id=\"flip-min\" data-role=\"slider\" disabled>";	
+							} else {
+								echo "<select name=\"pollactive\" id=\"flip-min\" data-role=\"slider\">";
+							}
+							?>
 								<option value="false">Inactive</option>
 								<option value="true" selected="selected">Active</option>
 								
