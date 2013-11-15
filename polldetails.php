@@ -42,7 +42,7 @@ if(isset($_GET['accessCode'])){
 		</header><!-- /header -->
 		<ul data-role="listview">
 			<li>Access Code: <?php echo $poll->AccessCode; ?></li>
-			<li>Share: http://webclicker.tk/poll.php?accessCode=<?php echo $poll->AccessCode; ?></li>
+			<li>Share: http://webclicker.tk/<?php echo $poll->AccessCode; ?></li>
 			<li>Questions: <?php echo sizeof($poll->Questions); ?></li>
 			<li>Responses: <?php echo $total_responses; ?></li>
 			<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($poll->DateCreated)); ?></li>
