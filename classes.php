@@ -136,7 +136,7 @@ class Question implements iDatabase, iPost{
 				}
 			}
 		}
-		if(sizeof($obj->PAnswers) < 1){
+		if(empty($obj->Question) || ($obj->Type != 'textbox' && sizeof($obj->PAnswers) < 1)){
 			throw new QuestionCreationError('No answers specified');
 		}
 		return $obj;
