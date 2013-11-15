@@ -36,7 +36,7 @@ function displayRadio($question){
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
 			        },
-			        legend: { show:true, location: 'e' }
+			        legend: { show:true, placement: 'outsideGrid'}
 			    }
 			);
   		});
@@ -64,9 +64,9 @@ function displayCheckbox($question){
 					axesDefaults: {
 						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
 						tickOptions: {
-							fontFamily: 'Georgia',
-							fontSize: '10pt',
-							angle: -30
+							angle: -30,
+							labelPosition: 'middle'
+
 						}
 					},
 					axes: {
