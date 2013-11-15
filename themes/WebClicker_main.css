@@ -23,7 +23,7 @@
 	}
 }
 
-input, textarea {
+input, textarea, .ui-input-text {
 	background-color: white;
 }
 .error {
