@@ -32,7 +32,7 @@ class Poll implements iDatabase, iPost{
 			$obj->Group = array( 'name' => $POST['groupname'], 'owner' => $_SESSION['email'] );
 		}
 		//$obj->DateClosing = $POST['enddate'];
-		$obj->Active = (bool)$POST['pollactive'];
+		$obj->Active = $POST['pollactive'];
 		for($i = 0; $i < sizeof($POST['questions']); $i++){
 			$POST['questions'][$i]['order'] = $i + 1;
 			$obj->Questions[] = Question::createFromPOST($POST['questions'][$i]);

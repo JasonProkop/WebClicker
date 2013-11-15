@@ -52,14 +52,19 @@ if(isset($_GET['accessCode'])){
 			<li>Questions: <?php echo sizeof($poll->Questions); ?></li>
 			<li>Responses: <?php echo $total_responses; ?></li>
 			<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($poll->DateCreated)); ?></li>
+			<li>Active: <?php echo var_export($poll->Active, true); ?>
 		</ul>
 		<div data-role="content" class="ui-grid-a">
-			<div class="ui-block-a">
-				<a href="poll.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">Take Poll</a>
-			</div>
 			<div class="ui-block-b">
 				<a href="results.php?accessCode=<?php echo $poll->AccessCode; ?>" data-role="button" data-ajax="false">View Results</a>
 			</div>
+			<?php
+				if($poll->Active){
+					echo '<div class="ui-block-b">
+					<a href="poll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Take Poll</a>
+				</div>';
+				}
+			?>
 		</div>
 	</div>
 </body>

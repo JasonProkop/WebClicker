@@ -8,6 +8,9 @@ if(isset($_GET['accessCode'])){
 			redirectTo('results.php?accessCode='.$_GET['accessCode']);
 		}else{
 			$poll = search($_GET['accessCode']);
+			if(!$poll->Active){
+				redirectTo('results.php?accessCode='.$_GET['accessCode']);
+			}
 		}
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";

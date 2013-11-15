@@ -40,8 +40,13 @@
 				<div data-role="collapsible" data-collapsed="true"  data-theme="a" data-icon="gear">
 					<h1>Poll options...</h1>
 					<div data-role="fieldcontain">
-						<input type="checkbox" name="pollactive" id="checkbox-0" checked="true"/>
-						<label for="checkbox-0">Active</label>
+						<div class="containing-element">
+							<select name="pollactive" id="flip-min" data-role="slider">
+								<option value="false">Inactive</option>
+								<option value="true" selected="selected">Active</option>
+								
+							</select>
+						</div>
 						<label for="select-choice-0" class="select">Group</label>
 						<select name="groupname" id="select-choice-0">
 							<?php

@@ -250,7 +250,7 @@ function validAccessCode($access)
 */
 function search($access){
 	$db = db_getpdo();
-	$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access AND poll_active='true';");
+	$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access;");
 	$sql->bindValue(':access', $access);
 	$db->beginTransaction();
 	$sql->execute();
