@@ -50,16 +50,16 @@ try{
 			foreach($groups as $group){
 				echo '<div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
-				if($group != 'Public'){
+				if($group->Name != 'Public'){
 					echo '<a href="groupdetails.php?name='.$group->Name.'&creator='.$group->Creator.'" data-role="button" data-icon="gear">Details</a>';
+					echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
+					$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:user;");
+					$sql->bindValue(':group', $group->Name);
+					$sql->bindValue(':user', $group->Creator);
+					$sql->execute();
+					displayPollsList($sql->fetchAll());
+					echo 	'</ul><!-- /list -->';
 				}
-				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
-				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:user;");
-				$sql->bindValue(':group', $group->Name);
-				$sql->bindValue(':user', $group->Creator);
-				$sql->execute();
-				displayPollsList($sql->fetchAll());
-				echo 	'</ul><!-- /list -->';
 				echo '</div><!-- /collapsible -->';
 			}
 			$db->commit();
