@@ -55,21 +55,25 @@ function displayCheckbox($question){
 				{ // Plot Options
 					title: '".$question->Question."',
 					seriesDefaults: {
-	      		renderer: $.jqplot.BarRenderer,
-	      		rendererOptions: {
-	        					varyBarColor: true,
-	    			}
-      		},
+						renderer: $.jqplot.BarRenderer,
+						rendererOptions: 
+						{
+							varyBarColor: true,
+						}
+					},
+					axesDefaults: {
+						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+						tickOptions: {
+							fontFamily: 'Georgia',
+							fontSize: '10pt',
+							angle: -30
+						}
+					},
 					axes: {
 						xaxis: {
 							renderer: $.jqplot.CategoryAxisRenderer,
-							tickOptions: {
-								angle: -30,
-								formatString:'%d'
-							}
 						},
 						yaxis: {
-							tickRenderer: $.jqplot.CanvasAxisTickRenderer,
 							min: 0,  
 							tickInterval: ".tickInterval($question)."
 						}
