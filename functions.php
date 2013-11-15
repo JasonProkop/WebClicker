@@ -336,12 +336,12 @@ function displayRecentPolls(){
 */
 function questionTojQplot($question){
 	$responses = array();
-	foreach($question->PAnswer as $panswer){
-		$responses[$panswer] = 0;
+	foreach($question->PAnswers as $panswer){
+		$responses[$panswer->PAnswer] = 0;
 	}
 	
 	foreach($question->Responses as $response){
-		$responses[$response]++;
+		$responses[$response->Response]++;
 		//$responses[] = $response->Response; //gather responses
 	}
 	$data = array();
