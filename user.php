@@ -36,9 +36,11 @@ try{
 		</header><!-- /header -->
 		<div data-role="collapsible">
 			<h1>Create Group</h1>
-			<input type="text" name="groupname" placeholder="Group Name" required>
-			<input type="text" name="groupkey" placeholder="Group Password" required>
-			<input type="submit" value="Create">
+			<form action="creategroup.php" method="POST">
+				<input type="text" name="groupname" placeholder="Group Name" required>
+				<input type="text" name="groupkey" placeholder="Group Password" required>
+				<input type="submit" value="Create">
+			</form>
 		</div>
 		<div data-role="content">
 		<h2>Owned Polls in Groups</h2>
