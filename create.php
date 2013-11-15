@@ -11,25 +11,17 @@
 ?>
 <!DOCTYPE html> 
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<title>
-			WebClicker
-		</title>
-		<link rel="stylesheet" href="themes/WebClicker_main.css" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-		<script src="static/js/magic.js"></script>
-		<style>
+<head>
+	<title>
+		WebClicker - Create Poll
+	</title>
+	<?php outputHeader(); ?>
 
-		</style>
-		<script>
-			$(document).on('load', $('#addNewQuestion').click()); //add a single question right off the start.
-		</script>
-	</head>
+	<script src="static/js/magic.js"></script>
+	<script>
+		$(document).on('load', $('#addNewQuestion').click()); //add a single question right off the start.
+	</script>
+</head>
 	<body>
 		<div data-role="page" data-theme='a'>
 			<form id="createPoll" action="createpoll.php" method="POST" data-ajax="false" questions=0>
