@@ -1226,7 +1226,7 @@ a.ui-link-inherit {
 	}
 }
 
-input.ui-input-text {
+.ui-input-text input {
 	background-color: white;
 }
 .error {
