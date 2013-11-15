@@ -294,7 +294,7 @@ function displayPollsList($polls){
 		echo 	'<li style="padding:4px;">
 							<div data-mini="true" data-role="collapsible" data-collapsed="true">
 								<h1>['.$poll['poll_id'].'] '.$poll['poll_name'].'</h1>
-								<div class="ui-grid-c">
+								<div class="ui-grid-b">
 									<div class="ui-block-a">
 										<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
 									</div>
@@ -304,7 +304,7 @@ function displayPollsList($polls){
 									<div class="ui-block-c">
 										<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
 									</div>';
-		if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
+		/*if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
 			echo					'<div class="ui-block-d">';
 			if((bool)$poll['poll_active']){
 				echo '<a href="deactivatepoll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Deactivate</a>';
@@ -312,7 +312,7 @@ function displayPollsList($polls){
 				echo '<a href="activatepoll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Activate</a>';
 			}
 			echo					'</div>';
-		}		
+		}*/		
 		echo				'</div>
 							</div>
 						</li>';
