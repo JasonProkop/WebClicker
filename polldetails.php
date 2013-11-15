@@ -33,7 +33,7 @@ if(isset($_GET['accessCode'])){
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<title>
-			WebClicker
+			WebClicker - Poll Details
 		</title>
 		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
@@ -66,14 +66,16 @@ if(isset($_GET['accessCode'])){
 				}
 			?>
 			<?php
-				if($poll->Active){
-					echo '<div class="ui-block-c">
-					<a href="deactivatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Deactivate</a>
-				</div>';
-				}else{
-					echo '<div class="ui-block-c">
-					<a href="activatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Activate</a>
-				</div>';
+				if($_SESSION['email'] == $poll->Creator){
+					if($poll->Active){
+						echo '<div class="ui-block-c">
+						<a href="deactivatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Deactivate</a>
+					</div>';
+					}else{
+						echo '<div class="ui-block-c">
+						<a href="activatepoll.php?accessCode='.$poll->AccessCode.'" data-role="button" data-ajax="false">Activate</a>
+					</div>';
+					}
 				}
 			?>
 		</div>
