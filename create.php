@@ -33,11 +33,11 @@
 	<body>
 		<div data-role="page" data-theme='a'>
 			<form id="createPoll" action="createpoll.php" method="POST" data-ajax="false" questions=0>
-				<div data-role="header" data-theme="c" >
+				<div data-role="header">
 					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				</div>
-				<div data-role="collapsible" data-collapsed="true"  data-theme="a" data-icon="gear">
+				<div data-role="collapsible" data-collapsed="true" data-icon="gear">
 					<h1>Poll options...</h1>
 					<div data-role="fieldcontain">
 						<div class="containing-element">
@@ -63,7 +63,7 @@
 						</select>
 					</div>
 				</div>
-				<div id="footer" data-role="footer" data-theme="c"  data-tap-toggle="false">
+				<div id="footer" data-role="footer" data-tap-toggle="false">
 					<div class="ui-grid-a">
 						<div class="ui-block-a"><input type="button" value="Add Question" id="addNewQuestion" data-ajax="false" data-icon ="plus" data-mini="true" ></div>
 						<div class="ui-block-b"><input type="button" value="Delete Question" id="deleteQuestion" data-ajax="false" data-icon ="minus" data-mini="true" ></div>
