@@ -9,6 +9,7 @@
 *
 */
 
+
 /* this line detects browsers which have a minimum width of 600
 * pixels and only applies the changes to them */
 @media only screen and (min-width: 600px){
@@ -25,7 +26,7 @@
 /* A
 -----------------------------------------------------------------------------------------------------------*/
 .ui-bar-a {
-	border: 1px solid #808080 /*{a-bar-border}*/;
+	border: 1px solid #000000 /*{a-bar-border}*/;
 	background: #000000 /*{a-bar-background-color}*/;
 	color: #ffffff /*{a-bar-color}*/;
 	font-weight: bold;
@@ -58,20 +59,20 @@
 .ui-bar-a select,
 .ui-bar-a textarea,
 .ui-bar-a button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-a,
 .ui-overlay-a {
 	border: 1px solid #000000 /*{a-body-border}*/;
-	color: #333333 /*{a-body-color}*/;
-	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #ffffff /*{a-body-shadow-color}*/;
-	background: #f9f9f9 /*{a-body-background-color}*/;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #fcf0d4 /*{a-body-background-start}*/), to( #f6f2db /*{a-body-background-end}*/)); /* Saf4 , Chrome */
-	background-image: -webkit-linear-gradient( #fcf0d4 /*{a-body-background-start}*/, #f6f2db /*{a-body-background-end}*/); /* Chrome 10 , Saf5.1  */
-	background-image:    -moz-linear-gradient( #fcf0d4 /*{a-body-background-start}*/, #f6f2db /*{a-body-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #fcf0d4 /*{a-body-background-start}*/, #f6f2db /*{a-body-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #fcf0d4 /*{a-body-background-start}*/, #f6f2db /*{a-body-background-end}*/); /* Opera 11.10  */
-	background-image:         linear-gradient( #fcf0d4 /*{a-body-background-start}*/, #f6f2db /*{a-body-background-end}*/);
+	color: #000000 /*{a-body-color}*/;
+	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #eeeeee /*{a-body-shadow-color}*/;
+	background: #DBAF67 /*{a-body-background-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #f0c071 /*{a-body-background-start}*/), to( #c59d5c /*{a-body-background-end}*/)); /* Saf4 , Chrome */
+	background-image: -webkit-linear-gradient( #f0c071 /*{a-body-background-start}*/, #c59d5c /*{a-body-background-end}*/); /* Chrome 10 , Saf5.1  */
+	background-image:    -moz-linear-gradient( #f0c071 /*{a-body-background-start}*/, #c59d5c /*{a-body-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #f0c071 /*{a-body-background-start}*/, #c59d5c /*{a-body-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #f0c071 /*{a-body-background-start}*/, #c59d5c /*{a-body-background-end}*/); /* Opera 11.10  */
+	background-image:         linear-gradient( #f0c071 /*{a-body-background-start}*/, #c59d5c /*{a-body-background-end}*/);
 }
 .ui-overlay-a {
 	background-image: none;
@@ -82,13 +83,13 @@
 .ui-body-a select,
 .ui-body-a textarea,
 .ui-body-a button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-a .ui-link-inherit {
-	color: #333333 /*{a-body-color}*/;
+	color: #000000 /*{a-body-color}*/;
 }
 .ui-body-a .ui-link {
-	color: #7f9feb /*{a-body-link-color}*/;
+	color: #3564d4 /*{a-body-link-color}*/;
 	font-weight: bold;
 }
 .ui-body-a .ui-link:visited {
@@ -102,20 +103,20 @@
 }
 .ui-btn-up-a {
 	border: 1px solid #828282 /*{a-bup-border}*/;
-	background: #eeeeee /*{a-bup-background-color}*/;
+	background: #d9d9d8 /*{a-bup-background-color}*/;
 	font-weight: bold;
-	color: #2f3e46 /*{a-bup-color}*/;
+	color: #181d20 /*{a-bup-color}*/;
 	text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #ffffff /*{a-bup-shadow-color}*/;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #f2f2f2 /*{a-bup-background-start}*/), to( #f2f2f2 /*{a-bup-background-end}*/)); /* Saf4 , Chrome */
-	background-image: -webkit-linear-gradient( #f2f2f2 /*{a-bup-background-start}*/, #f2f2f2 /*{a-bup-background-end}*/); /* Chrome 10 , Saf5.1  */
-	background-image:    -moz-linear-gradient( #f2f2f2 /*{a-bup-background-start}*/, #f2f2f2 /*{a-bup-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #f2f2f2 /*{a-bup-background-start}*/, #f2f2f2 /*{a-bup-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #f2f2f2 /*{a-bup-background-start}*/, #f2f2f2 /*{a-bup-background-end}*/); /* Opera 11.10  */
-	background-image:         linear-gradient( #f2f2f2 /*{a-bup-background-start}*/, #f2f2f2 /*{a-bup-background-end}*/);
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #d9d9d8 /*{a-bup-background-start}*/), to( #d9d9d8 /*{a-bup-background-end}*/)); /* Saf4 , Chrome */
+	background-image: -webkit-linear-gradient( #d9d9d8 /*{a-bup-background-start}*/, #d9d9d8 /*{a-bup-background-end}*/); /* Chrome 10 , Saf5.1  */
+	background-image:    -moz-linear-gradient( #d9d9d8 /*{a-bup-background-start}*/, #d9d9d8 /*{a-bup-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #d9d9d8 /*{a-bup-background-start}*/, #d9d9d8 /*{a-bup-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #d9d9d8 /*{a-bup-background-start}*/, #d9d9d8 /*{a-bup-background-end}*/); /* Opera 11.10  */
+	background-image:         linear-gradient( #d9d9d8 /*{a-bup-background-start}*/, #d9d9d8 /*{a-bup-background-end}*/);
 }
 .ui-btn-up-a:visited,
 .ui-btn-up-a a.ui-link-inherit {
-	color: #2f3e46 /*{a-bup-color}*/;
+	color: #181d20 /*{a-bup-color}*/;
 }
 .ui-btn-hover-a {
 	border: 1px solid #3e3332 /*{a-bhover-border}*/;
@@ -139,7 +140,7 @@
 	border: 1px solid #000000 /*{a-bdown-border}*/;
 	background: #737373 /*{a-bdown-background-color}*/;
 	font-weight: bold;
-	color: #ffffff /*{a-bdown-color}*/;
+	color: #eb6f6f /*{a-bdown-color}*/;
 	text-shadow: 0 /*{a-bdown-shadow-x}*/ 0 /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #ffffff /*{a-bdown-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #5a5a5a /*{a-bdown-background-start}*/), to( #8b8b8b /*{a-bdown-background-end}*/)); /* Saf4 , Chrome */
 	background-image: -webkit-linear-gradient( #5a5a5a /*{a-bdown-background-start}*/, #8b8b8b /*{a-bdown-background-end}*/); /* Chrome 10 , Saf5.1  */
@@ -151,12 +152,12 @@
 .ui-btn-down-a:visited,
 .ui-btn-down-a:hover,
 .ui-btn-down-a a.ui-link-inherit {
-	color: #ffffff /*{a-bdown-color}*/;
+	color: #eb6f6f /*{a-bdown-color}*/;
 }
 .ui-btn-up-a,
 .ui-btn-hover-a,
 .ui-btn-down-a {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 /* B
@@ -195,7 +196,7 @@
 .ui-bar-b select,
 .ui-bar-b textarea,
 .ui-bar-b button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-b,
 .ui-overlay-b {
@@ -219,7 +220,7 @@
 .ui-body-b select,
 .ui-body-b textarea,
 .ui-body-b button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-b .ui-link-inherit {
 	color: #333333 /*{b-body-color}*/;
@@ -293,7 +294,7 @@
 .ui-btn-up-b,
 .ui-btn-hover-b,
 .ui-btn-down-b {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -334,7 +335,7 @@
 .ui-bar-c select,
 .ui-bar-c textarea,
 .ui-bar-c button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-c,
 .ui-overlay-c {
@@ -358,7 +359,7 @@
 .ui-body-c select,
 .ui-body-c textarea,
 .ui-body-c button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-c .ui-link-inherit {
 	color: #333333 /*{c-body-color}*/;
@@ -432,7 +433,7 @@
 .ui-btn-up-c,
 .ui-btn-hover-c,
 .ui-btn-down-c {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -473,7 +474,7 @@
 .ui-bar-d select,
 .ui-bar-d textarea,
 .ui-bar-d button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-d,
 .ui-overlay-d {
@@ -497,7 +498,7 @@
 .ui-body-d select,
 .ui-body-d textarea,
 .ui-body-d button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-d .ui-link-inherit {
 	color: #333333 /*{d-body-color}*/;
@@ -571,7 +572,7 @@
 .ui-btn-up-d,
 .ui-btn-hover-d,
 .ui-btn-down-d {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 /* B
@@ -610,7 +611,7 @@
 .ui-bar-b select,
 .ui-bar-b textarea,
 .ui-bar-b button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-b,
 .ui-overlay-b {
@@ -634,7 +635,7 @@
 .ui-body-b select,
 .ui-body-b textarea,
 .ui-body-b button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-b .ui-link-inherit {
 	color: #333333 /*{b-body-color}*/;
@@ -708,7 +709,7 @@
 .ui-btn-up-b,
 .ui-btn-hover-b,
 .ui-btn-down-b {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -749,7 +750,7 @@
 .ui-bar-c select,
 .ui-bar-c textarea,
 .ui-bar-c button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-c,
 .ui-overlay-c {
@@ -773,7 +774,7 @@
 .ui-body-c select,
 .ui-body-c textarea,
 .ui-body-c button {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-body-c .ui-link-inherit {
 	color: #333333 /*{c-body-color}*/;
@@ -847,7 +848,7 @@
 .ui-btn-up-c,
 .ui-btn-hover-c,
 .ui-btn-down-c {
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
 }
 
@@ -876,7 +877,7 @@ a.ui-link-inherit {
 	background-image:     -ms-linear-gradient( #c12725 /*{global-active-background-start}*/, #b62422 /*{global-active-background-end}*/); /* IE10 */
 	background-image:      -o-linear-gradient( #c12725 /*{global-active-background-start}*/, #b62422 /*{global-active-background-end}*/); /* Opera 11.10  */
 	background-image:         linear-gradient( #c12725 /*{global-active-background-start}*/, #b62422 /*{global-active-background-end}*/);
-	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 .ui-btn-active:visited,
 .ui-btn-active:hover,
@@ -1166,9 +1167,9 @@ a.ui-link-inherit {
 	box-shadow: 0 0 12px 				rgba(0,0,0,.6);
 }
 .ui-shadow {
-	-moz-box-shadow: 0 1px 20px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/;
-	-webkit-box-shadow: 0 1px 20px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/;
-	box-shadow: 0 1px 20px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/
+	-moz-box-shadow: 0 1px 8px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/;
+	-webkit-box-shadow: 0 1px 8px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/;
+	box-shadow: 0 1px 8px /*{global-box-shadow-size}*/ rgba(0,0,0,1) /*{global-box-shadow-color}*/
 }
 .ui-bar-a .ui-shadow,
 .ui-bar-b .ui-shadow ,
