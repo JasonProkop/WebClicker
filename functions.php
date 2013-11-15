@@ -336,11 +336,16 @@ function displayRecentPolls(){
 */
 function questionTojQplot($question){
 	$responses = array();
+	foreach($question->PAnswer as $panswer){
+		$responses[$panswer] = 0;
+	}
+	
 	foreach($question->Responses as $response){
-		$responses[] = $response->Response; //gather responses
+		$responses[$response]++;
+		//$responses[] = $response->Response; //gather responses
 	}
 	$data = array();
-	$responses = array_count_values($responses); //count how many of each
+	//$responses = array_count_values($responses); //count how many of each
 	while (list($key, $val) = each($responses) ){
 		$data[] = array($key, $val); //turn into jQplot aray
 	}
@@ -421,18 +426,16 @@ function redirectTo($extra){
 */
 function groupsOwnedByUser(){
 	$groups = array();
-	if($_SESSION['email'] != 'anonymous@anonymous.com'){
-		$db = db_getpdo();
-		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com';");
-		$sql->bindValue(':user', $_SESSION['email']);
-		$sql->execute();
-		$rows = $sql->fetchAll();
-		foreach($rows as $group){
-			$groups[] = new Group($group);
-		}
-		$db->commit();
+	$db = db_getpdo();
+	$db->beginTransaction();
+	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user;");
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->execute();
+	$rows = $sql->fetchAll();
+	foreach($rows as $group){
+		$groups[] = new Group($group);
 	}
+	$db->commit();
 	return $groups;
 }
 

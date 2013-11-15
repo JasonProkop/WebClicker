@@ -114,9 +114,7 @@ function displayNone($question){
 }
 
 function displayQuestion($question){
-	if(sizeof($question->Responses) < 1){
-		displayNone($question);
-	}else{
+
 		switch($question->Type){
 			case 'Radio':
 				displayRadio($question);
@@ -130,7 +128,6 @@ function displayQuestion($question){
 			default:
 				return;
 		}
-	}
 }
 ?>
 
