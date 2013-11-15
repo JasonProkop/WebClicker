@@ -298,6 +298,15 @@ class Answer implements iDatabase, iPost{
 	}
 }
 
+class Group{
+	function __construct($row){
+		$this->Name = $row['group_name'];
+		$this->Creator = $row['group_user_email'];
+		$this->Key = $row['group_key'];
+		return $this;
+	}
+}
+
 class SiteStats{
 	function __construct($db){
 		$db->beginTransaction();

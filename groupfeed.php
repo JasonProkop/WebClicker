@@ -4,9 +4,10 @@ require_once('functions.php');
 if(loggedInUser() == 'Anonymous'){
 	header("location:index.php");
 }
-
+//subscribe to group (group name / key or user email)
+//display the users subscribed groups and polls within those groups
 try{
-	$groups = groupsOwnedByUser();
+	$groups = groupsJoinedByUser();
 	$db = db_getpdo();
 	$db->beginTransaction();
 }catch(PDOException $e){
@@ -14,7 +15,6 @@ try{
 	$_SESSION['error'] = $e->getMessage();
 	header("location:error.php");
 }
-
 ?>
 <!doctype html>
 <html>
@@ -24,7 +24,7 @@ try{
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<title>
-			WebClicker
+			WebClicker - Group Subscriptions
 		</title>
 		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
@@ -34,29 +34,32 @@ try{
 <body>
 	<section id="homepage" data-role="page" >
 		<header data-role="header"  data-tap-toggle="false">
-			<h1>Web Clicker</h1>
+			<h1>Group Subscriptions</h1>
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
-		<div data-role="content">
-			<form  action="creategroup.php" method="POST" data-ajax="false">
-				<div data-role="ui-grid-b">
-						<div class="ui-block-a"><input type="text" name="groupname" placeholder="Group Name" required></div>
-						<div class="ui-block-b"><input type="text" name="groupkey" placeholder="Group Key" required></div>
-						<div class="ui-block-c"><input type="Submit" name="Submit" value="Create a Group"></div>
-				</div>
-			</form>
+		
+		<div data-role="collapsible">
+			<h1>Subscribe to a Group</h1>
+			<ul data-role="listview" data-filter="true" data-inset="true">
+			<?php displayPossibleSubscriptions(); ?>
+			</ul>
 		</div>
+		
+		Group Subscriptions:
 		<?php
 			foreach($groups as $group){
 				echo '<div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
-				if($group != 'Public'){
-					echo '<a href="groupdetails.php?name='.$group->Name.'&creator='.$group->Creator.'" data-role="button" data-icon="gear">Details</a>';
+				if($group->Name != 'Public'){
+					echo '<form action="unsubscribe.php" method="POST" data-ajax="false">'.$group->Name.'
+							<input type="hidden" name="groupcreator" value="'.$group->Creator.'">
+							<input type="hidden" name="groupname" value="'.$group->Name.'">
+							<input type="submit" name="submit" value="Unubscribe">
+						</form>';
 				}
 				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
-				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:user;");
+				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group");
 				$sql->bindValue(':group', $group->Name);
-				$sql->bindValue(':user', $group->Creator);
 				$sql->execute();
 				displayPollsList($sql->fetchAll());
 				echo 	'</ul><!-- /list -->';

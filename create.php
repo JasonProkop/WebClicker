@@ -46,7 +46,7 @@
 						<select name="groupname" id="select-choice-0">
 							<?php
 							foreach($groups as $group){
-								echo "<option value=\"$group\">$group</option>";
+								echo "<option value=\"$group->Name\">$group->Name</option>";
 							}
 							?>
 						</select>

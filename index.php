@@ -10,7 +10,9 @@
 		$icon = 'star';
 		$header = '<h1>You are logged in as: '.$user.'</h1>';
 		$content = '<h4>Polls you create will not be listed on the main page and you may only take a poll once.</h4>';
-		$links = '<a href="signout.php" data-role="button" data-mini="true" data-ajax="false">Sign Out</a>';
+		$links = '<a href="user.php" data-role="button" data-mini="true" data-ajax="false">Poll/Group Management</a>';
+		$links .= '<a href="groupfeed.php" data-role="button" data-mini="true" data-ajax="false">Group Subscriptions</a>';
+		$links .= '<a href="signout.php" data-role="button" data-mini="true" data-ajax="false">Sign Out</a>';
 	}
 ?>
 <!doctype html>

@@ -9,6 +9,7 @@ class Credentials extends CustomException {} //'Incorrect user credentials.'
 class Authorization extends CustomException {} //'Account is not authorized.'
 class PollNotFound extends CustomException {} //'Poll is not in database.'
 class MalformedAccessCode extends CustomException {} //'Access code is malformed.'
+class Subscription extends CustomException {} //'Key is not correct'
 
 /******* Start SESSION manager ********
 	Sets the user to the anonymous user if no session exists.
@@ -318,9 +319,8 @@ function displayPollsList($polls){
 */
 function displayRecentPolls(){
 	try{
-	
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' ORDER BY poll_date_created DESC LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC LIMIT 10;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
@@ -416,24 +416,130 @@ function redirectTo($extra){
 }
 
 /*
-	Returns a list of groups for the individual logged in
+	Returns a list of groups owned for the individual logged in
 	Authored by: Dylan
 */
 function groupsOwnedByUser(){
 	$groups = array();
-	$groups[] = 'Public'; //always have access to the public group
 	if($_SESSION['email'] != 'anonymous@anonymous.com'){
 		$db = db_getpdo();
 		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user;");
-		$sql->bindParam(':user', $_SESSION['email']);
+		$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com';");
+		$sql->bindValue(':user', $_SESSION['email']);
 		$sql->execute();
 		$rows = $sql->fetchAll();
 		foreach($rows as $group){
-			$groups[] = $group['group_name'];
+			$groups[] = new Group($group);
 		}
 		$db->commit();
 	}
 	return $groups;
+}
+
+/*
+	Returns a list of groups joined for the individual 
+	Authored by: Dylan
+*/
+function groupsJoinedByUser(){
+	$groups = array();
+	if($_SESSION['email'] != 'anonymous@anonymous.com'){
+		$db = db_getpdo();
+		$db->beginTransaction();
+		$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name);");
+		$sql->bindValue(':user', $_SESSION['email']);
+		$sql->execute();
+		$rows = $sql->fetchAll();
+		foreach($rows as $group){
+			$groups[] = new Group($group);
+		}
+		$db->commit();
+	}
+	return $groups;
+}
+
+/*
+	Unsubscribes the currently logged in user from a group
+	Authored by: Dylan
+*/
+function unsubscribe($group, $creator){
+	if($_SESSION['email'] === 'anonymous@anonymous.com'){
+		throw new Subscription('anonymous users are not allowed to subscribe to groups!');
+	}
+	$db = db_getpdo();
+	$db->beginTransaction();
+	
+	$sql = $db->prepare("DELETE FROM groupusers WHERE groupuser_group_name=:group AND groupuser_user_email_group=:creator AND groupuser_user_email_user=:user");
+	$sql->bindValue(':group', $group);
+	$sql->bindValue(':creator', $creator);
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->execute();
+	
+	$db->commit();
+}
+
+/*
+	Subscribes the currently logged in user to a group
+	Authored by: Dylan
+*/
+function subscribe($group, $creator, $key){
+	if($_SESSION['email'] === 'anonymous@anonymous.com'){
+		throw new Subscription('anonymous users are not allowed to subscribe to groups!');
+	}
+	$db = db_getpdo();
+	$db->beginTransaction();
+	
+	$sql = $db->prepare("SELECT * FROM groups WHERE group_name=:group AND group_user_email=:creator");
+	$sql->bindValue(':group', $group);
+	$sql->bindValue(':creator', $creator);
+	$sql->execute();
+	
+	if($sql->rowCount() != 1){
+		throw new Subscription('Group not found');
+	}
+	$row = $sql->fetch();
+	if($key != $row['group_key']){
+		throw new Subscription('Key is incorrect');
+	}
+	
+	$sql = $db->prepare("SELECT * FROM groupusers WHERE groupuser_group_name=:group AND groupuser_user_email_user=:user AND groupuser_user_email_group=:creator;");
+	$sql->bindValue(':group', $group);
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->bindValue(':creator', $creator);
+	$sql->execute();
+	if($sql->rowCount == 1){
+		throw new Subscription('Already subscribed to that group!');
+	}
+	$sql = $db->prepare("INSERT INTO groupusers (groupuser_group_name, groupuser_user_email_user, groupuser_verified, groupuser_user_email_group) VALUES (:group, :user, :verified, :creator);");
+	$sql->bindValue(':group', $group);
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->bindValue(':creator', $creator);
+	$sql->bindValue(':verified', 'true');
+	$sql->execute();
+	$db->commit();
+}
+
+/*
+	Displays all possible groups you can subscribe to
+	Authored by: Dylan
+*/
+function displayPossibleSubscriptions(){
+	$db = db_getpdo();
+	$db->beginTransaction();
+	$sql = $db->prepare("SELECT * FROM groups WHERE NOT :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_name=groupuser_group_name AND group_user_email=groupuser_user_email_group);");
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->execute();
+	$groups = $sql->fetchAll();
+	if($sql->rowCount() == 0){
+		echo '<li><h4>No Groups to subscribe to!</h4></li>';
+	}
+	foreach($groups as $group){
+		echo '<li><form action="subscribe.php" method="POST" data-ajax="false">'.$group['group_name'].'
+				<input type="hidden" name="groupcreator" value="'.$group['group_user_email'].'">
+				<input type="hidden" name="groupname" value="'.$group['group_name'].'">
+				<input type="text" name="groupkey" required>
+				<input type="submit" name="submit" value="Subscribe">
+			</form></li>';
+	}
+	$db->commit();
 }
 ?>
