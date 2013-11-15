@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email']) && isset($_POS
 	}catch(Account $e){
 		//echo "Caught Account ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
-		header("location:index.php?error=Email%20already%20exists.#signUpPage");
+		header("location:index.php#signUpPage");
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();

@@ -50,7 +50,7 @@ try{
 				echo '<li><div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
 				echo 	'<ul data-role="listview">';
-				if($group->Creator == $_SESSION['email']) { echo '<li><a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" data-mini="true" data-icon="gear">Details</a></li>'; }
+				if($group->Creator == $_SESSION['email']) { echo '<li><a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" style="height: 10px;"data-icon="gear">Details</a></li>'; }
 				
 				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
 				$sql->bindValue(':group', $group->Name);

@@ -39,6 +39,7 @@
 				</div>
 				<div data-role="collapsible" data-collapsed="true"  data-theme="a" data-icon="gear">
 					<h1>Poll options...</h1>
+					<span class="error"><?php echo currentError(); ?></span>
 					<div data-role="fieldcontain">
 						<div class="containing-element">
 							<?php
@@ -76,3 +77,4 @@
 		</div>
 	<body>
 </html>
+<?php $_SESSION['error'] = ''; ?>

@@ -76,7 +76,7 @@
     <h3>
       Sign Up
     </h3>
-	<h4><?php if(isset($_GET['error'])){ echo $_GET['error']; } ?></h4>
+	<span class="error"><?php echo currentError(); ?></span>
 	<a href="index.php#homepage"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
   </div>
   <div data-role="content">
@@ -128,7 +128,7 @@
     <h3>
       Sign In
     </h3>
-    <h4><?php if(isset($_GET['error'])){ echo $_GET['error']; } ?></h4>
+    <span class="error"><?php echo currentError(); ?></span>
 	<a href="index.php#homepage"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home">Home</a>
   </div>
   <div data-role="content">
@@ -151,3 +151,4 @@
 </div>
 </body>
 </html>
+<?php $_SESSION['error'] = ''; ?>

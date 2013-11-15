@@ -1,4 +1,8 @@
 <?php
+include_once('exception.php');
+
+class PollCreationError extends CustomException {} //'No questions in the poll'
+class QuestionCreationError extends CustomException {} //'No panswers in the question
 
 /*
 	Defines the behaviour we need for database interaction between our objects.
@@ -40,6 +44,9 @@ class Poll implements iDatabase, iPost{
 		for($i = 0; $i < sizeof($POST['questions']); $i++){
 			$POST['questions'][$i]['order'] = $i + 1;
 			$obj->Questions[] = Question::createFromPOST($POST['questions'][$i]);
+		}
+		if(sizeof($obj->Questions) < 1){
+			throw new PollCreationError('No questions specified');
 		}
 		return $obj;
 	}
@@ -128,6 +135,9 @@ class Question implements iDatabase, iPost{
 					$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
 				}
 			}
+		}
+		if(sizeof($obj->PAnswers) < 1){
+			throw new QuestionCreationError('No answers specified');
 		}
 		return $obj;
 	}

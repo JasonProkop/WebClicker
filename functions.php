@@ -569,4 +569,11 @@ function displayPossibleSubscriptions(){
 	}
 	$db->commit();
 }
+
+function currentError(){
+	if(!empty($_SESSION['error'])){
+		$error = $_SESSION['error'];
+		return $error;
+	}
+}
 ?>
