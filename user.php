@@ -36,7 +36,7 @@ try{
 		</header><!-- /header -->
 		<div data-role="collapsible">
 			<h1>Create Group</h1>
-			<form action="creategroup.php" method="POST">
+			<form action="creategroup.php" method="POST" data-ajax="false">
 				<input type="text" name="groupname" placeholder="Group Name" required>
 				<input type="text" name="groupkey" placeholder="Group Password" required>
 				<input type="submit" value="Create">
@@ -52,8 +52,7 @@ try{
 				echo '<li><div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
 				echo 	'<ul data-role="listview">';
-				if($group->Creator == $_SESSION['email']) { echo '<li><a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" style="height: 10px;"data-icon="gear">Details</a></li>'; }
-				
+				if($group->Creator == $_SESSION['email']) { echo '<li><a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" data-icon="gear">Details</a></li>'; }
 				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
 				$sql->bindValue(':group', $group->Name);
 				$sql->bindValue(':user', $_SESSION['email']);
