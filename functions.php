@@ -452,7 +452,7 @@ function groupsOwnedByUser(){
 	$groups = array();
 	$db = db_getpdo();
 	$db->beginTransaction();
-	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com';");
+	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com' ORDER BY group_date_created DESC;");
 	$sql->bindValue(':user', $_SESSION['email']);
 	$sql->execute();
 	$rows = $sql->fetchAll();
@@ -472,7 +472,7 @@ function groupsJoinedByUser(){
 	if($_SESSION['email'] != 'anonymous@anonymous.com'){
 		$db = db_getpdo();
 		$db->beginTransaction();
-		$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name);");
+		$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name ORDER BY groupuser_date_joined DESC);");
 		$sql->bindValue(':user', $_SESSION['email']);
 		$sql->execute();
 		$rows = $sql->fetchAll();
@@ -563,7 +563,7 @@ function displayPossibleSubscriptions(){
 		echo '<li><form action="subscribe.php" method="POST" data-ajax="false">'.$group['group_name'].'
 				<input type="hidden" name="groupcreator" value="'.$group['group_user_email'].'">
 				<input type="hidden" name="groupname" value="'.$group['group_name'].'">
-				<input type="text" name="groupkey" required>
+				<input type="text" name="groupkey" placeholder="Group Password" required>
 				<input type="submit" name="submit" value="Subscribe">
 			</form></li>';
 	}

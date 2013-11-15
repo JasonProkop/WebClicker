@@ -49,24 +49,24 @@
 			<h1>Create a Poll</h1>
 		</a>
 	</div>
-	<div data-role="collapsible" data-collapsed="false">
+	<div data-role="collapsible">
 		<h3>Find poll by Access Code</h3>
 		<form action="search.php" method="POST" data-ajax="false">
 			  <input name="accessCode" id="accessCode" placeholder="Eg: axd21" data-inline="true">
 		</form>
 	</div>
-	<div data-role="collapsible" data-collapsed="false">
+	<div data-role="collapsible">
 	  <h3>Latest Public Polls</h3>
 		<ul data-role="listview" data-filter="true" data-inset="true">
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>
-	<div data-role="collapsible" data-collapsed="false">
+	<div data-role="collapsible">
 	  <h3>Feedback</h3>
-		<a href="poll.php?accessCode=amo24" data-role="button" data-ajax="false">Take our Feedback Poll</a>
-	</div>
-	<div data-role="content">
-		<a href="about.php" data-role="button" data-ajax="false">About WebClicker</a>
+		<div class="ui-grid-a">
+			<div class="ui-block-a"><a href="poll.php?accessCode=amo24" data-role="button" data-ajax="false">Feedback Poll</a></div>
+			<div class="ui-block-b"><a href="about.php" data-role="button" data-ajax="false">About us</a></div>
+		</div>
 	</div>
 </section><!-- /page -->
 

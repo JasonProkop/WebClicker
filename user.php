@@ -18,52 +18,53 @@ try{
 ?>
 <!doctype html>
 <html>
-
-<head>
+	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<title>
-			WebClicker - Poll Management
-		</title>
+		<title>WebClicker - Poll Management</title>
 		<link rel="stylesheet" href="themes/webclicker-usask.css" />
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 	</head>
 <body>
-	<section id="homepage" data-role="page" >
+	<div id="homepage" data-role="page" >
 		<header data-role="header"  data-tap-toggle="false">
 			<h1>Poll Management</h1>
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
-		<div data-role="content">
-			<form  action="creategroup.php" method="POST" data-ajax="false">
-				<div data-role="ui-grid-c">
-						<div class="ui-block-a"><input type="text" name="groupname" placeholder="Group Name" required></div>
-						<div class="ui-block-b"><input type="text" name="groupkey" placeholder="Group Key" required></div>
-						<div class="ui-block-c"><input type="Submit" name="Submit" value="Create a Group"></div>
-				</div>
-			</form>
+		<div data-role="collapsible">
+			<h1>Create Group</h1>
+			<input type="text" name="groupname" placeholder="Group Name" required>
+			<input type="text" name="groupkey" placeholder="Group Password" required>
+			<input type="submit" value="Create">
 		</div>
+		<div data-role="content">
+		<h2>Owned Polls in Groups</h2>
+		<ul data-role="listview" data-inset="true">
+		
 		<?php
 			
 			foreach($groups as $group){
-				echo '<div data-role="collapsible" data-collapsed="true">';
+				echo '<li><div data-role="collapsible" data-collapsed="true">';
 				echo "<h1>$group->Name</h1>";
-				if($group->Creator == $_SESSION['email']) { echo '<a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" data-icon="gear">Details</a>'; }
-				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
+				echo 	'<ul data-role="listview">';
+				if($group->Creator == $_SESSION['email']) { echo '<li><a href="groupdetails.php?name='.urlencode($group->Name).'" data-role="button" data-mini="true" data-icon="gear">Details</a></li>'; }
+				
 				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
 				$sql->bindValue(':group', $group->Name);
 				$sql->bindValue(':user', $_SESSION['email']);
 				$sql->execute();
 				displayPollsList($sql->fetchAll());
 				echo 	'</ul><!-- /list -->';
-				echo '</div><!-- /collapsible -->';
+				echo '</div><!-- /collapsible --></li>';
 			}
 			$db->commit();
 		?>
-	</section><!-- /page -->
+		</ul>
+		</div>
+	</div><!-- /page -->
 </div>
 </body>
 </html>

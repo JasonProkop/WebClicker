@@ -44,29 +44,33 @@ try{
 			<?php displayPossibleSubscriptions(); ?>
 			</ul>
 		</div>
-		
-		Group Subscriptions:
+		<div data-role="content">
+			<h2>Group Subscriptions</h2>
+			<ul data-role="listview" data-inset="true">
 		<?php
 			foreach($groups as $group){
-				echo '<div data-role="collapsible" data-collapsed="true">';
+				echo '<li><div data-role="collapsible">';
 				echo "<h1>$group->Name</h1>";
+				echo 	'<ul data-role="listview" data-filter="true">';
 				if($group->Name != 'Public'){
-					echo '<form action="unsubscribe.php" method="POST" data-ajax="false">'.$group->Name.'
+					echo '<li><form action="unsubscribe.php" method="POST" data-ajax="false">
 							<input type="hidden" name="groupcreator" value="'.$group->Creator.'">
 							<input type="hidden" name="groupname" value="'.$group->Name.'">
-							<input type="submit" name="submit" value="Unubscribe">
-						</form>';
+							<input type="submit" name="submit" value="Unsubscribe">
+						</form></li>';
 				}
-				echo 	'<ul data-role="listview" data-filter="true" data-inset="true">';
+				
 				$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group");
 				$sql->bindValue(':group', $group->Name);
 				$sql->execute();
 				displayPollsList($sql->fetchAll());
 				echo 	'</ul><!-- /list -->';
-				echo '</div><!-- /collapsible -->';
+				echo '</div></li><!-- /collapsible -->';
 			}
 			$db->commit();
 		?>
+			</ul>
+		</div>
 	</section><!-- /page -->
 </div>
 </body>
