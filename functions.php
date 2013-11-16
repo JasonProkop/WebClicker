@@ -327,7 +327,7 @@ function displayPollsList($polls){
 function displayRecentPolls(){
 	try{
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created;");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
