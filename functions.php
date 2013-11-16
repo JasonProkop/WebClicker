@@ -120,6 +120,7 @@ function authorizeUser($email, $key){
 */
 
 function signUp($email, $password, $alias){
+	$email = strtolower($email); //allows the user to input his email case insensitive
     randomize();
 	$salt = rand(0, 100000);
 	$hash = sha1($password . $salt);
@@ -210,6 +211,7 @@ function signOut(){
 	Authored by: Dylan
 */
 function signIn($email, $password){
+	$email = strtolower($email); //allows the user to input his email case insensitive
 	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM users WHERE user_email=:email LIMIT 1;");
 	$sql->bindValue(':email', $email);
@@ -325,7 +327,7 @@ function displayPollsList($polls){
 function displayRecentPolls(){
 	try{
 		$db = db_getpdo();
-		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC LIMIT 10;");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created;");
 		$db->beginTransaction();
 		$sql->execute();
 		$db->commit();
@@ -581,6 +583,10 @@ function currentError(){
 	}
 }
 
+/*
+	Outputs a consitent header on all our pages.
+	Authored by: Jason
+*/
 function outputHeader(){
 	echo '
 		<meta charset="utf-8">
