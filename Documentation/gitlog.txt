@@ -1,0 +1,1142 @@
+commit d2c6dfc6be4f522e13c06f5d85002a5a923d7abf
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 17:48:23 2013 -0600
+
+    Tweaks to plot presentation
+
+commit a8d6c5183d84224388c90d2b7b2950029b234e7f
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 17:12:47 2013 -0600
+
+    printed finalized documentation to .pdf
+
+commit e9d4a74f641f3a18b09fd7418ac84ac07ff06dbe
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 16:36:05 2013 -0600
+
+    changed share link to the new shortened version
+
+commit 337d7281ccc952657fc1db1e290968f076eac3f5
+Merge: 22d1455 3ee4662
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Fri Nov 15 16:31:06 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 22d145593d51c1c20efac5e142e4afe717896844
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Fri Nov 15 16:30:17 2013 -0600
+
+    Linked the Polls with twitter!! we have a twitter account @WebClickertk
+
+commit 3ee46626a75886eaa28ce4a8e0aececeb0a3237c
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 16:24:33 2013 -0600
+
+    New fonts and function or outputting header in every page
+
+commit eedce2d2c3225a2877aa68ae8bef96f5d0df76b4
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 15:22:55 2013 -0600
+
+    updated database
+
+commit 958bdf3fe57b6bb66e346e9250fc76135f55feb7
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:22:03 2013 -0600
+
+    Trying to fix white labels
+
+commit cfcc60aa39929b776ed5224d73527195621019f6
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:16:47 2013 -0600
+
+    Fix for input css
+
+commit da0e796b3f01adfefc0dd76454c6b11fce180b4b
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:12:54 2013 -0600
+
+    Corrected theme path
+
+commit be5b59eba36cfcceaac83d8fa9b173598aa3b8b0
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:10:10 2013 -0600
+
+    Applied new theme to poll results page
+
+commit 766126a037adb716e2d9109cff59b947cfd34dca
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:04:15 2013 -0600
+
+    Applied new theme
+
+commit a7c11f0887064ace2c0c562f04e45500b28e288f
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 15:01:33 2013 -0600
+
+    Made textboxes show white background
+
+commit e94263d59208d3822e3f2576dbd318ed1e1e40c2
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:56:56 2013 -0600
+
+    New theme. Updated theme application
+
+commit 91e70570a43215ced0cd52d56fb914593b92efe2
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:48:58 2013 -0600
+
+    New theme
+
+commit 2b6a9e284838a1ba45465c72ee18ed3deb1a259e
+Merge: 8f1e885 dac861d
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:35:18 2013 -0600
+
+    Merge branch 'master' of ssh://webclicker.tk/~/www
+
+commit 8f1e885ca95065c6155306d828ad5e536a4e9f09
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:34:26 2013 -0600
+
+    New theme
+
+commit dac861d12ea2d1a218f728caf086b42598b05c3a
+Merge: aa5d9a7 431d949
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:31:49 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit aa5d9a75f9fa6131f79a43516620d577cb9fc174
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:31:36 2013 -0600
+
+    updated feedback poll link
+
+commit 431d949a24d8c8ca5efdc573b8910c1968ea790d
+Merge: d3668a7 6dc17ba
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:23:33 2013 -0600
+
+    Merge branch 'master' of ssh://webclicker.tk/~/www
+
+commit d38b6c0597a180ab9a7c09cf51f498e1b6ccfbef
+Merge: 6dc17ba d3668a7
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:23:27 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit d3668a779a912e65dd9cfdf8ac7b59ae5a02a779
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 14:22:50 2013 -0600
+
+    Trying new theme
+
+commit 6dc17bae37cc9277b3188280981ac825eb43322b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:20:10 2013 -0600
+
+    added another error case for question creation
+
+commit b302cb21bb81b26cd5f10353fa9c789ba5462f7c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:17:54 2013 -0600
+
+    added another error case for question creation
+
+commit f3c72d18d52b783af9518fd78f5d1a598d1e5172
+Merge: fd76351 34d9542
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:10:34 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit fd763515f748d065811e0b549af6f936ce695021
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 14:10:16 2013 -0600
+
+    removed deactivate button from poll list view
+
+commit 34d95423e4e1f69d9afd94616a6dad6ae630fe29
+Merge: beb05ee bf4900c
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:59:53 2013 -0600
+
+    Merge branch 'master' of ssh://webclicker.tk/~/www
+
+commit beb05eec42f0d156722f188a807064f2f637a6e5
+Merge: 7bbb0ac 5d9ec0c
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:59:26 2013 -0600
+
+    Merge branch 'master' of ssh://webclicker.tk/~/www
+
+commit bf4900cb0f5e227be48597b031230236f191857d
+Merge: 5f05fb6 7bbb0ac
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:59:16 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 5f05fb674a52f9925025b91832c4918713194436
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:58:53 2013 -0600
+
+    fixed the form for creating groups
+
+commit 7bbb0ac4b1c7d8d062326fd3fd757e71669f28a0
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:56:37 2013 -0600
+
+    New theme and error css
+
+commit aedd75905112a39d45625dab09a9334a0b5be66e
+Merge: 5d9ec0c 6e5c5e1
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:41:39 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 6e5c5e16bddc13f3ff34e566daa780ca1d1faac6
+Merge: affff4f 0d59674
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Fri Nov 15 13:39:36 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit affff4fd27cdfaf6778f0490ac9d237eb2e52e2c
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Fri Nov 15 13:38:48 2013 -0600
+
+    Adding Documentation to GitHub
+
+commit 5d9ec0cea82f28b766ac73bc242985220a5e07da
+Merge: 60792c2 0d59674
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:38:19 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 60792c21944ce671e56abc374bba50986e582b76
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:37:00 2013 -0600
+
+    fixed the group create form
+
+commit 0d59674455181a4d9f0d44ead4fd4bb6b8810b2d
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:34:37 2013 -0600
+
+    Updated theme to be less ugly
+
+commit b714b31cce01795a57c7b7ce0f7728929fbb3e8a
+Merge: 6bc1446 a93733c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:26:08 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 6bc1446642c93ddaf3abd8ef0dda77fff18f834d
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 13:24:28 2013 -0600
+
+    fixed a bug in poll creation with empty questions'
+
+commit a93733c04911fc868868e8e8fddcd395d56a4e9b
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:11:44 2013 -0600
+
+    Update index.php
+    
+    Removed data-theme's other than page level
+
+commit 3b40a8ccd2cc24c70e2bb45145038ab5c6a1238f
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 13:08:15 2013 -0600
+
+    Update create.php
+    
+    Removed data-theme's other than the page level
+
+commit dbf3898f84763e60a14c575bfe232d43f99b734b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 12:57:24 2013 -0600
+
+    anonymous users are not able to create inactive polls
+
+commit 1c891b08e71645fc5a48e0c57ca900fdde7b41b8
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 11:38:57 2013 -0600
+
+    Trying to disable activity toggle for anonymous users
+
+commit f1970cb989183b117ecf581cac9e6a6e3686bdd0
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 09:44:20 2013 -0600
+
+    added new theme to user.php and add redircect on signin/up to index.php
+
+commit ec1b23efffa605be2f1a4ccef90bbaa3323a91d2
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 15 01:28:52 2013 -0600
+
+    Updated and applied theme to non-poll page
+
+commit f5f93d468bb125480b5db24d95d4f430b6aa2361
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 01:08:05 2013 -0600
+
+    various interface fixes
+
+commit b2129c688fc29fdd7eded08f743b255406ec75ea
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 15 00:21:28 2013 -0600
+
+    added the group details page for group owners.
+
+commit 6f3e0b0fac1f0a1fcf8a81ff5a6763589e71f39e
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 23:54:21 2013 -0600
+
+    fixed minor bug with activate/deactive while not signed in
+
+commit 5e13c529bd187a8059a26ad2f960a3f3098757d5
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 23:48:13 2013 -0600
+
+    activate/deactive will no longer show if you are not the owner of the poll
+
+commit 69e2cfc2308f3ec8fd270f8268becd1dded3dbce
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 23:36:46 2013 -0600
+
+    added the activate/deactivate functionality
+
+commit e2c746639bd8675b21fe823b23aafc101b75d498
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 22:57:13 2013 -0600
+
+    fixed issue #29. You can now create inactive polls.
+
+commit 10d068d1dea7ed3ba414b1040a03081cb2a7eae2
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 22:30:45 2013 -0600
+
+    Fixed issue #24. Error messages for sign in/sign up will display in the header. Also added home buttons to those pages
+
+commit 85072734a64bc305dbd1e078491113b172489fbf
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 22:14:59 2013 -0600
+
+    fixed issue #15. responses on graphs are now displaying at an angle
+
+commit 5a3e89b5d183ddbc75b07478dc983ea858cf5e43
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 21:02:06 2013 -0600
+
+    Fixed graphs to show 0 responsed answers
+
+commit b41b06d57ad254104d61cec4fb107cc7ca55141a
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 20:55:10 2013 -0600
+
+    fixed anonymous create poll group bug
+
+commit bac6c75946173c2baeb30b0cf19cf18b7dce0aa8
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 19:31:07 2013 -0600
+
+    minor bugfix again
+
+commit dbece33da7da32064c3c45fd6ba03a500873699d
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 19:13:13 2013 -0600
+
+    minor bug in create
+
+commit 09f7c0706096aa87127710ec7d00a18c8d126846
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 19:00:46 2013 -0600
+
+    Got subs/unsubs to groups working without errors but testing is needed.
+
+commit 23d9c26fd3fa39a386f99d181e768c5a1f0fd276
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 16:21:06 2013 -0600
+
+    added the new user.php page to manage groups and polls made my the user.
+
+commit 201304de84d50ea1545d7d063af702d649287472
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 15:06:46 2013 -0600
+
+    fixed signin bug
+
+commit 1c8401e1d71ddce2edfe9ec1158fc15fffc603b6
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Nov 14 14:52:50 2013 -0600
+
+    database has been updated to handle groups and owners of polls and groups. create poll has been updated to handle the changes.
+
+commit acfbe2f46fc4549cbba85a5c1f7d9e5eb17e0738
+Merge: dceb9de 1b5c2ea
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 13 17:23:00 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit dceb9de7c094e575908a0ae5ca97d9aca4cac276
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 13 17:22:39 2013 -0600
+
+    updated the db to handle groups, broke everything
+
+commit 1b5c2ea19e4720aedfb8ddea3f561116f29592d5
+Merge: ea97f1e 40b6cb8
+Author: Brady Smith <bradyallansmith@gmail.com>
+Date:   Wed Nov 13 16:28:08 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit ea97f1edce0721b21e29709bc67bed20c1aac148
+Author: Brady Smith <bradyallansmith@gmail.com>
+Date:   Wed Nov 13 16:23:21 2013 -0600
+
+    testing hooks
+
+commit a390007a715c98aeb7278f61b4868541423acd72
+Merge: 7a7905a 40b6cb8
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 13 10:21:47 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 7a7905a91abf93e1b92995fb9fc3d1189a355300
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 13 10:21:23 2013 -0600
+
+    added error redirect
+
+commit 40b6cb85f73d0e164717e05fd38ff03ddce9c620
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Wed Nov 13 10:20:13 2013 -0600
+
+    Update results.php
+    
+    Fix for x-axis bug and how bar plots are displayed
+
+commit fd8414d07a0dc9d3b000ca748ecd344218ed3222
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 12 10:49:20 2013 -0600
+
+    small fix to textbox for questions. no longer a textarea as multiple lines breaks the results page and is not needed for a question.
+
+commit 7c074cc08890b5150d9106342802e716690340b6
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Tue Nov 12 09:44:06 2013 -0600
+
+    fixed view of poll detail page
+    
+    my development envirment have issues, this modification is not tested,
+    but it should work I think.
+
+commit 895a8ab14492556a3e919aac0e411e4fbf280c8d
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 12 02:42:22 2013 -0600
+
+    Added site statistics to about us
+
+commit 7ecdf9e1eae4697b1ec6436490b0c88aed6c3997
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 12 02:17:45 2013 -0600
+
+    Created a poll details page (transit page discussed in isse #14) and added take/results/details buttons to the polls on the main page for quicker access to what you want
+
+commit 9807600c1fa4c4f2dc86094aebca7cc39f70f0d6
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Tue Nov 12 00:57:47 2013 -0600
+
+    Update create.php
+    
+    Edited 'Add New Question' button text to 'Add Question' to fit on mobile screens
+
+commit a3bbe622f036fd5c6f56bad5b5d72eca5c37a09e
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 12 00:54:59 2013 -0600
+
+    Fixed issue 13. Possible Answers were being attributed to the wrong questions in create poll.
+
+commit b893eef9ae1aa22398b82baade3c5615cdcd20a2
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 12 00:09:28 2013 -0600
+
+    Fixed issue #4. Made y-axis of bar graphs integer precision and calculated tickInterval based on max response/ticks (default 5)
+
+commit a28fc132701f907397e7d7fd8790ed4e0775aa37
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 23:59:36 2013 -0600
+
+    fixed precision of bar graphs to single integers
+
+commit d8bd5bef73ec2560b11b6ad261449b1244e206ca
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 23:32:20 2013 -0600
+
+    fixed a bug in previous commit.. there was more states than I had thought
+
+commit aa2dd5be292e48188e38b99220c4de9c5ba4e3d5
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 23:25:32 2013 -0600
+
+    added the long needed next/previous buttons on taking polls (added swipe as well). and only put the submit button on the last question
+
+commit 10fe212aaa73e983d0cb4785dd9b82e1b4e3c3c8
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 22:29:23 2013 -0600
+
+    Added an about us page. Please update with more relevant data if needed
+
+commit ee114807dd360af27687d748d9ec524e02ad1b94
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 22:16:41 2013 -0600
+
+    updated index page to be more descriptive and truncated long user names
+
+commit 6b84abe9bd7fcbcee911eef673fa725a0bc93ee1
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 21:41:39 2013 -0600
+
+    Fixed issue#8. Most recent public polls are now displayed with their ID first
+
+commit db12e620f4b41882ad8603465006e7cd06138389
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 21:39:27 2013 -0600
+
+    Fixed issue#6. title was incorrect on results/create pages
+
+commit 4a7260beefa9d99a3fcf751091e19b00f0177d71
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 21:33:12 2013 -0600
+
+    Fixed issue #9 - poll names are no longer optional but a random name is generated if need be
+
+commit 6dfd28018f0e3194042a3afb28e1dc3ad8558d1b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 21:20:22 2013 -0600
+
+    Fixed issue#5. No longer displaying any account related information with text responses.
+
+commit d31e2908f338f5f2b6e9eb06fd05abe0a7f1dd2a
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 21:17:52 2013 -0600
+
+    Issue #3 fixed. Blank text responses are ignored before going into the database
+
+commit c77a0b388ec1607fca1ef392ef7d1ce66420946b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 11 20:47:26 2013 -0600
+
+    fixed text inputs for create poll to only allow one line. Issue #12
+
+commit aae52e335726d15300a6289d9e3a56b2c04cdac1
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sun Nov 10 02:26:51 2013 -0600
+
+    Removed legend from bar plot and made pie legend show to the right
+
+commit 3b162abbcfb00af3faecd42255a58e4c2b4a84ba
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sun Nov 10 02:11:59 2013 -0600
+
+    Made questions and response textareas required
+
+commit 371f32e811108b621aa1c2f829f6524325ebf61c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 23:39:08 2013 -0600
+
+    fixed wrong checkbox answers not going into database
+
+commit 2f304af7fa7f69f879aecb9be1cd5ee0b6d11443
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 23:29:52 2013 -0600
+
+    fixed a bug where only 1 checkbox response was being tabulated instead of multiple
+
+commit a6c882d1f2868102072a481b8e1addcfa92932ad
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 22:58:34 2013 -0600
+
+    fixed homepage buttons
+
+commit 9daea85d3f268a19fb614a1f4427eb9037e46c75
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Sat Nov 9 22:43:48 2013 -0600
+
+    add nav highlight for polls.
+
+commit e2b4ec5fbe5efb59ef923cc326ccb6c759da6385
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 20:23:53 2013 -0600
+
+    fixed most recent polls to be DESC not ASC and fixed feedback poll
+
+commit 439a5db7a22dfc0bb729adac1170a7cb49e70fd6
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sat Nov 9 20:01:56 2013 -0600
+
+    Changed order of statements in removing responses
+
+commit 7705dd4978dab05a72407416754d4be0c3a1a275
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sat Nov 9 19:26:16 2013 -0600
+
+    poll.php: Made radio questions display vertically
+
+commit 79e8e3b02bb019ee2bfa71996a31aecc8284b287
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sat Nov 9 15:54:06 2013 -0600
+
+    Fixed typo on 'data-filter' for text question results
+
+commit 0fdf74fbb5bdeaf7975f0243a66131f3e77b31ee
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 14:56:26 2013 -0600
+
+    fixed some minor bugs with create poll
+
+commit b8f03c0bea0c104039edb75e31549f4ddcffb495
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sat Nov 9 14:09:25 2013 -0600
+
+    got results working, got view polls working, added some comments to functions.php, TEST AWAY
+
+commit 7a6511f730b7cad3eb22e7c6f565da66e1a8ae73
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Sat Nov 9 00:21:27 2013 -0600
+
+    Updated results_new2.php with revised charts
+
+commit d6aebd5581fa08953b03d3fc41c412e29274469c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 18:36:22 2013 -0600
+
+    working on showing results
+
+commit aa083dd12772b863e57f7780d7c0957e067fb9f5
+Merge: 2fccaff 1e9615c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 17:38:06 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 1e9615c357e9e105c723a64827c3380603b3d81a
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 8 17:37:44 2013 -0600
+
+    Made results_new2.php
+
+commit 2fccaff8c5cf8ed81c535070b94a39b1ab765a80
+Merge: 1b90d73 fd3cdd8
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 17:37:00 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 1b90d7352158e2cb50b03395e8bda425f29f340a
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 17:36:45 2013 -0600
+
+    working on results viewing
+
+commit fd3cdd88bff4bedeb3cd5c7e733bfa5a64c0c56f
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Nov 8 17:23:31 2013 -0600
+
+    delete submit button.
+
+commit 9b84aa5b35202c7ac62bd60a4533fc4b3a070ee0
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Nov 8 16:57:40 2013 -0600
+
+    modify Index Searching Poll looking
+    
+    still have problem of align.
+
+commit f89f413b6407c3be0f6cc315ea7fc02c58fbc9e2
+Merge: 531e276 4cf181b
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Nov 8 16:37:09 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 531e2763a727d0709cb0a620a90748c3de6a7b67
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Nov 8 16:36:58 2013 -0600
+
+    modify Create poll looking.
+    
+    add button of delete question
+    add icon for user.
+
+commit a8526bdef31c55432c869934479204ca2cbe6701
+Merge: bb17616 4cf181b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 16:26:49 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 4cf181bd0129f87e190292261b171a62e3051e98
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 8 16:25:50 2013 -0600
+
+    Updates to index.php and results_new.php
+    
+    Used listview for recent polls
+    Made poll id navigation inline
+    Created results_new.php
+
+commit bb176163100621216f7af7034e5ae7a998155448
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 16:23:18 2013 -0600
+
+    added an error page and session variable
+
+commit 78691b6991d070e658ad2d43da5ccb48ae50dd5e
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 15:43:36 2013 -0600
+
+    updated all exception handlers to proper pages
+
+commit 59a6f659d1a8456e2f8c1e5a454b587aca105050
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 15:06:36 2013 -0600
+
+    got results going into the database
+
+commit 9ad46b4b7e55f966d80002ec202084284bffa336
+Merge: bead1ef 27f597c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 11:45:59 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit bead1ef68579893ce8cd5880fe5b82adb89f92f7
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 11:45:10 2013 -0600
+
+    updated min/max checks for add/remove buttons on create
+
+commit 27f597cb1e10cc0ce84bf8f79133cb6496c294f7
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Nov 8 03:42:49 2013 -0600
+
+    Update README.md
+    
+    fixed typo
+
+commit 3ddc96b6e050126032998e84670676cd02175919
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Nov 8 02:59:15 2013 -0600
+
+    create poll works. view poll works. latest polls works. no more gibbing headers/footers
+
+commit 4b318838e35d1823273fc446dcefe987d40e0801
+Merge: cff35a0 6986518
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 22:56:54 2013 -0600
+
+    Merge remote-tracking branch 'origin/CreatePoll'
+
+commit 69865189769c1ba89482fd637f18e6662834405c
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 22:36:27 2013 -0600
+
+    clean clash information
+
+commit 19200a56e94f3fcc5c74b8002b2279c321273c61
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 22:31:28 2013 -0600
+
+    change the var name and modify the form.
+
+commit 820fbdb7bea59753736133f5035031447b5f514e
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 21:55:49 2013 -0600
+
+    modify the submit buttons.
+
+commit cff35a03943f76468e2abfbd87b2c3874f805b39
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 20:55:38 2013 -0600
+
+    Revert "add comments for code"
+    
+    This reverts commit 9f24f7043f50aeb0583f9ecce1cad4a42f329471.
+
+commit c5499c059090537a64b465e9256b52f090146bcb
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 20:55:10 2013 -0600
+
+    add comments and modify the responds select.
+
+commit 9a1bab450ae139c83b8d831d46b1000312f69105
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 20:46:32 2013 -0600
+
+    add popList for QuestionList
+
+commit 9f24f7043f50aeb0583f9ecce1cad4a42f329471
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 20:38:56 2013 -0600
+
+    add comments for code
+
+commit 11efbb16eb838878c57b271c077deeabebd028ea
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 6 16:22:43 2013 -0600
+
+    added dynamic creation of polls for taking polls
+
+commit 512f67aca7b48b55d1de48d3fe905c27f8a5d8b6
+Merge: 61e4bd5 6b0ccd3
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 12:48:42 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 61e4bd59074f270587515eaa058229775b441093
+Merge: 3484146 b07b3eb
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Nov 6 12:48:13 2013 -0600
+
+    Merge remote-tracking branch 'origin/CreatePoll'
+
+commit 6b0ccd32a40af9b57e9224b83f882a1d1c4a60f7
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Nov 6 12:35:43 2013 -0600
+
+    restructured the database so please load dbdump.sql
+
+commit b07b3ebca1b67348f73f909a7ae13e156f2a81d2
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Tue Nov 5 23:39:50 2013 -0600
+
+    modify the looks of createQuestion page
+    
+    make it more easy to use.
+
+commit d4be910b4ec692c7c9409df31ed19daea1b291ec
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Tue Nov 5 23:38:49 2013 -0600
+
+    Change Index "Create Poll!"button link
+    
+    Link to new createQuestion.php page
+
+commit 3484146b62e88dc3e5e71c28f3c6764adb573b77
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Tue Nov 5 20:44:06 2013 -0600
+
+    Added Poll,question,answer,possible answer classes and database interface. Added poll 12345 to the database and search is able to find it.
+
+commit d2a475757fc9e284ae41d45aa3584336c8f5cb1a
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Nov 4 23:56:17 2013 -0600
+
+    add create question php file
+
+commit dabd16ae09bf5245e1fd70bf9f2cb0cec6f36a05
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 15:40:15 2013 -0600
+
+    Added validAccessCode() function and 2 new exceptions to search.php
+
+commit d3eff2b4fc4e943ebd0320a360aab7609a5039c1
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Mon Nov 4 14:20:34 2013 -0600
+
+    added a search functino that takes a accessCode supplied by a user and searched the database for a poll iwth a mathcing accesscode
+
+commit bcdb4560f35c57a4a9815bbcdfa8360338d46d14
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:31:18 2013 -0600
+
+    Fixed signing in.
+
+commit 1ea03b91282faccff230f7862634a86db7b4667a
+Merge: 8ecbd6e 905a37d
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:15:27 2013 -0600
+
+    Merge branch 'master' of https://github.com/JasonProkop/cmpt370
+
+commit 8ecbd6ef0f65317dbf640deda5a5c53a3025925b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:13:35 2013 -0600
+
+    So many errors. useful git comments too.
+
+commit 0a00d52aaf601d39e9c9be5cbf6988b52a7feed3
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:12:55 2013 -0600
+
+    Fixed error in index.php
+
+commit 094dfb9b4e541aabbfe86c5eb644bed63c75eeae
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:10:47 2013 -0600
+
+    Fixing git
+
+commit 7eb9f8b9a110adc340a5c17141f892a369dc088c
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Mon Nov 4 13:09:29 2013 -0600
+
+    UPDATED to view-control model
+
+commit 47fb4afc81b4a7c276015dc8c7d51c3deb098d25
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sun Nov 3 11:59:58 2013 -0600
+
+    Updating to VIEW-CONTROL model
+
+commit 905a37d0ae6020bf2144a26a1769570097a9f662
+Author: Brady Smith <brady_smith87@hotmail.com>
+Date:   Sat Nov 2 15:45:31 2013 -0600
+
+    restricted screen size when index.php is viewed on desktop screens
+
+commit c85b5849d482106d7579a0e1c58743367499d169
+Author: Max Gooding <maxgooding@hotmail.com>
+Date:   Sat Nov 2 14:30:42 2013 -0600
+
+    added comment to index
+
+commit 3b009d9fab4ac6b9ceb22fd53cb2faf537651e53
+Author: Brady Smith <brady_smith87@hotmail.com>
+Date:   Sat Nov 2 14:11:57 2013 -0600
+
+    NEW BRANCH: desktopWidth - Set up to work on with max for getting desktop width working properly
+
+commit 8fe063b7603412d3d18ae646a126e3b4f9a08e24
+Author: Brady Smith <bradyallansmith@gmail.com>
+Date:   Sat Nov 2 14:02:13 2013 -0600
+
+    BUGFIX index.php: Removed stray text from Dylan's rough merge
+
+commit 941286b5e16743ec736ed13d540b653b1f26324b
+Merge: f3a2f85 7625485
+Author: Brady Smith <bradyallansmith@gmail.com>
+Date:   Sat Nov 2 13:48:50 2013 -0600
+
+    Merge branch 'serversignin' to master
+
+commit f3a2f85b1dd4ea1e1824b6650d189190118cc26e
+Author: Brady Smith <brady_smith87@hotmail.com>
+Date:   Fri Nov 1 11:18:56 2013 -0600
+
+    updated readme
+
+commit 7625485cd0f15717c41ceb223690edc0594a9104
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Sun Oct 27 16:46:25 2013 -0600
+
+    signup/in/out all working with email verification
+
+commit 2ba144d6d283b4c245ebebb703950cbc35256aa8
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 17:53:10 2013 -0600
+
+    changed Signup to meet user case requirement.
+    
+    import the code from Jason's patch 2 days ago.
+
+commit c187ed2e71fc65bfcc4c4dff0d58e394718a35d3
+Merge: fe22028 374c1dc
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 17:33:41 2013 -0600
+
+    merge from Dylan ServerSignIn
+
+commit fe22028c07046c5ea0db1a9d00c3ba9d483d90a7
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 17:21:12 2013 -0600
+
+    Add more details on createQuestions Interface
+    
+    with tons of help from Jason!
+
+commit 374c1dc9759f6e54f25f6ad10b904bf8831803a3
+Merge: cba430a d3626ac
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Oct 25 16:17:35 2013 -0600
+
+    Merge branch 'serversignin' of https://github.com/JasonProkop/cmpt370 into serversignin
+
+commit cba430a29136eebeaab13d5b4d4825332d603013
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Fri Oct 25 16:03:38 2013 -0600
+
+    updated the index and added functions.php
+
+commit ee9240c08da3c323e95fc1a7152ee31a262fa007
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 15:45:35 2013 -0600
+
+    link the CreatePoll temp HTML in.
+    
+    improved appearance of index page.
+
+commit 8902eb6e100486f3a3c4da23c4352f8535f35060
+Merge: b99c866 d3626ac
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 14:28:57 2013 -0600
+
+    Sign In and Sign Up works. made by Dylan
+
+commit d3626acf6bd6507259d86ca2fce3f27f4a7e83fe
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Fri Oct 25 13:45:44 2013 -0600
+
+    clean some codes.
+
+commit a1b0de44a828fab98221400e86caee20c8b5fc2e
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Thu Oct 24 22:31:19 2013 -0600
+
+    add Poll Example Button
+
+commit 2f3bd942717714bc2f4288ec17965f2a30c8805b
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Thu Oct 24 19:16:13 2013 -0600
+
+    added sign in authentication, sign up process
+    Lines starting
+
+commit b99c866897ec7f544e1c3c12dfb208e82805a8c4
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Thu Oct 24 00:01:33 2013 -0600
+
+    setup create question page
+
+commit 1778b5143cf5f3bb6140bf9d1290d7e45a88d7f0
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Wed Oct 23 23:36:48 2013 -0600
+
+    setup the create poll temp page
+    
+    Only interface.
+
+commit 5923a1fc1e7e19888e2c0a755df2631a7f5c0e84
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Wed Oct 23 14:32:25 2013 -0600
+
+    Signup form changes to meet use case
+    
+    Updated for attributes on labels to be more descriptive
+    Required fields
+    Password confirmation validation
+
+commit 186e0cdf5c4976345fffcab079352e6e74cf98da
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 21 10:57:17 2013 -0600
+
+    modify the width of option.
+
+commit bd70f08aa149cfbaf46ebed8bdcca4bf1335c90f
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 21:40:34 2013 -0600
+
+    modify size of Sign Up button
+
+commit eaecdf6c71e433f5abf68bf3b1625476da82c7b9
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 21:23:07 2013 -0600
+
+    change Option menu to Overlay
+    
+    looks Cooler huh?
+
+commit 6a617d04dde320d94830cc81168d250a0ff54169
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 13:01:44 2013 -0600
+
+    add SignIn and SignUp page
+    
+    exactly copy the code from Jason's. it is ok I think he will never know
+    that (what?
+
+commit 48021183e8d679fa4407d93c6cc4f05246315eee
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 12:53:06 2013 -0600
+
+    Update UI for homepage
+    
+    Compared with Jason's, Mine is so stupid... so copy the text and design
+    from his.
+
+commit 7071291f058601291be292dcfed7c5f379f47dba
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 11:27:09 2013 -0600
+
+    add Option Page UI
+
+commit d2e1430b136b96788ac39414f20ed0ce657e6afa
+Author: zillionk <zillionk1973@gmail.com>
+Date:   Mon Oct 14 01:06:41 2013 -0600
+
+    setup the homepage for website.
+    
+    have no picture on it yet.
+    and I hope to enlarge the setup poll button.(but how?)
+
+commit 270ff8bae0db298a5ec519a25c8b1a21091f778c
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Wed Oct 23 13:45:19 2013 -0600
+
+    HTML Poll file using swipe detection for changing pages
+
+commit 6bdf622f3eb34c41b9d1a6a73fe79fce4c185204
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Oct 9 17:23:29 2013 -0600
+
+    added updated database
+
+commit f6cbef5ac12ec8430210db42fae8323bd8c90e68
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Oct 9 17:02:11 2013 -0600
+
+    Fixed dbdump
+
+commit 8f54f856bf7988bb255839417061b7f3d49aba95
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Oct 9 16:45:29 2013 -0600
+
+    Fixed some <? opening bugs
+
+commit 403e192c26a2ce6657ac475407e9c82903190f34
+Author: brady <brady@brady-Aspire-7750G.(none)>
+Date:   Wed Oct 9 16:38:31 2013 -0600
+
+    added new database dump
+
+commit 8c4e762b628972ece1f88d9df2f403ea42e4168d
+Author: brady <brady@brady-Aspire-7750G.(none)>
+Date:   Wed Oct 9 16:29:19 2013 -0600
+
+    added database dump file
+
+commit b15b3a5066c2a189be17ae4797cd24c452bf7e87
+Author: Dylan Fafard <fafmaster@hotmail.com>
+Date:   Wed Oct 9 15:03:29 2013 -0600
+
+    Starting point for our website git branch
+
+commit f48a89a3719163ab75046f219736c05c7c31cb56
+Author: JasonProkop <jasonprokop@gmail.com>
+Date:   Fri Sep 13 12:51:50 2013 -0700
+
+    Initial commit

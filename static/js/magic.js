@@ -12,7 +12,7 @@ function addCheckbox(fieldset){
 		fieldset.attr('checkboxes',  currentCheckboxes + 1);
 		var num = fieldset.attr('checkboxes');
 		var qindex = parseInt(fieldset.parent().parent().attr('question'));
-		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : ''});
+		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : 'answer'});
 		var label = $('<label />', {'for' : 'checkbox' + num});
 		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
 		
@@ -129,16 +129,6 @@ $(document).on('pageinit', function () {
 		}
 	})
 	$('#addNewQuestion').click();
-});
-
-$(document).on('create', function(){
-	$('.texta').keyup(function(){
-        $(this).parent().parent().parent().parent().find(".textb").attr('value', $(this).val());
-    })
-
-    $('.texta').change(function(){
-		$(this).parent().parent().parent().parent().find(".textb").attr('value', $(this).val());
-    })
 });
 
 $(document).on('pageinit click', function () {

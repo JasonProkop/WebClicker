@@ -125,14 +125,12 @@ class Question implements iDatabase, iPost{
 		$obj->Type = $POST['type'];
 		$obj->Order = $POST['order'];
 		if($obj->Type != "Textbox"){
-			for($i = 0; $i < sizeof($POST['answers']); $i++){
-				if(!empty($POST['answers'][$i])){
-					$obj->Answers[] = Answer::createFromPOST($POST['answers'][$i]);
-				}
-			}
-			for($i = 0; $i < sizeof($POST['panswers']); $i++){
-				if(!empty($POST['panswers'][$i])){
-					$obj->PAnswers[] = PAnswer::createFromPOST($POST['panswers'][$i]);
+			while(list($key, $value) = each($POST['panswers'])){
+				if(!empty($value)){
+					$obj->PAnswers[] = PAnswer::createFromPOST($value);
+					if(array_key_exists($key, $POST['answers'])){
+						$obj->Answers[] = Answer::createFromPOST($value);
+					}
 				}
 			}
 		}
@@ -344,6 +342,11 @@ class SiteStats{
 		$sql = $db->prepare("SELECT * FROM groups;");
 		$sql->execute();
 		$this->Groups = $sql->rowCount();
+		
+		$sql = $db->prepare("SELECT * FROM responses WHERE response_response IN (SELECT answer_answer FROM answers WHERE answer_question_id=response_question_id);");
+		$sql->execute();
+		ini_set("precision", 3); // to get float division
+		$this->Percentage = $sql->rowCount() / $this->Responses;
 		
 		$db->commit();
 		return $this;

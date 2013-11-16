@@ -13,6 +13,7 @@ function displaySiteStats(){
 		echo "<li>$stats->Questions Questions</li>";
 		echo "<li>$stats->Responses Responses</li>";
 		echo "<li>$stats->Groups Groups</li>";
+		echo "<li>".sprintf("%.2f%%", $stats->Percentage * 100)." Total Response Grade</li>";
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
