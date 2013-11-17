@@ -31,7 +31,7 @@ function displayRadio($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: ".json_encode($question->Question).",
+					title: ".json_encode($question->Title).",
 					seriesDefaults: {
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
@@ -39,6 +39,7 @@ function displayRadio($question){
 			        legend: { show:true, placement: 'outsideGrid'}
 			    }
 			);
+			
   		});
     	</script>
     ";
@@ -53,7 +54,7 @@ function displayCheckbox($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: ".json_encode($question->Question).",
+					title: ".json_encode($question->Title).",
 					seriesDefaults: {
 						renderer: $.jqplot.BarRenderer,
 						rendererOptions: 

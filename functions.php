@@ -609,5 +609,6 @@ function outputHeader(){
 		</style>
 	';
 }
+
 ?>
 
