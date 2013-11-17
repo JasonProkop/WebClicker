@@ -40,26 +40,14 @@ function loggedInUser()
 	}
 }
 
-/* Get a user's gravatar (returns small version)
+/* Get a user's gravatar (returns size based on input)
  *	
  * Authored by: Brady, gravatar
  */
-function getGravatarURLSmall() {
+function getGravatarURL($a) {
 	$email = $_SESSION['email'];
-	$size = 40; // set the size of the returned photo
+	$size = $a; // set the size of the returned photo
 	$default; // need to set this to be somedefault not signed in avatar
-	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
-	return $grav_url;
-}
-
-/* Get a user's gravatar (returns large version)
- *	
- * Authored by: Brady, gravatar
- */
-function getGravatarURLLarge() {
-	$email = $_SESSION['email'];
-	$size = 120; // set the size of the returned photo
-	$default; // need to set this to be some default not signed in image
 	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
 	return $grav_url;
 }

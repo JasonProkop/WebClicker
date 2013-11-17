@@ -27,7 +27,7 @@
 
 <section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
 	<header data-role="header"  data-tap-toggle="false">
-		<img border="0" src="<?php $gravURL = getGravatarURLSmall(); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
+		<img border="0" src="<?php $gravURL = getGravatarURL(40); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
 	
@@ -69,7 +69,7 @@
 	<div class="gravatar">
 		<div id="wrapper" style="width:100%; text-align:center">
 	  		<ul>
-	  			<img src="<?php $gravURL = getGravatarURLLarge(); echo $gravURL; ?>" alt="" style="float:center;display:inline"/>
+	  			<img src="<?php $gravURL = getGravatarURL(120); echo $gravURL; ?>" alt="" style="float:center;display:inline"/>
 	  		</ul>
 	  	</div>
 	</div>
