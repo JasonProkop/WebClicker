@@ -40,6 +40,18 @@ function loggedInUser()
 	}
 }
 
+/* Get a user's gravatar
+ *	
+ * Authored by: Brady, gravatar
+ */
+function getGravatarURL() {
+	$email = $_SESSION['email'];
+	$size = 40; // set the size of the returned photo
+	$default; // need to set this to be somedefault not signed in avatar
+	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
+	return $grav_url;
+}
+
 /*
     Generates a random access code for accessing polls. 
     A random string of characters in the charset with a given length (default 5)

@@ -27,6 +27,7 @@
 
 <section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
 	<header data-role="header"  data-tap-toggle="false">
+		<img border="0" src="<?php $gravURL = getGravatarURL(); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
 	<div data-role="collapsible">
@@ -35,25 +36,28 @@
 			echo $content;
 			echo $links;
 		?>
-		
 	</div>
+	
 	<div data-role="content">
 		<a href="create.php" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>Create a Poll</h1>
 		</a>
 	</div>
+		
 	<div data-role="collapsible">
 		<h3>Find poll by Access Code</h3>
 		<form action="search.php" method="POST" data-ajax="false">
 			  <input name="accessCode" id="accessCode" placeholder="Eg: axd21" data-inline="true">
 		</form>
 	</div>
+	
 	<div data-role="collapsible">
 	  <h3>Latest Public Polls</h3>
 		<ul data-role="listview" data-filter="true" data-inset="true">
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>
+	
 	<div data-role="collapsible">
 	  <h3>Feedback</h3>
 		<div class="ui-grid-a">
@@ -66,6 +70,7 @@
 <!-- SignUp-->
 <div data-role="page" id="signUpPage" data-title="WebClicker - Sign Up" data-theme='a'>
   <div data-role="header">
+  	
     <h3>
       Sign Up
     </h3>
@@ -112,6 +117,7 @@
       </div>
 	  <input type="submit" value="Submit">
     </form>
+    
   </div>
 </div>
   <!-- Sign In -->
