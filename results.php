@@ -36,11 +36,12 @@ function displayRadio($question){
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
 			        },
-			        legend: { show:true, placement: 'outside', location: 's'}
+			        legend: { show:true, placement: 'insideGrid', location: 's'}
 			    }
 			);
 			
   		});
+		
     	</script>
     ";
 }
@@ -82,6 +83,7 @@ function displayCheckbox($question){
 				}
 			);
 		});
+		
     	</script>
     ";
 }
@@ -170,7 +172,7 @@ function displayQuestion($question){
 				$q=1;
 				$qn = sizeof($poll->Questions);
 				for($q = 1; $q <= $qn; $q++){
-					echo "<div data-role=\"none\" class=\"jqplot-target bordered\" id='chart$q'>";
+					echo "<div data-role=\"content\" class=\"jqplot-target bordered\" id='chart$q'>";
 					echo '</div>';
 				}
 ?>
