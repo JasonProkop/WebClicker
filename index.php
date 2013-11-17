@@ -27,23 +27,24 @@
 
 <section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
 	<header data-role="header"  data-tap-toggle="false">
-		<img border="0" src="<?php $gravURL = getGravatarURL(); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
+		<img border="0" src="<?php $gravURL = getGravatarURLSmall(); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
+	
 	<div data-role="collapsible">
 		<?php 
 			echo $header;
 			echo $content;
 			echo $links;
 		?>
+		
 	</div>
-	
 	<div data-role="content">
 		<a href="create.php" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>Create a Poll</h1>
 		</a>
 	</div>
-		
+	
 	<div data-role="collapsible">
 		<h3>Find poll by Access Code</h3>
 		<form action="search.php" method="POST" data-ajax="false">
@@ -57,13 +58,20 @@
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>
-	
 	<div data-role="collapsible">
 	  <h3>Feedback</h3>
 		<div class="ui-grid-a">
 			<div class="ui-block-a"><a href="poll.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></div>
 			<div class="ui-block-b"><a href="about.php" data-role="button" data-ajax="false">About us</a></div>
 		</div>
+	</div>
+	
+	<div class="gravatar">
+		<div id="wrapper" style="width:100%; text-align:center">
+	  		<ul>
+	  			<img src="<?php $gravURL = getGravatarURLLarge(); echo $gravURL; ?>" alt="" style="float:center;display:inline"/>
+	  		</ul>
+	  	</div>
 	</div>
 </section><!-- /page -->
 
