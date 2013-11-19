@@ -31,7 +31,7 @@ function displayRadio($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: '".$question->Question."',
+					title: ".json_encode($question->Title).",
 					seriesDefaults: {
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
@@ -39,7 +39,9 @@ function displayRadio($question){
 			        legend: { show:true, placement: 'outsideGrid'}
 			    }
 			);
+			
   		});
+		$('#chart".$question->Order."').trigger('create');
     	</script>
     ";
 }
@@ -53,7 +55,7 @@ function displayCheckbox($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: '".$question->Question."',
+					title: ".json_encode($question->Title).",
 					seriesDefaults: {
 						renderer: $.jqplot.BarRenderer,
 						rendererOptions: 
@@ -81,6 +83,7 @@ function displayCheckbox($question){
 				}
 			);
 		});
+		
     	</script>
     ";
 }
@@ -89,12 +92,12 @@ function displayText($question){
 	echo "
 		<script>
 		$(document).on('pageinit', function(event) {
-			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
+			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
 			var list = $('<ul>', {'data-role' : 'listview', 'data-filter' : 'true', 'data-inset' : 'true'});
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
-			echo "list.append($('<li/>', {'html' : \"".$response->Response."\"}));\n";
+			echo "list.append($('<li/>', {'html' : ".json_encode($response->Response)."}));\n";
 		}
 	echo	"$('#chart".$question->Order."').append(list);
 			$('#chart".$question->Order."').trigger('create');
@@ -107,7 +110,7 @@ function displayNone($question){
 	echo "
 		<script>
 		$(document).on('pageinit', function(event) {
-			var title = $('<h3/>', {'html' : \"".$question->Question."\"});
+			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
 			var none = $('<h4/>', {'html' : 'No Responses to this Question.'});
 			$('#chart".$question->Order."').append(title);
 			$('#chart".$question->Order."').append(none);
@@ -169,7 +172,7 @@ function displayQuestion($question){
 				$q=1;
 				$qn = sizeof($poll->Questions);
 				for($q = 1; $q <= $qn; $q++){
-					echo "<div data-role=\"content\" class=\"jqplot-target bordered\" id='chart$q'>";
+					echo "<div data-role=\"none\" class=\"jqplot-target bordered\" id='chart$q'>";
 					echo '</div>';
 				}
 ?>

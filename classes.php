@@ -185,6 +185,16 @@ class Question implements iDatabase, iPost{
 		$obj->createPAnswersFromDB($db, $obj);
 		$obj->createResponsesFromDB($db, $obj);
 		
+		$obj->Title = 'Q: ' . $obj->Question ;
+		for($i = 0; $i < sizeof($obj->Answers); $i++){
+			if($i == 0){
+				$obj->Title .=  '<p>A: ';
+			}
+			$obj->Title .= $obj->Answers[$i]->Answer;
+			if($i !=  sizeof($obj->Answers) - 1){
+				$obj->Title .= ', ';
+			}
+		}
 		return $obj;
 	}
 	

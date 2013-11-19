@@ -621,5 +621,6 @@ function outputHeader(){
 		</style>
 	';
 }
+
 ?>
 
