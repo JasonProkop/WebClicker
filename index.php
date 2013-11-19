@@ -26,7 +26,7 @@
 <body>
 
 <section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
-	<header data-role="header"  data-tap-toggle="false">
+	<header data-role="header" data-position="fixed" data-tap-toggle="false">
 		<img border="0" src="<?php $gravURL = getGravatarURL(40); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
@@ -58,6 +58,7 @@
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>
+	
 	<div data-role="collapsible">
 	  <h3>Feedback</h3>
 		<div class="ui-grid-a">
@@ -66,13 +67,16 @@
 		</div>
 	</div>
 	
-	<div class="gravatar">
-		<div id="wrapper" style="width:100%; text-align:center">
-	  		<ul>
-	  			<img src="<?php $gravURL = getGravatarURL(120); echo $gravURL; ?>" alt="" style="float:center;display:inline"/>
-	  		</ul>
-	  	</div>
-	</div>
+	<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
+		<div data-role="navbar" data-iconpos="top">
+			<ul>
+				<li><a href="create.php" data-icon="plus">Create New Poll</a></li>
+				<li><a href="#" data-icon="gear">Edit Profile</a></li>
+				<li><a href="#" data-icon="grid">Manage Groups</a></li>
+				<li><a href="about.php" data-icon="home">About Us</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
 </section><!-- /page -->
 
 <!-- SignUp-->
