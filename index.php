@@ -27,7 +27,7 @@
 
 <section id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
 	<header data-role="header" data-position="fixed" data-tap-toggle="false">
-		<img border="0" src="<?php $gravURL = getGravatarURL(40); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
+		<img border="0" src="<?php $gravURL = getGravatarURL(42); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
 		<h1>Web Clicker</h1>
 	</header><!-- /header -->
 	
@@ -39,22 +39,22 @@
 		?>
 		
 	</div>
-	<div data-role="content">
+	<div data-role="content" style="margin:0 auto;margin-left:auto;margin-right:auto;align:center;text-align:center;width:70%">
 		<a href="create.php" data-role="button" data-icon="check" data-ajax="false" >
 			<h1>Create a Poll</h1>
 		</a>
 	</div>
 	
-	<div data-role="collapsible">
+	<div data-role="collapsible" data-collapsed="false">
 		<h3>Find poll by Access Code</h3>
 		<form action="search.php" method="POST" data-ajax="false">
 			  <input name="accessCode" id="accessCode" placeholder="Eg: axd21" data-inline="true">
 		</form>
 	</div>
 	
-	<div data-role="collapsible">
+	<div data-role="collapsible" data-collapsed="false">
 	  <h3>Latest Public Polls</h3>
-		<ul data-role="listview" data-filter="true" data-inset="true">
+		<ul data-role="listview" data-filter="false" data-inset="true" style="margin:0 auto;margin-left:auto;margin-right:auto;align:center;text-align:center;width:70%">
 			<?php displayRecentPolls(); ?>
 		</ul>
 	</div>
@@ -70,9 +70,10 @@
 	<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
 		<div data-role="navbar" data-iconpos="top">
 			<ul>
+				<li><a href="index.php" data-icon="home">Home</a></li>
 				<li><a href="create.php" data-icon="plus">Create New Poll</a></li>
 				<li><a href="#" data-icon="gear">Edit Profile</a></li>
-				<li><a href="#" data-icon="grid">Manage Groups</a></li>
+				<li><a href="groupfeed.php" data-icon="grid">Manage Groups</a></li>
 				<li><a href="about.php" data-icon="home">About Us</a></li>
 			</ul>
 		</div><!-- /navbar -->
