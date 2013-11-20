@@ -1244,9 +1244,10 @@ label {
 }
 .bordered{
 	padding: 20px;
-	border:1px solid;
+	border: 1px solid;
 	border-radius:10px;
 	box-shadow: 1px 1px 3px #888888;
-	margin: 10px;
+    overflow-y: visible;
+    margin: 10px auto;
 }
 												
