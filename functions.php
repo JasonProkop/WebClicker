@@ -44,9 +44,9 @@ function loggedInUser()
  *	
  * Authored by: Brady, gravatar
  */
-function getGravatarURL($a) {
+function getGravatarURL($sizePx=40) {
 	$email = $_SESSION['email'];
-	$size = $a; // set the size of the returned photo
+	$size = $sizePx; // set the size of the returned photo
 	$default; // need to set this to be somedefault not signed in avatar
 	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
 	return $grav_url;
@@ -62,6 +62,7 @@ function generateAccessCode($length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
     $code = "";
     randomize();
+	/* Checks that the key doesn't already exist in the database */
 	do{
 		$rand_keys = array_rand($charset, $length);
 		$accessCode = '';
