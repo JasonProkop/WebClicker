@@ -1,15 +1,15 @@
 <?php
 	require_once('include/functions.php');
-
-	if(!userLoggedIn()){
-		header("location:index.php");
-	}
+	include_once('include/db.php');
+	
 	//subscribe to group (group name / key or user email)
 	//display the users subscribed groups and polls within those groups
 	try{
-		$groups = groupsJoinedByUser();
+		if(!userLoggedIn()){
+			header("location:index.php");
+		}
 		$db = db_getpdo();
-		$db->beginTransaction();
+		$groups = groupsJoinedByUser($db);
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
@@ -32,7 +32,7 @@
 			<div data-role="collapsible">
 				<h1>Subscribe to a Group</h1>
 				<ul data-role="listview" data-filter="true" data-inset="true">
-				<?php displayPossibleSubscriptions(); ?>
+				<?php displayPossibleSubscriptions($db); ?>
 				</ul>
 			</div>
 			<div data-role="content">
@@ -58,7 +58,7 @@
 					echo 	'</ul><!-- /list -->';
 					echo '</div></li><!-- /collapsible -->';
 				}
-				$db->commit();
+				$db = null;
 			?>
 				</ul>
 			</div>

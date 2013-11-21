@@ -1,10 +1,12 @@
 <?php
 	require_once('include/functions.php');
-
+	include_once('include/db.php'); 
+	
 	if(isset($_GET['accessCode'])){
 		try{
+			$db = db_getpdo();
 			validAccessCode($_GET['accessCode']);
-			$poll = searchPoll($_GET['accessCode']);
+			$poll = searchPoll($db, $_GET['accessCode']);
 			$total_responses = 0;
 			foreach($poll->Questions as $question){
 				$total_responses += sizeof($question->Responses);

@@ -79,18 +79,13 @@ class Poll implements iDatabase, iPost{
 		$obj->Creator = $row['poll_user_email'];
 		$obj->Group = array( 'name' => $row['poll_group_name'], 'owner' => $row['poll_group_user_email'] );
 		$obj->Active = (bool)$row['poll_active'];
-		$db->beginTransaction();
-		
 		$obj->Questions = array();
 		$obj->createQuestionsFromDB($db, $obj);
-		
-		$db->commit();
 		return $obj;
 	}
 	
 	function insert($db, $id){
 		$this->AccessCode = $id;
-		$db->beginTransaction();
 		$sql = $db->prepare("INSERT INTO polls (poll_id, poll_name, poll_user_email, poll_group_name, poll_group_user_email, poll_active) VALUES (:id, :name, :creator, :group, :groupowner, :active);");
 		$sql->bindValue(':name', $this->Name);
 		$sql->bindValue(':id', $this->AccessCode);
@@ -102,7 +97,6 @@ class Poll implements iDatabase, iPost{
 		foreach($this->Questions as $question){
 			$question->insert($db, $id);
 		}
-		$db->commit();
 	}
 
 	function update($db, $id){
@@ -332,7 +326,6 @@ class Group{
 
 class SiteStats{
 	function __construct($db){
-		$db->beginTransaction();
 		$sql = $db->prepare("SELECT * FROM polls;");
 		$sql->execute();
 		$this->Polls = $sql->rowCount();
@@ -357,8 +350,6 @@ class SiteStats{
 		$sql->execute();
 		ini_set("precision", 3); // to get float division
 		$this->Percentage = $sql->rowCount() / $this->Responses;
-		
-		$db->commit();
 		return $this;
 	}
 }

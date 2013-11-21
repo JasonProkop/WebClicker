@@ -1,5 +1,7 @@
 <?php
 	require_once('include/functions.php');
+	include_once('include/db.php');
+	
 	$user = loggedInUser();
 	if($user === 'anonymous'){
 		$icon = 'alert';
@@ -48,7 +50,7 @@
 			<div data-role="collapsible">
 			  <h3>Latest Public Polls</h3>
 				<ul data-role="listview" data-filter="true" data-inset="true">
-					<?php displayRecentPolls(); ?>
+					<?php displayRecentPolls(db_getpdo()); ?>
 				</ul>
 			</div>
 			<div data-role="collapsible">

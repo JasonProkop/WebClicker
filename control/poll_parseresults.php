@@ -1,5 +1,6 @@
 <?php
 	require_once('../include/functions.php');
+	require_once('../include/db.php');
 
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		try{
@@ -20,6 +21,7 @@
 			$db->commit(); //success
 			header("location:../poll_results.php?accessCode=".$_POST['poll_id']);
 		}catch(PDOException $e){
+			$db->rollBack();
 			$_SESSION['error'] = $e->getMessage();
 			header("location:../error.php");
 		}

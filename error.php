@@ -23,7 +23,7 @@
 		<div>
 			<article data-role="content">
 				<h3>
-					<?php echo $_SESSION['error']; ?>
+					<?php currentError(); ?>
 				</h3>
 			</article>
 		</div>

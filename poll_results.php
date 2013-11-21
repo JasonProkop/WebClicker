@@ -1,10 +1,12 @@
 <?php
 	require_once('include/functions.php');
-
+	include_once('include/db.php'); 
+	
 	if(isset($_GET['accessCode'])){
 		try{
+			$db = db_getpdo();
 			validAccessCode($_GET['accessCode']);
-			$poll = searchPoll($_GET['accessCode']);
+			$poll = searchPoll($db, $_GET['accessCode']);
 			$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
 		}catch (PollNotFound $e) {
 			//echo "Poll Not Found";
@@ -89,7 +91,7 @@ function displayText($question){
 		<script>
 		$(document).on('pageinit', function(event) {
 			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
-			var list = $('<ul>', {'data-role' : 'listview', 'data-filter' : 'true', 'data-inset' : 'true'});
+			var list = $('<ul>', {'data-role' : 'listview', 'data-inset' : 'true'});
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
@@ -173,12 +175,14 @@ function displayQuestion($question){
 					}
 					echo '<div data-role="none" class="jqplot-target" id="chart'.$question->Order.'">';
 					echo '</div>';
-					echo '<strong>Possible Answers: </strong><p>';
-					echo '<ul data-role="listview">';
-					foreach($question->PAnswers as $panswer){
-						echo '<li style="background-color:'.$colors[$color++].'">'.$panswer->PAnswer.'</li>';
+					if(sizeof($question->PAnswers) > 0){
+						echo '<strong>Possible Answers: </strong><p>';
+						echo '<ul data-role="listview">';
+						foreach($question->PAnswers as $panswer){
+							echo '<li style="background-color:'.$colors[$color++].'">'.$panswer->PAnswer.'</li>';
+						}
+						echo '</ul>';
 					}
-					echo '</ul>';
 					echo '</div>';
 				}
 ?>

@@ -1,16 +1,14 @@
 <?php
 	require_once('include/functions.php');
-
-	if(!userLoggedIn()){
-		header("location:index.php");
-	}
-
+	include_once('include/db.php'); 
+	
 	try{
-		$groups = groupsOwnedByUser();
+		if(!userLoggedIn()){
+			header("location:index.php");
+		}
 		$db = db_getpdo();
-		$db->beginTransaction();
+		$groups = groupsOwnedByUser($db);
 	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}
@@ -53,7 +51,7 @@
 					echo 	'</ul><!-- /list -->';
 					echo '</div><!-- /collapsible --></li>';
 				}
-				$db->commit();
+				$db = null;
 			?>
 			</ul>
 			</div>

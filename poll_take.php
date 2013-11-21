@@ -1,27 +1,26 @@
 <?php
 	require_once('include/functions.php');
-
+	include_once('include/db.php'); 
+	
 	if(isset($_GET['accessCode'])){
 		try{
+			$db = db_getpdo();
 			validAccessCode($_GET['accessCode']);
-			if(userTakenPoll($_GET['accessCode'])){
-				redirectTo('results.php?accessCode='.$_GET['accessCode']);
+			if(userTakenPoll($db, $_GET['accessCode'])){
+				header('Location:poll_results.php?accessCode='.$_GET['accessCode']);
 			}else{
-				$poll = searchPoll($_GET['accessCode']);
+				$poll = searchPoll($db, $_GET['accessCode']);
 				if(!$poll->Active){
-					redirectTo('results.php?accessCode='.$_GET['accessCode']);
+					header('Location:poll_results.php?accessCode='.$_GET['accessCode']);
 				}
 			}
 		}catch (PollNotFound $e) {
-			//echo "Poll Not Found";
 			$_SESSION['error'] = $e->getMessage();
 			redirectTo('error.php');
 		}catch(PDOException $e){
-			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			redirectTo('error.php');
 		}catch(MalformedAccessCode $e){
-			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			redirectTo('error.php');
 		}

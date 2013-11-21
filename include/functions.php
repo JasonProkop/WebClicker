@@ -1,5 +1,4 @@
 <?php
-include_once('db.php');
 include_once('exception.php');
 include_once('classes.php');
 
@@ -46,24 +45,20 @@ function loggedInUser()
 	
 	Authored by: Dylan
 */
-function generateAccessCode($length=5){
+function generateAccessCode($db, $length=5){
     $charset = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
     $code = "";
     randomize();
 	do{
 		$rand_keys = array_rand($charset, $length);
 		$accessCode = '';
-		for($i = 0; $i < $length; $i++)
-		{
+		for($i = 0; $i < $length; $i++){
 			$accessCode .= $charset[$rand_keys[$i]];
 		}
-		$db = db_getpdo();
-		$db->beginTransaction();
 		$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access;");
 		$sql->bindValue(':access', $accessCode);
 		$sql->execute();
 	}while($sql->rowCount() > 0);
-	$db->commit();
     return $accessCode;
 }
 
@@ -80,9 +75,7 @@ function randomize()
 	
 	Authored by: Dylan
 */
-function authorizeUser($email, $key){
-	$db = db_getpdo();
-	$db->beginTransaction();
+function authorizeUser($db, $email, $key){
 	$sql = $db->prepare("SELECT user_authorized, user_mail, user_salt FROM users WHERE user_email=:email LIMIT 1;");
 	$sql->bindValue(':email', $email);
 	$sql->execute();
@@ -94,7 +87,6 @@ function authorizeUser($email, $key){
 			$sql = $db->prepare("UPDATE users SET user_authorized='true' WHERE user_email=:email;");
 			$sql->bindValue(':email', $email);
 			$sql->execute();
-			$db->commit();
 			return; //success
 		}else{
 			throw new Authorization('Incorrect key for given email');
@@ -119,13 +111,11 @@ function authorizeUser($email, $key){
 	Authored by: Dylan
 */
 
-function signUp($email, $password, $alias){
+function signUp($db, $email, $password, $alias){
 	$email = strtolower($email); //allows the user to input his email case insensitive
     randomize();
 	$salt = rand(0, 100000);
 	$hash = sha1($password . $salt);
-	$db = db_getpdo();
-	$db->beginTransaction();
 	$sql = $db->prepare("SELECT user_authorized FROM users WHERE user_email=:email;");
 	$sql->bindValue(':email', $email);
 	$sql->execute();
@@ -143,14 +133,12 @@ function signUp($email, $password, $alias){
 	}
 	$sql->bindValue(':email', $email);
 	$sql->bindValue(':alias', $alias);
-	//$sql->bindValue(':authorized', 'false');
-	$sql->bindValue(':authorized', 'true'); //this is being used for testing. change to above line in production
+	//$sql->bindValue(':authorized', 'false'); //uncomment this to allow email authorization
+	$sql->bindValue(':authorized', 'true'); //comment this to allow email authorization
 	$sql->bindValue(':hash', $hash);
 	$sql->bindValue(':salt', $salt);
 	$sql->execute();
-	$db->commit();
-	
-	sendAuthorizationEmail($email, $salt);
+	//sendAuthorizationEmail($email, $salt); //uncomment this to alloe email authorization
 }
 
 /*
@@ -210,15 +198,11 @@ function signOut(){
 	
 	Authored by: Dylan
 */
-function signIn($email, $password){
+function signIn($db, $email, $password){
 	$email = strtolower($email); //allows the user to input his email case insensitive
-	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM users WHERE user_email=:email LIMIT 1;");
 	$sql->bindValue(':email', $email);
-	$db->beginTransaction();
 	$sql->execute();
-	$db->commit();
-	
 	if($sql->rowCount() == 1){
 		$user = $sql->fetch();
 		if(!(bool)$user['user_authorized']){
@@ -251,13 +235,10 @@ function validAccessCode($access)
 	Returns a poll object if found in the database with the supplied access code.
 	Authored by: Max
 */
-function searchPoll($access){
-	$db = db_getpdo();
+function searchPoll($db, $access){
 	$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access;");
 	$sql->bindValue(':access', $access);
-	$db->beginTransaction();
 	$sql->execute();
-	$db->commit();
 	if($sql->rowCount() == 1){
 		//there is a poll with that access code
 		return Poll::createFromDB($sql->fetch(), $db);
@@ -272,17 +253,14 @@ function searchPoll($access){
 	Will return false if not currently logged in.
 	Authored by: Dylan
 */
-function userTakenPoll($poll){
+function userTakenPoll($db, $poll){
 	if($_SESSION['email'] == 'anonymous@anonymous.com'){
 			return false;
 	}else{
-		$db = db_getpdo();
 		$sql = $db->prepare("SELECT * FROM responses WHERE response_user_email=:email AND response_poll_id=:poll;");
 		$sql->bindValue(':email', $_SESSION['email']);
 		$sql->bindValue(':poll', $poll);
-		$db->beginTransaction();
 		$sql->execute();
-		$db->commit();
 		return($sql->rowCount() > 0);
 	}
 }
@@ -305,17 +283,8 @@ function displayPollsList($polls){
 								</div>
 								<div class="ui-block-c">
 									<a href="poll_details.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
-								</div>';
-		/*if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
-			echo					'<div class="ui-block-d">';
-			if((bool)$poll['poll_active']){
-				echo '<a href="deactivatepoll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Deactivate</a>';
-			}else{
-				echo '<a href="activatepoll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Activate</a>';
-			}
-			echo					'</div>';
-		}*/		
-		echo				'</div>
+								</div>
+						</div>
 					</div>
 				</li>';
 	}
@@ -324,16 +293,14 @@ function displayPollsList($polls){
 	Grabs the 10 most recent polls from the database to display on the homepage
 	Authored by: Dylan
 */
-function displayRecentPolls(){
+function displayRecentPolls($db){
 	try{
-		$db = db_getpdo();
 		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC;");
-		$db->beginTransaction();
 		$sql->execute();
-		$db->commit();
 		displayPollsList($sql->fetchAll());
 	}catch(PDOException $e){
-		echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+		$_SESSION['error'] = $e->getMessage();
+		header("Location:../error.php");
 	}
 }
 
@@ -416,6 +383,40 @@ function randomPollName(){
 }
 
 /*
+	Activates the poll so it can be taken by users, only the creator can do this.
+	Authored By: Dylan
+*/
+function activatePoll($db, $creator, $accessCode){
+	if($_SESSION['email'] != $creator){
+		throw new Activation('Only the creator of a poll can activate it.');
+	}else{
+		setPollActivation($db, $accessCode, 'true');
+	}
+}
+
+/*
+	Deactivates the poll so it can't be taken by users, only the creator can do this.
+	Authored By: Dylan
+*/
+function deactivatePoll($db, $creator, $accessCode){
+	if($_SESSION['email'] != $creator){
+		throw new Activation('Only the creator of a poll can deactivate it.');
+	}else{
+		setPollActivation($db, $accessCode, 'false');
+	}
+}
+
+/*
+	Sets the given poll's active status to true or false, whatever is passed
+	Authored By: Dylan
+*/
+function setPollActivation($db, $accessCode, $active){
+	$sql = $db->prepare("UPDATE polls SET poll_active=:active WHERE poll_id=:access;");
+	$sql->bindValue(':access', $accessCode);
+	$sql->bindValue(':active', $active);
+	$sql->execute();
+}
+/*
 	Redirects the user to the correct page even with URL rewriting enabled.
 	$url should be relative and not an absolute path
 	Authored by: Dylan
@@ -431,14 +432,11 @@ function redirectTo($extra){
 	Returns the specified group if it exists
 	Authored by: Dylan
 */
-function searchGroup($name, $creator){
-	$db = db_getpdo();
-	$db->beginTransaction();
+function searchGroup($db, $name, $creator){
 	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:creator AND group_name=:name;");
 	$sql->bindValue(':creator', $creator);
 	$sql->bindValue(':name', $name);
 	$sql->execute();
-	$db->commit();
 	if($sql->rowCount() == 1){
 		return new Group($sql->fetch());
 	}else{
@@ -450,10 +448,8 @@ function searchGroup($name, $creator){
 	Returns a list of groups owned for the individual logged in
 	Authored by: Dylan
 */
-function groupsOwnedByUser(){
+function groupsOwnedByUser($db){
 	$groups = array();
-	$db = db_getpdo();
-	$db->beginTransaction();
 	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com' ORDER BY group_date_created DESC;");
 	$sql->bindValue(':user', $_SESSION['email']);
 	$sql->execute();
@@ -461,7 +457,6 @@ function groupsOwnedByUser(){
 	foreach($rows as $group){
 		$groups[] = new Group($group);
 	}
-	$db->commit();
 	return $groups;
 }
 
@@ -469,11 +464,9 @@ function groupsOwnedByUser(){
 	Returns a list of groups joined for the individual 
 	Authored by: Dylan
 */
-function groupsJoinedByUser(){
+function groupsJoinedByUser($db){
 	$groups = array();
 	if($_SESSION['email'] != 'anonymous@anonymous.com'){
-		$db = db_getpdo();
-		$db->beginTransaction();
 		$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name ORDER BY groupuser_date_joined DESC);");
 		$sql->bindValue(':user', $_SESSION['email']);
 		$sql->execute();
@@ -481,42 +474,45 @@ function groupsJoinedByUser(){
 		foreach($rows as $group){
 			$groups[] = new Group($group);
 		}
-		$db->commit();
 	}
 	return $groups;
+}
+
+/*
+	Creates the group for the currently logged in user
+	Authored by: Dylan
+*/
+function createGroup($db, $name, $key){
+	$sql = $db->prepare("INSERT INTO groups (group_name, group_user_email, group_key) VALUES (:group, :user, :key);");
+	$sql->bindValue(':group', $name);
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->bindValue(':key', $key);
+	$sql->execute();
 }
 
 /*
 	Unsubscribes the currently logged in user from a group
 	Authored by: Dylan
 */
-function unsubscribe($group, $creator){
+function unsubscribe($db, $group, $creator){
 	if($_SESSION['email'] === 'anonymous@anonymous.com'){
 		throw new Subscription('anonymous users are not allowed to subscribe to groups!');
 	}
-	$db = db_getpdo();
-	$db->beginTransaction();
-	
 	$sql = $db->prepare("DELETE FROM groupusers WHERE groupuser_group_name=:group AND groupuser_user_email_group=:creator AND groupuser_user_email_user=:user");
 	$sql->bindValue(':group', $group);
 	$sql->bindValue(':creator', $creator);
 	$sql->bindValue(':user', $_SESSION['email']);
 	$sql->execute();
-	
-	$db->commit();
 }
 
 /*
 	Subscribes the currently logged in user to a group
 	Authored by: Dylan
 */
-function subscribe($group, $creator, $key){
+function subscribe($db, $group, $creator, $key){
 	if($_SESSION['email'] === 'anonymous@anonymous.com'){
 		throw new Subscription('anonymous users are not allowed to subscribe to groups!');
 	}
-	$db = db_getpdo();
-	$db->beginTransaction();
-	
 	$sql = $db->prepare("SELECT * FROM groups WHERE group_name=:group AND group_user_email=:creator");
 	$sql->bindValue(':group', $group);
 	$sql->bindValue(':creator', $creator);
@@ -544,16 +540,13 @@ function subscribe($group, $creator, $key){
 	$sql->bindValue(':creator', $creator);
 	$sql->bindValue(':verified', 'true');
 	$sql->execute();
-	$db->commit();
 }
 
 /*
 	Displays all possible groups you can subscribe to
 	Authored by: Dylan
 */
-function displayPossibleSubscriptions(){
-	$db = db_getpdo();
-	$db->beginTransaction();
+function displayPossibleSubscriptions($db){
 	$sql = $db->prepare("SELECT * FROM groups WHERE NOT :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_name=groupuser_group_name AND group_user_email=groupuser_user_email_group);");
 	$sql->bindValue(':user', $_SESSION['email']);
 	$sql->execute();
@@ -569,7 +562,6 @@ function displayPossibleSubscriptions(){
 				<input type="submit" name="submit" value="Subscribe">
 			</form></li>';
 	}
-	$db->commit();
 }
 
 /*
@@ -578,9 +570,8 @@ function displayPossibleSubscriptions(){
 */
 function currentError(){
 	if(!empty($_SESSION['error'])){
-		$error = $_SESSION['error'];
+		echo $_SESSION['error'];
 		$_SESSION['error'] = '';
-		return $error;
 	}
 }
 

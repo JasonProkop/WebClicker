@@ -1,8 +1,11 @@
 <?php
 	require_once('include/functions.php');
+	include_once('include/db.php'); 
 	
 	try{
-		$groups = groupsOwnedByUser();
+		$db = db_getpdo();
+		$groups = groupsOwnedByUser($db);
+		$db = null;
 	}catch(PDOException $e){
 		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
