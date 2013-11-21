@@ -4,7 +4,7 @@ require_once('functions.php');
 if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
-		$poll = search($_GET['accessCode']);
+		$poll = searchPoll($_GET['accessCode']);
 		$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
 	}catch (PollNotFound $e) {
 		//echo "Poll Not Found";
@@ -167,7 +167,7 @@ function displayQuestion($question){
 				foreach($poll->Questions as $question){
 					$color=0;
 					echo '<div data-role="collapsible" data-collapsed="false" data-mini="true">';
-					echo '<h3>Question:'.$question->Question.'</h3>';
+					echo '<h3>Question: '.$question->Question.'</h3>';
 					foreach($question->Answers as $answer){
 						echo '<p><span><strong>Answer: </strong>'.$answer->Answer.'</span>';
 					}

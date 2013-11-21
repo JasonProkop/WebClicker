@@ -4,7 +4,7 @@ require_once('functions.php');
 if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
-		$poll = search($_GET['accessCode']);
+		$poll = searchPoll($_GET['accessCode']);
 		$total_responses = 0;
 		foreach($poll->Questions as $question){
 			$total_responses += sizeof($question->Responses);

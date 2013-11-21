@@ -251,7 +251,7 @@ function validAccessCode($access)
 	Returns a poll object if found in the database with the supplied access code.
 	Authored by: Max
 */
-function search($access){
+function searchPoll($access){
 	$db = db_getpdo();
 	$sql = $db->prepare("SELECT * FROM polls WHERE poll_id=:access;");
 	$sql->bindValue(':access', $access);

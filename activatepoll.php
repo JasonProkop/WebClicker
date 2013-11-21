@@ -4,7 +4,7 @@ require_once('functions.php');
 if(isset($_GET['accessCode'])){
 	try{
 		validAccessCode($_GET['accessCode']);
-		$poll = search($_GET['accessCode']);
+		$poll = searchPoll($_GET['accessCode']);
 		if($_SESSION['email'] == $poll->Creator){
 			$db = db_getpdo();
 			$db->beginTransaction();
