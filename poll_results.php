@@ -1,27 +1,27 @@
 <?php
-require_once('functions.php');
+	require_once('include/functions.php');
 
-if(isset($_GET['accessCode'])){
-	try{
-		validAccessCode($_GET['accessCode']);
-		$poll = searchPoll($_GET['accessCode']);
-		$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
-	}catch (PollNotFound $e) {
-		//echo "Poll Not Found";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
-	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
-	}catch(MalformedAccessCode $e){
-		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
+	if(isset($_GET['accessCode'])){
+		try{
+			validAccessCode($_GET['accessCode']);
+			$poll = searchPoll($_GET['accessCode']);
+			$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
+		}catch (PollNotFound $e) {
+			//echo "Poll Not Found";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}catch(PDOException $e){
+			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}catch(MalformedAccessCode $e){
+			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}
+	}else{
+		header("location:index.php");
 	}
-}else{
-	header("location:index.php");
-}
 
 function displayRadio($question){
 	// Make a pie chart

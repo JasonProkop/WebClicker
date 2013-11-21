@@ -298,13 +298,13 @@ function displayPollsList($polls){
 							<h1><span class="code">['.$poll['poll_id'].']</span> '.$poll['poll_name'].'</h1>
 							<div class="ui-grid-b">
 								<div class="ui-block-a">
-									<a href="poll.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
+									<a href="poll_take.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
 								</div>
 								<div class="ui-block-b">
-									<a href="results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
+									<a href="poll_results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
 								</div>
 								<div class="ui-block-c">
-									<a href="polldetails.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
+									<a href="poll_details.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
 								</div>';
 		/*if($_SESSION['email'] != 'anonymous@anonymous.com' && $_SESSION['email'] == $poll['poll_user_email']){
 			echo					'<div class="ui-block-d">';
@@ -562,7 +562,7 @@ function displayPossibleSubscriptions(){
 		echo '<li><h4>No Groups to subscribe to!</h4></li>';
 	}
 	foreach($groups as $group){
-		echo '<li><form action="subscribe.php" method="POST" data-ajax="false">'.$group['group_name'].'
+		echo '<li><form action="control/group_subscribe.php" method="POST" data-ajax="false">'.$group['group_name'].'
 				<input type="hidden" name="groupcreator" value="'.$group['group_user_email'].'">
 				<input type="hidden" name="groupname" value="'.$group['group_name'].'">
 				<input type="text" name="groupkey" placeholder="Group Password" required>
@@ -579,6 +579,7 @@ function displayPossibleSubscriptions(){
 function currentError(){
 	if(!empty($_SESSION['error'])){
 		$error = $_SESSION['error'];
+		$_SESSION['error'] = '';
 		return $error;
 	}
 }
@@ -610,5 +611,12 @@ function outputHeader(){
 	';
 }
 
+/*
+	Returns whether the user is logged in or not
+	Authored by: Dylan
+*/
+function userLoggedIn(){
+	return ($_SESSION['email'] != 'anonymous@anonymous.com');
+}
 ?>
 

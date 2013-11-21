@@ -1,33 +1,33 @@
 <?php
-require_once('functions.php');
+	require_once('include/functions.php');
 
-if(isset($_GET['accessCode'])){
-	try{
-		validAccessCode($_GET['accessCode']);
-		if(userTakenPoll($_GET['accessCode'])){
-			redirectTo('results.php?accessCode='.$_GET['accessCode']);
-		}else{
-			$poll = searchPoll($_GET['accessCode']);
-			if(!$poll->Active){
+	if(isset($_GET['accessCode'])){
+		try{
+			validAccessCode($_GET['accessCode']);
+			if(userTakenPoll($_GET['accessCode'])){
 				redirectTo('results.php?accessCode='.$_GET['accessCode']);
+			}else{
+				$poll = searchPoll($_GET['accessCode']);
+				if(!$poll->Active){
+					redirectTo('results.php?accessCode='.$_GET['accessCode']);
+				}
 			}
+		}catch (PollNotFound $e) {
+			//echo "Poll Not Found";
+			$_SESSION['error'] = $e->getMessage();
+			redirectTo('error.php');
+		}catch(PDOException $e){
+			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			redirectTo('error.php');
+		}catch(MalformedAccessCode $e){
+			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			redirectTo('error.php');
 		}
-	}catch (PollNotFound $e) {
-		//echo "Poll Not Found";
-		$_SESSION['error'] = $e->getMessage();
-		redirectTo('error.php');
-	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		redirectTo('error.php');
-	}catch(MalformedAccessCode $e){
-		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		redirectTo('error.php');
+	}else{
+		header("location:index.php");
 	}
-}else{
-	header("location:index.php");
-}
 
 function displayRadio($question){
 	echo '<fieldset data-role="controlgroup">';
@@ -68,17 +68,13 @@ function displayQuestion($question){
 		default:
 			return;
 	}
-}
-
-		
+}	
 ?>
 <!doctype html>
 <html>
 	<head>
-	<title>
-		WebClicker
-	</title>
-	<?php outputHeader(); ?>
+		<title>WebClicker</title>
+		<?php outputHeader(); ?>
 		<script>
 		$(document).on('click', '#goforward', function () {
 			if ($.mobile.activePage.next('.ui-page').length !== 0) {
@@ -124,7 +120,7 @@ function displayQuestion($question){
 		</script>
 	</head>
 	<body>
-		<form action="parseresults.php" method="POST" data-ajax="false">
+		<form action="control/poll_parseresults.php" method="POST" data-ajax="false">
 <?php
 	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
 	$q=1;

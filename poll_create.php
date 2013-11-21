@@ -1,5 +1,5 @@
 <?php
-	require_once('functions.php');
+	require_once('include/functions.php');
 	
 	try{
 		$groups = groupsOwnedByUser();
@@ -12,11 +12,8 @@
 <!DOCTYPE html> 
 <html>
 <head>
-	<title>
-		WebClicker - Create Poll
-	</title>
+	<title>WebClicker - Create Poll</title>
 	<?php outputHeader(); ?>
-
 	<script src="static/js/magic.js"></script>
 	<script>
 		$(document).on('load', $('#addNewQuestion').click()); //add a single question right off the start.
@@ -24,7 +21,7 @@
 </head>
 	<body>
 		<div data-role="page" data-theme='a'>
-			<form id="createPoll" action="createpoll.php" method="POST" data-ajax="false" questions=0>
+			<form id="createPoll" action="control/poll_create.php" method="POST" data-ajax="false" questions=0>
 				<div data-role="header">
 					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
 					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
