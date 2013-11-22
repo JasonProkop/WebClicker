@@ -65,13 +65,12 @@
 		<div data-role="navbar" data-iconpos="top">
 			<ul>
 				<li><a href="index.php" data-icon="home">Home</a></li>
-				<li><a href="create.php" data-icon="plus">Create New Poll</a></li>
+				<li><a href="poll_create.php" data-icon="plus">Create New Poll</a></li>
 				<li><a href="#" data-icon="gear">Edit Profile</a></li>
-				<li><a href="groupfeed.php" data-icon="grid">Manage Groups</a></li>
+				<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
 				<li><a href="about.php" data-icon="home">About Us</a></li>
 			</ul>
 		</div><!-- /navbar -->
 		</div><!-- /page -->
 	</body>
 </html>
-<?php $_SESSION['error'] = ''; ?>
