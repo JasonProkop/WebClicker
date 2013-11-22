@@ -119,19 +119,22 @@ function displayNone($question){
 }
 
 function displayQuestion($question){
-
-		switch($question->Type){
-			case 'Radio':
-				displayRadio($question);
-				return;
-			case 'Checkbox':
-				displayCheckbox($question);
-				return;
-			case 'Textbox':
-				displayText($question);
-				return;
-			default:
-				return;
+		if(sizeof($question->Responses) < 1){
+			displayNone($question);
+		}else{
+			switch($question->Type){
+				case 'Radio':
+					displayRadio($question);
+					return;
+				case 'Checkbox':
+					displayCheckbox($question);
+					return;
+				case 'Textbox':
+					displayText($question);
+					return;
+				default:
+					return;
+			}
 		}
 }
 ?>
@@ -168,7 +171,8 @@ function displayQuestion($question){
 				foreach($poll->Questions as $question){
 					$color=0;
 					echo '<div data-role="collapsible" data-collapsed="false" data-mini="true">';
-					echo '<h3>Question: '.$question->Question.'</h3>';
+					echo '<h3>Question '.$question->Order.'</h3>';
+					echo '<p><span><strong>Question: </strong>'.$question->Question.'</span>';
 					foreach($question->Answers as $answer){
 						echo '<p><span><strong>Answer: </strong>'.$answer->Answer.'</span>';
 					}
