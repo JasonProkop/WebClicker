@@ -1,5 +1,5 @@
 <?php
-require_once('functions.php'); //runs session code and gives us access to all functions defined in the file.
+	require_once('include/functions.php'); //runs session code and gives us access to all functions defined in the file.
 
 /*
 	Displays a list of our site date which includes: Number of Users, Polls, Questions, and Responses.
@@ -23,9 +23,7 @@ function displaySiteStats(){
 ?>
 <!doctype html>
 <html>
-	<title>
-		WebClicker - About
-	</title>
+	<title>WebClicker - About</title>
 	<?php outputHeader(); ?>
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - About Us" data-theme='a'>

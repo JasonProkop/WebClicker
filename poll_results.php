@@ -1,26 +1,29 @@
 <?php
-require_once('functions.php');
-
-if(isset($_GET['accessCode'])){
-	try{
-		validAccessCode($_GET['accessCode']);
-		$poll = search($_GET['accessCode']);
-	}catch (PollNotFound $e) {
-		//echo "Poll Not Found";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
-	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
-	}catch(MalformedAccessCode $e){
-		//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
+	require_once('include/functions.php');
+	include_once('include/db.php'); 
+	
+	if(isset($_GET['accessCode'])){
+		try{
+			$db = db_getpdo();
+			validAccessCode($_GET['accessCode']);
+			$poll = searchPoll($db, $_GET['accessCode']);
+			$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
+		}catch (PollNotFound $e) {
+			//echo "Poll Not Found";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}catch(PDOException $e){
+			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}catch(MalformedAccessCode $e){
+			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
+			$_SESSION['error'] = $e->getMessage();
+			header("location:error.php");
+		}
+	}else{
+		header("location:index.php");
 	}
-}else{
-	header("location:index.php");
-}
 
 function displayRadio($question){
 	// Make a pie chart
@@ -31,12 +34,11 @@ function displayRadio($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: ".json_encode($question->Title).",
+					seriesColors:".json_encode($GLOBALS['colors']).",
 					seriesDefaults: {
 			        	renderer: jQuery.jqplot.PieRenderer, 
 			        	rendererOptions: { showDataLabels: true }
-			        },
-			        legend: { show:true, placement: 'outsideGrid'}
+			        }
 			    }
 			);
 			
@@ -55,7 +57,7 @@ function displayCheckbox($question){
 				'chart".$question->Order."', // Plot Target
 				[".questionTojQplot($question)."],  // Plot Data
 				{ // Plot Options
-					title: ".json_encode($question->Title).",
+					seriesColors:".json_encode($GLOBALS['colors']).",
 					seriesDefaults: {
 						renderer: $.jqplot.BarRenderer,
 						rendererOptions: 
@@ -63,17 +65,13 @@ function displayCheckbox($question){
 							varyBarColor: true,
 						}
 					},
-					axesDefaults: {
-						tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-						tickOptions: {
-							angle: -30,
-							labelPosition: 'middle'
-
-						}
-					},
 					axes: {
 						xaxis: {
 							renderer: $.jqplot.CategoryAxisRenderer,
+							tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+							tickOptions: {
+								show: false
+							}
 						},
 						yaxis: {
 							min: 0,  
@@ -93,7 +91,7 @@ function displayText($question){
 		<script>
 		$(document).on('pageinit', function(event) {
 			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
-			var list = $('<ul>', {'data-role' : 'listview', 'data-filter' : 'true', 'data-inset' : 'true'});
+			var list = $('<ul>', {'data-role' : 'listview', 'data-inset' : 'true'});
 			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
@@ -162,28 +160,37 @@ function displayQuestion($question){
 				<h1><?php echo $poll->Name ?></h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 				<a href=""  class="ui-btn-right" data-inline="true" data-position-to="origin"><?php echo substr(loggedInUser(), 0, 9); ?></a>
-			</div>
+			</div><!-- /header -->
 			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-			<!-- /header -->
-
 <?php	
+				//colors: #FF8C00, #87CEFA, #ADFF2F, #DDA0DD, #FFD700
 				// Construct the divs to hold the plots
-				$q=1;
-				$qn = sizeof($poll->Questions);
-				for($q = 1; $q <= $qn; $q++){
-					echo "<div data-role=\"none\" class=\"jqplot-target bordered\" id='chart$q'>";
+				foreach($poll->Questions as $question){
+					$color=0;
+					echo '<div data-role="collapsible" data-collapsed="false" data-mini="true">';
+					echo '<h3>Question: '.$question->Question.'</h3>';
+					foreach($question->Answers as $answer){
+						echo '<p><span><strong>Answer: </strong>'.$answer->Answer.'</span>';
+					}
+					echo '<div data-role="none" class="jqplot-target" id="chart'.$question->Order.'">';
+					echo '</div>';
+					if(sizeof($question->PAnswers) > 0){
+						echo '<strong>Possible Answers: </strong><p>';
+						echo '<ul data-role="listview">';
+						foreach($question->PAnswers as $panswer){
+							echo '<li style="background-color:'.$colors[$color++].'">'.$panswer->PAnswer.'</li>';
+						}
+						echo '</ul>';
+					}
 					echo '</div>';
 				}
 ?>
-			</div>
-			
+		</div>
 <?php
 			// Create the plots	
-			$q=1;
-			$qn = sizeof($poll->Questions);
-			for($q = 1; $q <= $qn; $q++){
-				displayQuestion($poll->Questions[$q]);
+			foreach($poll->Questions as $question){
+				displayQuestion($question);
 			}
 ?>
 			<div data-role="footer" data-tap-toggle="false">

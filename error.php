@@ -1,9 +1,9 @@
 <?php
-require_once('functions.php');
+	require_once('include/functions.php');
 
-if(!isset($_SESSION['error'])){
-	header("location:index.php");
-}
+	if(!isset($_SESSION['error'])){
+		header("location:index.php");
+	}
 ?>
 <!doctype html>
 <html>
@@ -21,11 +21,11 @@ if(!isset($_SESSION['error'])){
 			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
 		<div>
-			<article data-role="content" >
+			<article data-role="content">
 				<h3>
-					<?php echo $_SESSION['error']; ?>
+					<?php currentError(); ?>
 				</h3>
-		<br />
+			</article>
 		</div>
 	</section><!-- /page -->
 </div>
