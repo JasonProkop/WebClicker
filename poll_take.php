@@ -126,18 +126,19 @@ function displayQuestion($question){
 	$q=1;
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn; $q++){
-		echo '<div id="q'.$q.'" class="ui-page" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create" data-theme="a">
-			<div data-role="content" data-id="question" data-tap-toggle="false">';
+		echo '<div id="q'.$q.'" class="ui-page" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create" data-theme="a">';
 			drawHeader();
+			echo '<div data-role="content" data-id="question" data-tap-toggle="false">';
+			
 			echo'
 				<h1>'.$poll->Name.'</h1>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
 			if ($i == $q) {
-				echo '<li><a href="#q'.$i.'" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
+				echo '<li><a href="#q'.$i.'" data-transition="flip" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
 			}else {
-				echo '<li><a href="#q'.$i.'" >'.$i.'</a></li>';
+				echo '<li><a href="#q'.$i.'" data-transition="flip">'.$i.'</a></li>';
 			}
 			
 		}
@@ -159,9 +160,9 @@ function displayQuestion($question){
 			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
 					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
 		}
-		echo '</div><!-- /footer -->
-		</div><!-- /page -->';
+		echo '</div><!-- /footer -->';
 		outputFooter();
+		echo '</div><!-- /page -->';
 	}
 ?>
 		</form>

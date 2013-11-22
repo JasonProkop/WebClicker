@@ -48,7 +48,7 @@ function loggedInUser()
 function getGravatarURL($sizePx=40) {
 	$email = $_SESSION['email'];
 	$size = $sizePx; // set the size of the returned photo
-	$default; // need to set this to be somedefault not signed in avatar
+	$default = null; // need to set this to be somedefault not signed in avatar
 	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
 	return $grav_url;
 }
@@ -631,7 +631,7 @@ function boilerPlate(){
 function drawHeader(){
 	$gravURL = getGravatarURL(42);
 		echo '
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">
+			<header data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
 				<img border="0" src="'.$gravURL.'" alt="gravatar" style="float:right;display:inline"/>
 				<h1>Web Clicker</h1>
 			</header><!-- /header -->
@@ -644,16 +644,16 @@ function drawHeader(){
 */
 function outputFooter(){
 	echo '
-		<div data-role="footer" data-position="fixed" data-tap-toggle="false">	
+		<div data-role="footer" data-id="persistentfooter" data-position="fixed" data-tap-toggle="false">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
-					<li><a href="index.php" data-icon="home">Home</a></li>
+					<li><a href="index.php" data-icon="home" data-ajax="false">Home</a></li>
 					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
 					<li><a href="#" data-icon="gear">To Poll</a></li>
-					<li><a href="group_feed.php" data-icon="grid">Groups</a></li>
+					<li><a href="group_feed.php" data-icon="grid" data-ajax="false">Groups</a></li>
 				</ul>
 			</div><!-- /navbar -->
-		</div><!-- /page -->
+		</div><!-- /footer -->
 	';
 }
 
