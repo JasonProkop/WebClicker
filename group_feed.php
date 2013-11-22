@@ -20,15 +20,11 @@
 <html>
 	<head>
 		<title>WebClicker - Group Subscriptions</title>
-		<?php outputHeader(); ?>
+		<?php boilerPlate(); ?>
 	</head>
 	<body>
 		<div id="homepage" data-role="page" data-theme='a'>
-			<header data-role="header"  data-tap-toggle="false">
-				<h1>Group Subscriptions</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-			</header><!-- /header -->
-			
+			<?php drawHeader(); ?>
 			<div data-role="collapsible">
 				<h1>Subscribe to a Group</h1>
 				<ul data-role="listview" data-filter="true" data-inset="true">
@@ -62,7 +58,9 @@
 			?>
 				</ul>
 			</div>
+			<?php outputFooter(); ?>
 		</div><!-- /page -->
+	
 	</div>
 </body>
 </html>

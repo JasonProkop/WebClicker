@@ -8,17 +8,11 @@
   <title>
     WebClicker
   </title>
-  <?php outputHeader(); ?>
+  <?php boilerPlate(); ?>
 </head>
 <body>
 <div data-role="page" id="signInPage"  data-title="WebClicker - Sign In" data-theme='a'>
-  <div data-role="header">
-    <h3>
-      Sign In
-    </h3>
-    <span class="error"><?php currentError(); ?></span>
-	<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-  </div>
+	<?php drawHeader(); ?>
   <div data-role="content">
   	<form action="control/user_signin.php" method="POST" data-ajax="false">
       <div data-role="fieldcontain">
@@ -36,6 +30,7 @@
       <input type="submit" value="Submit">
     </form>
   </div>
+  <?php outputFooter(); ?>
 </div><!-- Sign In -->
 </body>
 </html>

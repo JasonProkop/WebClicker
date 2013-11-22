@@ -18,14 +18,11 @@
 <html>
 	<head>
 		<title>WebClicker - Poll Management</title>
-		<?php outputHeader(); ?>
+		<?php boilerPlate(); ?>
 	</head>
 	<body>
 		<div id="homepage" data-role="page" >
-			<header data-role="header"  data-tap-toggle="false">
-				<h1>Poll Management</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-			</header><!-- /header -->
+			<?php drawHeader(); ?>
 			<div data-role="collapsible">
 				<h1>Create Group</h1>
 				<form action="control/group_create.php" method="POST" data-ajax="false">
@@ -55,6 +52,7 @@
 			?>
 			</ul>
 			</div>
+			<?php outputFooter(); ?>
 		</div><!-- /page -->
 	</body>
 </html>
