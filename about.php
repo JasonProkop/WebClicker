@@ -44,7 +44,7 @@ function displaySiteStats(){
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Links</h2>
 			<a href="https://github.com/JasonProkop/cmpt370/" data-role="button">Our Gitub</a>
-			<a href="take_poll.php?accessCode=twx29" data-role="button">Feedback Poll</a>
+			<a href="poll_take.php?accessCode=twx29" data-role="button">Feedback Poll</a>
 		</div><!-- /links -->
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Site Statistics</h1>
