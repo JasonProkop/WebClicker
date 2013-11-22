@@ -1,2 +1,4 @@
 phppgadmin/
 .project
+*~
+*.swp
