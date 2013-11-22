@@ -600,6 +600,7 @@ function currentError(){
 */
 function outputHeader(){
 	echo '
+		<title>WebClicker</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -618,6 +619,27 @@ function outputHeader(){
 			*{font-family: "Open Sans", sans-serif; font-size: 1em;}
 			.code{font-family: "Droid Sans Mono", monospace; font-size: 1em; margin: auto;}
 		</style>
+		
+		
+	';
+}
+
+/*
+	Outputs a consitent footer on all our pages.
+	Authored by: Brady
+*/
+function outputFooter(){
+	echo '
+		<div data-role="footer" data-position="fixed" data-tap-toggle="false">	
+			<div data-role="navbar" data-iconpos="top">
+				<ul>
+					<li><a href="poll_create.php" data-icon="plus">Make New Poll</a></li>
+					<li><a href="#" data-icon="gear">Go To Poll</a></li>
+					<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
+					<li><a href="about.php" data-icon="home">About Us</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /page -->
 	';
 }
 

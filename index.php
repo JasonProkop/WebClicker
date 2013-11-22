@@ -20,7 +20,6 @@
 <!doctype html>
 <html>
 	<head>
-	  <title>WebClicker</title>
 	  <?php outputHeader(); ?>
 	</head>
 	<body>
@@ -60,17 +59,7 @@
 					<div class="ui-block-a"><a href="poll_take.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></div>
 					<div class="ui-block-b"><a href="about.php" data-role="button" data-ajax="false">About us</a></div>
 				</div>
-			</div>
-			<div data-role="footer" data-position="fixed" data-tap-toggle="false">		
-		<div data-role="navbar" data-iconpos="top">
-			<ul>
-				<li><a href="index.php" data-icon="home">Home</a></li>
-				<li><a href="poll_create.php" data-icon="plus">Create New Poll</a></li>
-				<li><a href="#" data-icon="gear">Edit Profile</a></li>
-				<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
-				<li><a href="about.php" data-icon="home">About Us</a></li>
-			</ul>
-		</div><!-- /navbar -->
-		</div><!-- /page -->
+			</div>	
+		 	<?php outputFooter(); ?>
 	</body>
 </html>

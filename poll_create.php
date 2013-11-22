@@ -63,10 +63,19 @@
 					</div>
 					<div class="ui-grid-solo">
 						<input type="submit" id="submit" value="All Done!"  data-icon="check" data-iconpos="left" />
-					</div>	
+					</div>
+						<div data-role="navbar" data-iconpos="top">
+							<ul>
+								<li><a href="poll_create.php" data-icon="plus">Make New Poll</a></li>
+								<li><a href="#" data-icon="gear">Go To Poll</a></li>
+								<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
+								<li><a href="about.php" data-icon="home">About Us</a></li>
+							</ul>
+					</div><!-- /navbar -->	
 				</div>
 			</form>
 		</div>
-	<body>
+		
+	</body>
 </html>
 <?php $_SESSION['error'] = ''; ?>
