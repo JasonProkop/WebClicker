@@ -142,7 +142,7 @@ function displayQuestion($question){
 		<title>
 			WebClicker
 		</title>
-		<?php outputHeader(); ?>
+		<?php boilerPlate(); ?>
 		<script type="text/javascript" src="static/js/excanvas.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.jqplot.min.js"></script>
 		<script type="text/javascript" src="static/js/plugins/jqplot.barRenderer.min.js"></script>
@@ -156,10 +156,9 @@ function displayQuestion($question){
 	</head>
 	<body>
 		<div data-role="page" data-title="Webclicker - <?php echo $poll->Name; ?> - Results" data-theme="a" id="resultsPage">
-			<div data-role="header" data-tap-toggle="false">
+			<?php drawHeader(); ?>
+			<div data-role="content" data-tap-toggle="false">
 				<h1><?php echo $poll->Name ?></h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-position-to="origin"><?php echo substr(loggedInUser(), 0, 9); ?></a>
 			</div><!-- /header -->
 			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet</a>
 			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -186,15 +185,16 @@ function displayQuestion($question){
 					echo '</div>';
 				}
 ?>
-		</div>
+		
 <?php
 			// Create the plots	
 			foreach($poll->Questions as $question){
 				displayQuestion($question);
 			}
 ?>
-			<div data-role="footer" data-tap-toggle="false">
+			
+				<?php outputFooter(); ?>
 			</div>
-	<body>
+	</body>
 </html>
 

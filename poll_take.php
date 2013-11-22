@@ -73,7 +73,7 @@ function displayQuestion($question){
 <html>
 	<head>
 		<title>WebClicker</title>
-		<?php outputHeader(); ?>
+		<?php boilerPlate(); ?>
 		<script>
 		$(document).on('click', '#goforward', function () {
 			if ($.mobile.activePage.next('.ui-page').length !== 0) {
@@ -119,6 +119,7 @@ function displayQuestion($question){
 		</script>
 	</head>
 	<body>
+			
 		<form action="control/poll_parseresults.php" method="POST" data-ajax="false">
 <?php
 	echo '<input type=hidden name="poll_id" value="'.$poll->AccessCode.'" style="visiblity: hidden;">';
@@ -126,10 +127,10 @@ function displayQuestion($question){
 	$qn = sizeof($poll->Questions);
 	for($q = 1; $q <= $qn; $q++){
 		echo '<div id="q'.$q.'" class="ui-page" data-role="page" data-title="Webclicker - '.$poll->Name.' - Create" data-theme="a">
-			<div data-role="header" data-id="question" data-tap-toggle="false">
+			<div data-role="content" data-id="question" data-tap-toggle="false">';
+			drawHeader();
+			echo'
 				<h1>'.$poll->Name.'</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-				<a href=""  class="ui-btn-right" data-inline="true" data-position-to="origin">'.substr(loggedInUser(), 0, 10).'</a>
 				<div data-role="navbar">
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
@@ -160,6 +161,7 @@ function displayQuestion($question){
 		}
 		echo '</div><!-- /footer -->
 		</div><!-- /page -->';
+		outputFooter();
 	}
 ?>
 		</form>

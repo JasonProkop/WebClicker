@@ -34,13 +34,13 @@
 	<title>
 		WebClicker - Poll Details
 	</title>
-	<?php outputHeader(); ?>
+	<?php boilerPlate(); ?>
 </head>
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - <?php echo $poll->Name; ?> - Poll Details" data-theme='a'>
-		<header data-role="header"  data-tap-toggle="false">
+		<?php drawHeader(); ?>
+		<header data-role="content"  data-tap-toggle="false">
 			<h1><?php echo $poll->Name; ?> - Poll Details</h1>
-			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
 		<ul data-role="listview">
 			<li>Access Code: <?php echo $poll->AccessCode; ?></li>
@@ -77,6 +77,7 @@
 				}
 			?>
 		</div>
+		<?php outputFooter(); ?>
 	</div>
 </body>
 </html>
