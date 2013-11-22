@@ -16,7 +16,7 @@
     <h3>
       Sign In
     </h3>
-    <span class="error"><?php echo currentError(); ?></span>
+    <span class="error"><?php currentError(); ?></span>
 	<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
   </div>
   <div data-role="content">

@@ -10,6 +10,7 @@ class PollNotFound extends CustomException {} //'Poll is not in database.'
 class MalformedAccessCode extends CustomException {} //'Access code is malformed.'
 class Subscription extends CustomException {} //'Key is not correct'
 class GroupNotFound extends CustomException {} //'Group is not in database'
+class Activation extends CustomException {} //'Only the creator can activate/deactivate a poll'
 
 /******* Start SESSION manager ********
 	Sets the user to the anonymous user if no session exists.

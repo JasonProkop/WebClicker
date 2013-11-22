@@ -56,7 +56,7 @@
 			<div data-role="collapsible">
 			  <h3>Feedback</h3>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="poll.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></div>
+					<div class="ui-block-a"><a href="poll_take.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></div>
 					<div class="ui-block-b"><a href="about.php" data-role="button" data-ajax="false">About us</a></div>
 				</div>
 			</div>
