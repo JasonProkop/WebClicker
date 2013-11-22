@@ -633,7 +633,7 @@ function outputFooter(){
 		<div data-role="footer" data-position="fixed" data-tap-toggle="false">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
-					<li><a href="poll_create.php" data-icon="plus">Make New Poll</a></li>
+					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">Make New Poll</a></li>
 					<li><a href="#" data-icon="gear">Go To Poll</a></li>
 					<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
 					<li><a href="about.php" data-icon="home">About Us</a></li>
