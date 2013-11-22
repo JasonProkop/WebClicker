@@ -650,7 +650,7 @@ function outputFooter(){
 					<li><a href="index.php" data-icon="home">Home</a></li>
 					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
 					<li><a href="#" data-icon="gear">To Poll</a></li>
-					<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
+					<li><a href="group_feed.php" data-icon="grid">Groups</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /page -->
