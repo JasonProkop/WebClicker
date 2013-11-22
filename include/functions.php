@@ -635,15 +635,15 @@ function boilerPlate(){
 */
 function outputAccountMenu(){
 	echo '<div data-role="popup" id="popupAccount" class="ui-content">
-			<ul data-role="listview" data-inset="true" data-mini="true">
+			<ul data-role="listview" data-mini="true">
 				<li>'.loggedInUser().'</li>';
 	if(userLoggedIn()){
-		echo '<li><a href="group_manage.php" data-role="button" data-ajax="false">Manage</a></li>';
-		echo '<li><a href="group_feed.php" data-role="button" data-ajax="false">Feed</a></li>';
-		echo '<li><a href="control/user_signout.php" data-role="button" data-ajax="false">Sign Out</a></li>';
+		echo '<li><a href="group_manage.php" data-ajax="false">Manage</a></li>';
+		echo '<li><a href="group_feed.php" data-ajax="false">Feed</a></li>';
+		echo '<li><a href="control/user_signout.php" data-ajax="false">Sign Out</a></li>';
 	}else{
-		echo '<li><a href="user_signin.php" data-role="button" data-ajax="false">Sign In</a></li>';
-		echo '<li><a href="user_signup.php" data-role="button" data-ajax="false">Sign Up</a></li>';
+		echo '<li><a href="user_signin.php" data-ajax="false">Sign In</a></li>';
+		echo '<li><a href="user_signup.php" data-ajax="false">Sign Up</a></li>';
 	}
 	echo 		'</ul>
 		</div>';
@@ -657,7 +657,7 @@ function drawHeader(){
 	$gravURL = getGravatarURL(42);
 		echo '
 			<header data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
-				<a href ="#popupAccount" data-rel="popup" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
+				<a href ="#popupAccount" data-rel="popup" data-role="none" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
 				<h1>Web Clicker</h1>
 			</header><!-- /header -->';
 	outputAccountMenu();
@@ -679,11 +679,15 @@ function outputFooter(){
 				</ul>
 			</div><!-- /navbar -->
 			<div data-role="popup" id="popupPoll" class="ui-content">
-				<form action="control/poll_search.php" method="POST" data-ajax="false">
-					Enter Access Code:
-					<input type="text" name="accessCode" placeholder="eg: twx29">
-					<input data-mini="true" data-role="button" type="submit" name="submit" value="Go">
-				</form>
+				<p>Enter Access Code:</p>
+				<input id="accessCode" type="text" name="accessCode" placeholder="eg: twx29">
+				<input data-mini="true" data-role="button" type="submit" name="submit" value="Go" onclick="goToPoll()">
+				<script>
+					function goToPoll() {
+						var code = $(\'#accessCode\').val();
+						window.location = \'/poll_take.php?accessCode=\' + code;
+					}
+				</script>
 			</div>
 		</div><!-- /footer -->
 	';
