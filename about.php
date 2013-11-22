@@ -24,12 +24,12 @@ function displaySiteStats(){
 <!doctype html>
 <html>
 	<title>WebClicker - About</title>
-	<?php outputHeader(); ?>
+	<?php boilerPlate(); ?>
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - About Us" data-theme='a'>
-		<header data-role="header"  data-tap-toggle="false">
+		<?php drawHeader(); ?>
+		<header data-role="content"  data-tap-toggle="false">
 			<h1>Web Clicker - About Us</h1>
-			<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 		</header><!-- /header -->
 		<div data-role="collapsible" data-collapsed="true">
 			<h1>Members - Group 04</h1>
@@ -55,6 +55,7 @@ function displaySiteStats(){
 				<?php displaySiteStats(); ?>
 			</ul>
 		</div><!-- /statistics -->
+		<?php outputFooter(); ?>
 	</div><!-- /page -->
 </body>
 </html>
