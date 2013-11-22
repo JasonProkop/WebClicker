@@ -16,18 +16,19 @@
 <html>
 <head>
 	<title>WebClicker - Create Poll</title>
-	<?php outputHeader(); ?>
+	<?php boilerPlate(); ?>
 	<script src="static/js/magic.js"></script>
 	<script>
 		$(document).on('load', $('#addNewQuestion').click()); //add a single question right off the start.
 	</script>
 </head>
-	<body>
+	<body>		  
 		<div data-role="page" data-theme='a'>
+			<?php drawHeader(); ?>
 			<form id="createPoll" action="control/poll_create.php" method="POST" data-ajax="false" questions=0>
-				<div data-role="header">
+				<div data-role="content">
+					<h1>Poll Title:</h1>
 					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
-					<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
 					<span class="error"><?php echo currentError(); ?></span>
 				</div>
 				<div data-role="collapsible" data-collapsed="true" data-icon="gear">
@@ -68,7 +69,6 @@
 			</form>
 			<?php outputFooter(); ?>
 		</div>
-		
 	</body>
 </html>
 <?php $_SESSION['error'] = ''; ?>

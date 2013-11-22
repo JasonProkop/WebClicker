@@ -598,7 +598,7 @@ function currentError(){
 	Outputs a consitent header on all our pages.
 	Authored by: Jason
 */
-function outputHeader(){
+function boilerPlate(){
 	echo '
 		<title>WebClicker</title>
 		<meta charset="utf-8">
@@ -628,15 +628,29 @@ function outputHeader(){
 	Outputs a consitent footer on all our pages.
 	Authored by: Brady
 */
+function drawHeader(){
+	$gravURL = getGravatarURL(42);
+		echo '
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">
+				<img border="0" src="'.$gravURL.'" alt="gravatar" style="float:right;display:inline"/>
+				<h1>Web Clicker</h1>
+			</header><!-- /header -->
+	';
+}
+
+/*
+	Outputs a consitent footer on all our pages.
+	Authored by: Brady
+*/
 function outputFooter(){
 	echo '
 		<div data-role="footer" data-position="fixed" data-tap-toggle="false">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
-					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">Make New Poll</a></li>
-					<li><a href="#" data-icon="gear">Go To Poll</a></li>
+					<li><a href="index.php" data-icon="home">Home</a></li>
+					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
+					<li><a href="#" data-icon="gear">To Poll</a></li>
 					<li><a href="group_feed.php" data-icon="grid">Manage Groups</a></li>
-					<li><a href="about.php" data-icon="home">About Us</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /page -->

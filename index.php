@@ -20,14 +20,11 @@
 <!doctype html>
 <html>
 	<head>
-	  <?php outputHeader(); ?>
+	  <?php boilerPlate(); ?>
 	</head>
 	<body>
 		<div id="homepage" data-role="page" data-title="WebClicker - homepage" data-theme='a'>
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">
-				<img border="0" src="<?php $gravURL = getGravatarURL(42); echo $gravURL; ?>" alt="gravatar" style="float:right;display:inline"/>
-				<h1>Web Clicker</h1>
-			</header><!-- /header -->
+			  <?php drawHeader(); ?>
 			<div data-role="collapsible">
 				<?php 
 					echo $header;
@@ -61,5 +58,6 @@
 				</div>
 			</div>	
 		 	<?php outputFooter(); ?>
+		
 	</body>
 </html>
