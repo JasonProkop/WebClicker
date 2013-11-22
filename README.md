@@ -9,5 +9,3 @@ The Webclicker project originated as a clss project which sought to create an on
 
 Webclicker simplifies this process by removing the necessity for the hardware clicker, instead enabling users to take the quizzes on their mobile internet ready devices.   
 
-CAPTAIN HOOK!!!
-
