@@ -15,7 +15,6 @@ function displaySiteStats(){
 		echo "<li>$stats->Groups Groups</li>";
 		echo "<li>".sprintf("%.2f%%", $stats->Percentage * 100)." Total Response Grade</li>";
 	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
 		redirectTo('error.php');
 	}
@@ -28,9 +27,6 @@ function displaySiteStats(){
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - About Us" data-theme='a'>
 		<?php drawHeader(); ?>
-		<header data-role="content"  data-tap-toggle="false">
-			<h1>Web Clicker - About Us</h1>
-		</header><!-- /header -->
 		<div data-role="collapsible" data-collapsed="true">
 			<h1>Members - Group 04</h1>
 			<ul data-role="listview">
@@ -48,6 +44,7 @@ function displaySiteStats(){
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Links</h2>
 			<a href="https://github.com/JasonProkop/cmpt370/" data-role="button">Our Gitub</a>
+			<a href="take_poll.php?accessCode=twx29" data-role="button">Feedback Poll</a>
 		</div><!-- /links -->
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Site Statistics</h1>

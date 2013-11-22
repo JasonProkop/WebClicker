@@ -323,7 +323,7 @@ function displayRecentPolls($db){
 	Authored by: Dylan
 */
 function displaySearchablePolls($db){
-	$sql = $db->prepare("SELECT * FROM polls;");
+	$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' ORDER BY poll_date_created DESC;");
 	$sql->execute();
 	displayPollsList($sql->fetchAll());
 }
@@ -638,14 +638,14 @@ function outputAccountMenu(){
 			<ul data-role="listview" data-inset="true" data-mini="true">
 				<li>'.loggedInUser().'</li>';
 	if(userLoggedIn()){
+		echo '<li><a href="group_manage.php" data-role="button" data-ajax="false">Manage</a></li>';
+		echo '<li><a href="group_feed.php" data-role="button" data-ajax="false">Feed</a></li>';
 		echo '<li><a href="control/user_signout.php" data-role="button" data-ajax="false">Sign Out</a></li>';
 	}else{
-		echo '<li><a href="user_signup.php" data-role="button" data-ajax="false">Sign Up</a></li>';
 		echo '<li><a href="user_signin.php" data-role="button" data-ajax="false">Sign In</a></li>';
+		echo '<li><a href="user_signup.php" data-role="button" data-ajax="false">Sign Up</a></li>';
 	}
-	echo 		'<li data-role="divider" data-theme="b"><a href="poll_take.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></li>
-				<li><a href="about.php" data-role="button" data-ajax="false">About us</a></li>
-			</ul>
+	echo 		'</ul>
 		</div>';
 }
 
@@ -675,7 +675,7 @@ function outputFooter(){
 					<li><a href="index.php" data-icon="home" data-ajax="false">Home</a></li>
 					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
 					<li><a href="#popupPoll" data-rel="popup" data-icon="gear">To Poll</a></li>
-					<li><a href="group_feed.php" data-icon="grid" data-ajax="false">Groups</a></li>
+					<li><a href="about.php" data-icon="info" data-ajax="false">About</a></li>
 				</ul>
 			</div><!-- /navbar -->
 			<div data-role="popup" id="popupPoll" class="ui-content">

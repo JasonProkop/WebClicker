@@ -8,7 +8,7 @@
 			$db->beginTransaction();
 			signUp($db, $_POST['email'], $_POST['password'], $_POST['alias']);
 			signIn($db, $_POST['email'], $_POST['password']);  //sign them in automatically since we disable authorization
-			subscribe('Public', 'anonymous@anonymous.com', 100); //subscribe them to the public polls group
+			subscribe($db, 'Public', 'anonymous@anonymous.com', 100); //subscribe them to the public polls group
 			$db->commit();
 			header("location:../index.php");
 		}catch(Account $e){
