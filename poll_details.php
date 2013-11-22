@@ -12,15 +12,12 @@
 				$total_responses += sizeof($question->Responses);
 			}
 		}catch (PollNotFound $e) {
-			//echo "Poll Not Found";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
 		}catch(PDOException $e){
-			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
 		}catch(MalformedAccessCode $e){
-			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
 		}
@@ -31,9 +28,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>
-		WebClicker - Poll Details
-	</title>
+	<title>WebClicker - Poll Details</title>
 	<?php boilerPlate(); ?>
 </head>
 <body>

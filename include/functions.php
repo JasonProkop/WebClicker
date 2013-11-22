@@ -313,14 +313,19 @@ function displayPollsList($polls){
 	Authored by: Dylan
 */
 function displayRecentPolls($db){
-	try{
-		$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC;");
-		$sql->execute();
-		displayPollsList($sql->fetchAll());
-	}catch(PDOException $e){
-		$_SESSION['error'] = $e->getMessage();
-		header("Location:../error.php");
-	}
+	$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC LIMIT 5;");
+	$sql->execute();
+	displayPollsList($sql->fetchAll());
+}
+
+/*
+	Grabs all polls from the database to display in the searchable list on the homepage
+	Authored by: Dylan
+*/
+function displaySearchablePolls($db){
+	$sql = $db->prepare("SELECT * FROM polls;");
+	$sql->execute();
+	displayPollsList($sql->fetchAll());
 }
 
 /*
@@ -625,6 +630,26 @@ function boilerPlate(){
 }
 
 /*
+	Outputs the popup account menu,
+	Authored by: Dylan
+*/
+function outputAccountMenu(){
+	echo '<div data-role="popup" id="popupAccount" class="ui-content">
+			<ul data-role="listview" data-inset="true" data-mini="true">
+				<li>'.loggedInUser().'</li>';
+	if(userLoggedIn()){
+		echo '<li><a href="control/user_signout.php" data-role="button" data-ajax="false">Sign Out</a></li>';
+	}else{
+		echo '<li><a href="user_signup.php" data-role="button" data-ajax="false">Sign Up</a></li>';
+		echo '<li><a href="user_signin.php" data-role="button" data-ajax="false">Sign In</a></li>';
+	}
+	echo 		'<li data-role="divider" data-theme="b"><a href="poll_take.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a></li>
+				<li><a href="about.php" data-role="button" data-ajax="false">About us</a></li>
+			</ul>
+		</div>';
+}
+
+/*
 	Outputs a consitent footer on all our pages.
 	Authored by: Brady
 */
@@ -632,10 +657,10 @@ function drawHeader(){
 	$gravURL = getGravatarURL(42);
 		echo '
 			<header data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
-				<img border="0" src="'.$gravURL.'" alt="gravatar" style="float:right;display:inline"/>
+				<a href ="#popupAccount" data-rel="popup" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
 				<h1>Web Clicker</h1>
-			</header><!-- /header -->
-	';
+			</header><!-- /header -->';
+	outputAccountMenu();
 }
 
 /*
@@ -649,10 +674,17 @@ function outputFooter(){
 				<ul>
 					<li><a href="index.php" data-icon="home" data-ajax="false">Home</a></li>
 					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
-					<li><a href="#" data-icon="gear">To Poll</a></li>
+					<li><a href="#popupPoll" data-rel="popup" data-icon="gear">To Poll</a></li>
 					<li><a href="group_feed.php" data-icon="grid" data-ajax="false">Groups</a></li>
 				</ul>
 			</div><!-- /navbar -->
+			<div data-role="popup" id="popupPoll" class="ui-content">
+				<form action="control/poll_search.php" method="POST" data-ajax="false">
+					Enter Access Code:
+					<input type="text" name="accessCode" placeholder="eg: twx29">
+					<input data-mini="true" data-role="button" type="submit" name="submit" value="Go">
+				</form>
+			</div>
 		</div><!-- /footer -->
 	';
 }
