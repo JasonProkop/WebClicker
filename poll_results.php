@@ -90,9 +90,7 @@ function displayText($question){
 	echo "
 		<script>
 		$(document).on('pageinit', function(event) {
-			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
 			var list = $('<ul>', {'data-role' : 'listview', 'data-inset' : 'true'});
-			$('#chart".$question->Order."').append(title);
 			";
 		foreach($question->Responses as $response){
 			echo "list.append($('<li/>', {'html' : ".json_encode($response->Response)."}));\n";
@@ -108,9 +106,7 @@ function displayNone($question){
 	echo "
 		<script>
 		$(document).on('pageinit', function(event) {
-			var title = $('<h3/>', {'html' : ".json_encode($question->Question)."});
 			var none = $('<h4/>', {'html' : 'No Responses to this Question.'});
-			$('#chart".$question->Order."').append(title);
 			$('#chart".$question->Order."').append(none);
 			$('#chart".$question->Order."').trigger('create');
 		});
