@@ -43,8 +43,8 @@ function displaySiteStats(){
 		</div><!-- /plan -->
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Links</h2>
-			<a href="https://github.com/JasonProkop/cmpt370/" data-role="button">Our Gitub</a>
-			<a href="poll_take.php?accessCode=twx29" data-role="button">Feedback Poll</a>
+			<a href="https://github.com/JasonProkop/cmpt370/" data-role="button" data-ajax="false">Our Gitub</a>
+			<a href="poll_take.php?accessCode=twx29" data-role="button" data-ajax="false">Feedback Poll</a>
 		</div><!-- /links -->
 		<div data-role="collapsible" data-collapsed="false">
 			<h1>Site Statistics</h1>
