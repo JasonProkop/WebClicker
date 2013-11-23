@@ -150,7 +150,8 @@ function displayQuestion($question){
 		
 		echo '<div class="ui-grid-a">';
 		if($qn == 1){
-			echo '<div class="ui-grid-solo">
+			echo '</div><!-- end grid -->
+				  <div class="ui-grid-solo">
 					<input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/>
 			      </div>';
 		}else if($q == $qn){
