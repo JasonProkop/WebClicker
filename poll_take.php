@@ -147,20 +147,30 @@ function displayQuestion($question){
 			</div><!-- /header -->
 			<div data-role="content" >';
 		displayQuestion($poll->Questions[$q]);
-		echo '</div><!-- /content -->';
-		echo '<div id="footer" data-role="footer" data-tap-toggle="false">';
+		
+		echo '<div class="ui-grid-a">';
 		if($qn == 1){
-			echo '<div class="ui-btn-right"><input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+			echo '<div class="ui-grid-solo">
+					<input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/>
+			      </div>';
 		}else if($q == $qn){
-			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
-					<div class="ui-btn-right"><input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/></div>';
+			echo '		<div class="ui-block-a"><a href="#" id="goback" data-role="button" data-icon="arrow-l">Previous</a></div>
+						<div class="ui-block-b"></div>
+					</div><!-- end grid -->
+					<div class="ui-grid-solo">
+						<input type="submit" id="submit" value="Submit Poll" data-icon="check" class="submit"/>
+					</div>';
 		}else if($q == 1){
-			echo '<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
+			echo '		<div class="ui-block-a"></div>
+						<div class="ui-block-b"><a href="#" id="goforward" data-role="button" data-icon="arrow-r" data-iconpos="right">Next</a></div>
+					</div><!-- end grid -->';
 		}else{
-			echo '<div class="ui-btn-left"><a href="#" id="goback" data-role="button">Previous</a></div>
-					<div class="ui-btn-right"><a href="#" id="goforward" data-role="button">Next</a></div>';
+			echo '		<div class="ui-block-a"><a href="#" id="goback" data-role="button" data-icon="arrow-l">Previous</a></div>
+						<div class="ui-block-b"><a href="#" id="goforward" data-role="button" data-icon="arrow-r" data-iconpos="right">Next</a></div>
+					</div><!-- end grid -->';
 		}
-		echo '</div><!-- /footer -->';
+		echo '</div><!-- /content -->';
+
 		outputFooter();
 		echo '</div><!-- /page -->';
 	}
