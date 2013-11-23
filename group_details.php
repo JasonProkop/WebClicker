@@ -37,20 +37,18 @@
 <html>
 	<head>
 		<title>WebClicker - Group Details</title>
-		<?php outputHeader(); ?>
+		<?php boilerPlate(); ?>
 	</head>
 	<body>
 		<div id="homepage" data-role="page" data-title="WebClicker - <?php echo $group->Name; ?> - Group Details" data-theme='a'>
-			<header data-role="header"  data-tap-toggle="false">
-				<h1><?php echo $group->Name; ?> - Group Details</h1>
-				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
-			</header><!-- /header -->
+			<?php drawHeader(); ?>
 			<ul data-role="listview">
 				<li>Key: <?php echo $group->Key; ?></li>
 				<li>Polls: <?php echo $polls; ?></li>
 				<li>Users: <?php echo $users; ?></li>
 				<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($group->DateCreated)); ?></li>
 			</ul>
+			<?php outputFooter(); ?>
 		</div>
 	</body>
 </html>

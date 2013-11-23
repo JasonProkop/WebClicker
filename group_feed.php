@@ -47,8 +47,9 @@
 							</form></li>';
 					}
 					
-					$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group");
+					$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:creator AND poll_active=true");
 					$sql->bindValue(':group', $group->Name);
+					$sql->bindValue(':creator', $group->Creator);
 					$sql->execute();
 					displayPollsList($sql->fetchAll());
 					echo 	'</ul><!-- /list -->';
