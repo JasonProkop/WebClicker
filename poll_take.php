@@ -79,7 +79,7 @@ function displayQuestion($question){
 			if ($.mobile.activePage.next('.ui-page').length !== 0) {
 				var next = $.mobile.activePage.next('.ui-page');
 				$.mobile.changePage(next, {
-					transition: 'fade'
+					transition: 'none'
 				});
 			} else {
 				alert('There\'s no next page');
@@ -90,7 +90,7 @@ function displayQuestion($question){
 			if ($.mobile.activePage.prev('.ui-page').length !== 0) {
 				var prev = $.mobile.activePage.prev('.ui-page');
 				$.mobile.changePage(prev, {
-					transition: 'fade',
+					transition: 'none',
 					reverse: true
 				});
 			} else {
@@ -102,7 +102,7 @@ function displayQuestion($question){
 		    if ($.mobile.activePage.next('[data-role="page"]').length !== 0) {
 		        var next = $.mobile.activePage.next('[data-role="page"]');
 		        $.mobile.changePage(next, {
-		            transition: 'fade'
+		            transition: 'none'
 		        });
 		    }
 		});
@@ -111,7 +111,7 @@ function displayQuestion($question){
 		    if ($.mobile.activePage.prev('[data-role="page"]').length !== 0) {
 		        var prev = $.mobile.activePage.prev('[data-role="page"]');
 		        $.mobile.changePage(prev, {
-		            transition: 'fade',
+		            transition: 'none',
 		            reverse: true
 		        });
 		    }
@@ -136,9 +136,9 @@ function displayQuestion($question){
 					<ul>';
 		for ($i = 1; $i <= $qn; $i++) {
 			if ($i == $q) {
-				echo '<li><a href="#q'.$i.'" data-transition="fade" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
+				echo '<li><a href="#q'.$i.'" data-transition="none" class="ui-btn-active ui-state-persist" >'.$i.'</a></li>';
 			}else {
-				echo '<li><a href="#q'.$i.'" data-transition="fade">'.$i.'</a></li>';
+				echo '<li><a href="#q'.$i.'" data-transition="none">'.$i.'</a></li>';
 			}
 			
 		}
