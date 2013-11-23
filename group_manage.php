@@ -21,7 +21,7 @@
 		<?php outputHeader(); ?>
 	</head>
 	<body>
-		<div id="homepage" data-role="page" >
+		<div id="homepage" data-role="page" data-theme='a' >
 			<header data-role="header"  data-tap-toggle="false">
 				<h1>Poll Management</h1>
 				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
