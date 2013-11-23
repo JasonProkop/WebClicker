@@ -21,7 +21,7 @@
 		<?php boilerPlate(); ?>
 	</head>
 	<body>
-		<div id="homepage" data-role="page" >
+		<div id="homepage" data-role="page" data-theme="a">
 			<?php drawHeader(); ?>
 			<div data-role="collapsible">
 				<h1>Create Group</h1>
