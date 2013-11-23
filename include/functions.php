@@ -655,8 +655,7 @@ function outputAccountMenu(){
 		echo '<li><a href="user_signup.php" data-ajax="false">Sign Up</a></li>';
 	}
 	
-	echo 		'</ul>';
-	echo '<a href="about.php" data-ajax="false"><img src="themes/images/wizardhat.gif" width="150" height="250" style="margin-top: 160px;"></a>
+	echo 	'</ul>
 		</div>';
 }
 

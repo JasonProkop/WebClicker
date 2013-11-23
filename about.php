@@ -55,7 +55,7 @@ function displaySiteStats(){
 			</ul>
 			
 		</div><!-- /statistics -->
-		
+		<img src="themes/images/wizardhat.gif">
 		<?php outputFooter(); ?>
 	</div><!-- /page -->
 </body>
