@@ -50,6 +50,7 @@
 .ui-bar-a button {
 	    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
+
 .ui-body-a,
 .ui-overlay-a {
 	border: 1px solid #000000 /*{a-body-border}*/;
@@ -64,7 +65,8 @@
 	background-image:         linear-gradient( #e5e5e5 /*{a-body-background-start}*/, #bcbcbc /*{a-body-background-end}*/);
 }
 .ui-overlay-a {
-	background-image: none;
+	background-image:url('images/wizard.png');
+	background-attachment:fixed;
 	border-width: 0;
 }
 .ui-body-a,
@@ -1249,5 +1251,12 @@ label {
 	box-shadow: 1px 1px 3px #888888;
     overflow-y: visible;
     margin: 10px auto;
+}
+
+body 
+{
+	
+	background-color:red;
+	
 }
 												

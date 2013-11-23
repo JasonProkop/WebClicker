@@ -48,7 +48,7 @@ function loggedInUser()
 function getGravatarURL($sizePx=40) {
 	$email = $_SESSION['email'];
 	$size = $sizePx; // set the size of the returned photo
-	$default = null; // need to set this to be somedefault not signed in avatar
+	$default = 'mm'; // need to set this to be somedefault not signed in avatar
 	$grav_url = "http://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?d=" . urlencode( $default ) . "&s=" . $size;
 	return $grav_url;
 }
