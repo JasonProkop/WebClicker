@@ -27,6 +27,7 @@ function displaySiteStats(){
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - About Us" data-theme='a'>
 		<?php drawHeader(); ?>
+		
 		<div data-role="collapsible" data-collapsed="true">
 			<h1>Members - Group 04</h1>
 			<ul data-role="listview">
@@ -51,7 +52,9 @@ function displaySiteStats(){
 			<ul data-role="listview">
 				<?php displaySiteStats(); ?>
 			</ul>
+			
 		</div><!-- /statistics -->
+		
 		<?php outputFooter(); ?>
 	</div><!-- /page -->
 </body>

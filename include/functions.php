@@ -673,6 +673,26 @@ function drawHeader(){
 				<h1>Web Clicker</h1>
 			</header><!-- /header -->';
 	outputAccountMenu();
+	echo '<div data-role="content">';
+}
+
+/*
+	Outputs the search panel on all our pages.
+	Authored by: Brady
+*/
+function outputSearchPanel(){
+	$db = db_getpdo();
+	echo '
+		 <div data-role="panel" data-display="overlay" id="searchpanel" data-theme="b">	
+			    <div class="panel-content">
+			     	<h2>Search by Name</h2>
+				<ul data-role="listview" data-filter="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
+				displaySearchablePolls($db);
+	echo '
+				</ul>
+			    </div><!-- /content wrapper for padding -->
+			  </div><!-- /defaultpanel -->
+	';
 }
 
 /*
@@ -680,7 +700,9 @@ function drawHeader(){
 	Authored by: Brady
 */
 function outputFooter(){
+	outputSearchPanel();
 	echo '
+		</div>
 		<div data-role="footer" data-id="persistentfooter" data-position="fixed" data-tap-toggle="false">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>

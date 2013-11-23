@@ -30,14 +30,7 @@
 				</ul>
 			</div>
 				
-			 <div data-role="panel" data-display="overlay" id="searchpanel" data-theme="b">	
-			    <div class="panel-content">
-			     	<h2>Search by Name</h2>
-				<ul data-role="listview" data-filter="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">
-					<?php displaySearchablePolls($db); ?>
-				</ul>
-			    </div><!-- /content wrapper for padding -->
-			  </div><!-- /defaultpanel -->
+			 <?php outputSearchPanel(); ?>
 			
 			</div>
 			  <?php outputFooter(); ?>
