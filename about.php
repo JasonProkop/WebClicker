@@ -30,11 +30,11 @@ function displaySiteStats(){
 		<div data-role="collapsible" data-collapsed="true">
 			<h1>Members - Group 04</h1>
 			<ul data-role="listview">
-				<li>Max Gooding</li>
-				<li>Brady Smith</li>
-				<li>Jason Prokop</li>
-				<li>Dylan Fafard</li>
-				<li>Bo Dong</li>
+				<li><a href="https://github.com/MaxGoo"><img src="<?php $url = getGravatarURLemail("putemailhere", 80); echo $url ?>" alt="Max Gooding"/><h3>Max Gooding</h3><p>Github</p></a></li>
+				<li><a href="https://github.com/BradySmith"><img src="<?php $url = getGravatarURLemail("brady_smith87@hotmail.com", 80); echo $url ?>" alt="Brady Smith"/><h3>Brady Smith</h3><p>Github</p></a></li>
+				<li><a href="https://github.com/JasonProkop"><img src="<?php $url = getGravatarURLemail("putemailhere", 80); echo $url ?>" alt="Jason Prokop"/><h3>Jason Prokop</h3><p>Github</p></a></li>
+				<li><a href="https://github.com/fafmaster"><img src="<?php $url = getGravatarURLemail("fafmaster@hotmail.com", 80); echo $url ?>" alt="Dylan Fafard"/><h3>Dylon Fafard</h3><p>Github</p></a></li>
+				<li><a href="https://github.com/zillionk"><img src="<?php $url = getGravatarURLemail("zillionk1973@gmail.com", 80); echo $url ?>" alt="Bo Dong"/><h3>Bo Dong</h3><p>Github</p></a></li>
 			</ul>
 		</div><!-- /members -->
 		<div data-role="collapsible" data-collapsed="true">
