@@ -7,7 +7,8 @@
 */
 function displaySiteStats(){
 	try{
-		$stats = new SiteStats(db_getpdo());
+		$db = db_getpdo();
+		$stats = new SiteStats($db);
 		echo "<li>$stats->Users Users</li>";
 		echo "<li>$stats->Polls Polls</li>";
 		echo "<li>$stats->Questions Questions</li>";
