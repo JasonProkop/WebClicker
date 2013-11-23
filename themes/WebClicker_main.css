@@ -65,7 +65,7 @@
 	background-image:         linear-gradient( #e5e5e5 /*{a-body-background-start}*/, #bcbcbc /*{a-body-background-end}*/);
 }
 .ui-overlay-a {
-	background-image:url('images/wizard.png');
+	background-image:url('images/bg.jpg');
 	background-attachment:fixed;
 	border-width: 0;
 }

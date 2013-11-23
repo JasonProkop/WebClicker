@@ -1,5 +1,5 @@
 <?php
-include_once('db.php');
+include_once('db.php'); //should not be here
 include_once('exception.php');
 include_once('classes.php');
 
@@ -635,9 +635,7 @@ function boilerPlate(){
 			*{font-family: "Open Sans", sans-serif; font-size: 1em;}
 			.code{font-family: "Droid Sans Mono", monospace; font-size: 1em; margin: auto;}
 		</style>
-		
-		
-	';
+		';
 }
 
 /*
@@ -645,7 +643,7 @@ function boilerPlate(){
 	Authored by: Dylan
 */
 function outputAccountMenu(){
-	echo '<div data-role="popup" id="popupAccount" class="ui-content">
+	echo '<div data-role="panel" data-display="overlay" data-position="right" id="popupAccount"">
 			<ul data-role="listview" data-mini="true">
 				<li>'.loggedInUser().'</li>';
 	if(userLoggedIn()){
@@ -656,25 +654,10 @@ function outputAccountMenu(){
 		echo '<li><a href="user_signin.php" data-ajax="false">Sign In</a></li>';
 		echo '<li><a href="user_signup.php" data-ajax="false">Sign Up</a></li>';
 	}
-	echo 		'</ul>
+	
+	echo 		'</ul>';
+	echo '<a href="about.php" data-ajax="false"><img src="themes/images/wizardhat.gif" width="150" height="250" style="margin-top: 160px;"></a>
 		</div>';
-}
-
-/*
-	Outputs a consitent footer on all our pages.
-	Authored by: Brady
-*/
-function drawHeader(){
-	$gravURL = getGravatarURL(42);
-		echo '
-			<header data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
-				<a href="#searchpanel" data-icon="search" class="ui-btn-left">Search</a>
-				<a href ="#popupAccount" data-rel="popup" data-role="none" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
-				<h1>Web Clicker</h1>
-			</header><!-- /header -->';
-	outputAccountMenu();
-	outputSearchPanel();
-	echo '<div data-role="content">';
 }
 
 /*
@@ -682,12 +665,13 @@ function drawHeader(){
 	Authored by: Brady
 */
 function outputSearchPanel(){
+	$db = db_getpdo(); //no db creation should be allowed from functions, only control modules.. this is not safe
 	echo '
-		 <div data-role="panel" data-display="overlay" id="searchpanel" data-theme="b">	
+		 <div data-role="panel" data-display="overlay" data-position="left" id="searchPanel" data-theme="b">	
 			    <div class="panel-content">
 			     	<h2>Search by Name</h2>
-				<ul data-role="listview" data-filter="true" data-inset="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
-				displaySearchablePolls(db_getpdo());
+				<ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
+				displaySearchablePolls(db_getpdo()); //this is not safe
 	echo '
 				</ul>
 			    </div><!-- /content wrapper for padding -->
@@ -699,9 +683,23 @@ function outputSearchPanel(){
 	Outputs a consitent footer on all our pages.
 	Authored by: Brady
 */
+function drawHeader(){
+	$gravURL = getGravatarURL(42);
+		echo '
+			<div data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
+				<a href="#searchPanel" data-icon="search" class="ui-btn-left">Search</a>
+				<a href ="#popupAccount" data-role="none" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
+				<h1>Web Clicker</h1>
+			</div><!-- /header -->';
+}
+
+
+/*
+	Outputs a consitent footer on all our pages.
+	Authored by: Brady
+*/
 function outputFooter(){
 	echo '
-		</div>
 		<div data-role="footer" data-id="persistentfooter" data-position="fixed" data-tap-toggle="false">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
@@ -724,6 +722,8 @@ function outputFooter(){
 			</div>
 		</div><!-- /footer -->
 	';
+	outputAccountMenu();
+	outputSearchPanel();
 }
 
 /*
