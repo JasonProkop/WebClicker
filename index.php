@@ -19,9 +19,9 @@
 			<?php drawHeader(); ?>
 			<div data-role="content">
  		
-			<div data-role"content" div id="center_box" div style="margin:0 auto;margin-left:auto;margin-right:auto;align:center;text-align:center;width:75%">
+			<div data-role"content" div id="center_box" div style="margin:0 auto;margin-left:auto;margin-right:auto;align:center;text-align:center;width:90%">
 				<h2>Welcome to Web Clicker!</h2>
-				<p>Use the buttons at the bottom of the page to get started or check out one of these recently created polls.</p>
+				<p>To get started use the buttons at the bottom of the page for the main site actions or check out one of these recently created polls.</p>
 			</div>
 			<div data-role="collapsible" data-collapsed="false">
 			  <h3>Latest Public Polls</h3>
