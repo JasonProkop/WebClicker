@@ -668,6 +668,7 @@ function drawHeader(){
 	$gravURL = getGravatarURL(42);
 		echo '
 			<header data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
+				<a href="#searchpanel" data-icon="search" class="ui-btn-left">Search</a>
 				<a href ="#popupAccount" data-rel="popup" data-role="none" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
 				<h1>Web Clicker</h1>
 			</header><!-- /header -->';
