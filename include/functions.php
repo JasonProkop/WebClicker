@@ -670,7 +670,7 @@ function outputSearchPanel(){
 			    <div class="panel-content">
 			     	<h2>Search by Name</h2>
 				<ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
-				displaySearchablePolls(db_getpdo()); //this is not safe
+				displaySearchablePolls($db); //this is not safe
 	echo '
 				</ul>
 			    </div><!-- /content wrapper for padding -->

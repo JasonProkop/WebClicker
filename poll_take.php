@@ -144,7 +144,7 @@ function displayQuestion($question){
 		}
 		echo		'</ul>
 				</div><!-- /navbar -->
-			</div><!-- /header -->
+			</div><!-- /content -->
 			<div data-role="content" >';
 		displayQuestion($poll->Questions[$q]);
 		

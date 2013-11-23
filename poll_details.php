@@ -34,9 +34,7 @@
 <body>
 	<div id="homepage" data-role="page" data-title="WebClicker - <?php echo $poll->Name; ?> - Poll Details" data-theme='a'>
 		<?php drawHeader(); ?>
-		<header data-role="content"  data-tap-toggle="false">
-			<h1><?php echo $poll->Name; ?> - Poll Details</h1>
-		</header><!-- /header -->
+		<h1><?php echo $poll->Name; ?> - Poll Details</h1>
 		<ul data-role="listview">
 			<li>Access Code: <?php echo $poll->AccessCode; ?></li>
 			<li>Share: http://webclicker.tk/<?php echo $poll->AccessCode; ?></li>
