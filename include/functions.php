@@ -647,15 +647,16 @@ function outputAccountMenu(){
 			<ul data-role="listview" data-mini="true">
 				<li>'.loggedInUser().'</li>';
 	if(userLoggedIn()){
-		echo '<li><a href="group_manage.php" data-ajax="false">Manage</a></li>';
-		echo '<li><a href="group_feed.php" data-ajax="false">Feed</a></li>';
-		echo '<li><a href="control/user_signout.php" data-ajax="false">Sign Out</a></li>';
+		echo 	'<li><a href="group_manage.php" data-ajax="false">Manage</a></li>';
+		echo 	'<li><a href="group_feed.php" data-ajax="false">Feed</a></li>';
+		echo 	'<li><a href="control/user_signout.php" data-ajax="false">Sign Out</a></li>';
 	}else{
-		echo '<li><a href="user_signin.php" data-ajax="false">Sign In</a></li>';
-		echo '<li><a href="user_signup.php" data-ajax="false">Sign Up</a></li>';
+		echo 	'<li><a href="user_signin.php" data-ajax="false">Sign In</a></li>';
+		echo 	'<li><a href="user_signup.php" data-ajax="false">Sign Up</a></li>';
 	}
 	
-	echo 	'</ul>
+	echo 		'<li><a href="about.php" data-icon="info" data-ajax="false">About</a></li>
+			</ul>
 		</div>';
 }
 
@@ -668,11 +669,22 @@ function outputSearchPanel(){
 	echo '
 		 <div data-role="panel" data-display="overlay" data-position="left" id="searchPanel" data-theme="b">	
 			    <div class="panel-content">
-			     	<h2>Search by Name</h2>
-				<ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
-				displaySearchablePolls($db); //this is not safe
-	echo '
-				</ul>
+					<ul data-role="listview" data-mini="true">
+						<li><h2>Search by Access Code</h2>
+						<input id="accessCode" type="text" name="accessCode" placeholder="eg: twx29">
+						<input data-mini="true" data-role="button" type="submit" name="submit" value="Go" onclick="goToPoll()"></li>
+					</ul>
+						<script>
+							function goToPoll() {
+								var code = $(\'#accessCode\').val();
+								window.location = \'/poll_take.php?accessCode=\' + code;
+							}
+						</script>
+						<h2>Search by Name</h2>
+						<ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search Poll by Name...">';
+						displaySearchablePolls($db); //this is not safe
+		echo '
+						</ul>
 			    </div><!-- /content wrapper for padding -->
 			  </div><!-- /defaultpanel -->
 	';
@@ -683,11 +695,11 @@ function outputSearchPanel(){
 	Authored by: Brady
 */
 function drawHeader(){
-	$gravURL = getGravatarURL(42);
+	$gravURL = getGravatarURL(36);
 		echo '
 			<div data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
-				<a href="#searchPanel" data-icon="search" class="ui-btn-left">Search</a>
-				<a href ="#popupAccount" data-role="none" class="ui-btn-right"><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
+				<a href="index.php" data-icon="home" data-corners="false" class="ui-btn-left"data-ajax="false">Home</a>
+				<a href="#popupAccount" data-role="none" class="ui-btn-right" id="gravatar"><span class="ui-inner-btn">Sign in </span><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
 				<h1>Web Clicker</h1>
 			</div><!-- /header -->';
 }
@@ -699,28 +711,15 @@ function drawHeader(){
 */
 function outputFooter(){
 	echo '
-		<div data-role="footer" data-id="persistentfooter" data-position="fixed" data-tap-toggle="false">	
+		<div data-role="footer" data-id="persistentfooter" data-position="fixed">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
-					<li><a href="index.php" data-icon="home" data-ajax="false">Home</a></li>
-					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">New Poll</a></li>
-					<li><a href="#popupPoll" data-rel="popup" data-icon="gear">To Poll</a></li>
-					<li><a href="about.php" data-icon="info" data-ajax="false">About</a></li>
+					<li><a onClick="history.go(-1);return true;" data-icon="back">Back</a></li>
+					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">Create Poll</a></li>
+					<li><a href="#searchPanel" data-icon="search">Search</a></li>
 				</ul>
 			</div><!-- /navbar -->
-			<div data-role="popup" id="popupPoll" class="ui-content">
-				<p>Enter Access Code:</p>
-				<input id="accessCode" type="text" name="accessCode" placeholder="eg: twx29">
-				<input data-mini="true" data-role="button" type="submit" name="submit" value="Go" onclick="goToPoll()">
-				<script>
-					function goToPoll() {
-						var code = $(\'#accessCode\').val();
-						window.location = \'/poll_take.php?accessCode=\' + code;
-					}
-				</script>
-			</div>
-		</div><!-- /footer -->
-	';
+		</div><!-- /footer -->';
 	outputAccountMenu();
 	outputSearchPanel();
 }

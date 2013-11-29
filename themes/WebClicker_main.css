@@ -1244,12 +1244,10 @@ label {
 	font-weight:bold;
 	vertical-align:middle;
 }
-.bordered{
-	padding: 20px;
-	border: 1px solid;
-	border-radius:10px;
-	box-shadow: 1px 1px 3px #888888;
-    overflow-y: visible;
-    margin: 10px auto;
-}
+
+a#gravatar:link {color:white;}      /* unvisited link */
+a#gravatar:visited {color:white;}  /* visited link */
+a#gravatar:hover {color:green;}  /* mouse over link */
+a#gravatar:active {color:green;}  /* selected link */
+
 												
