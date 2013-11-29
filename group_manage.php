@@ -21,8 +21,16 @@
 		<?php boilerPlate(); ?>
 	</head>
 	<body>
+<<<<<<< HEAD
 		<div id="homepage" data-role="page" data-theme="a">
 			<?php drawHeader(); ?>
+=======
+		<div id="homepage" data-role="page" data-theme='a' >
+			<header data-role="header"  data-tap-toggle="false">
+				<h1>Poll Management</h1>
+				<a href="index.php"  data-role="button" class="ui-btn-left" data-inline="true" data-icon="home" data-ajax="false">Home</a>
+			</header><!-- /header -->
+>>>>>>> c77b19bb2c089692a031ecd4deb4a43d3fe94d27
 			<div data-role="collapsible">
 				<h1>Create Group</h1>
 				<form action="control/group_create.php" method="POST" data-ajax="false">
