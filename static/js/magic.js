@@ -14,7 +14,7 @@ function addCheckbox(fieldset){
 		var qindex = parseInt(fieldset.parent().parent().attr('question'));
 		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : 'answer'});
 		var label = $('<label />', {'for' : 'checkbox' + num});
-		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
+		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required', 'onclick' : 'function(event) { event.stopPropagation ? event.stopPropagation() : (event.cancelBubble=true)}');
 		
 		label.html(textarea);
 		checkbox.append(label);
