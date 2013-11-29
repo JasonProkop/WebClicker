@@ -3,6 +3,7 @@
 	include_once('include/db.php');
 	try{
 		$db = db_getpdo();
+		$groups = groupsJoinedByUser($db);
 	}catch(PDOException $e){
 		$_SESSION['error'] = $e->getMessage();
 		header('Location:error.php');
@@ -21,11 +22,9 @@
 					<h2>Welcome to Web Clicker!</h2>
 					<p>To get started use the buttons at the bottom of the page for the main site actions or check out one of these recently created polls.</p>
 				</div>
-				<div data-role="collapsible" data-collapsed="false">
-				  <h3>Latest Public Polls</h3>
-					<ul data-role="listview" data-inset="true">
-						<?php displayRecentPolls($db); ?>
-					</ul>
+				<div data-role="collapsible">
+				  <h3>Latest Polls</h3>
+					<?php displaySubscribedPolls($db, $groups); ?>
 				</div>
 			</div>
 			  <?php outputFooter(); ?>

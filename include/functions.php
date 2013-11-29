@@ -485,7 +485,7 @@ function searchGroup($db, $name, $creator){
 */
 function groupsOwnedByUser($db){
 	$groups = array();
-	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user OR group_user_email='anonymous@anonymous.com' ORDER BY group_date_created DESC;");
+	$sql = $db->prepare("SELECT * FROM groups WHERE group_user_email=:user ORDER BY group_date_created DESC;");
 	$sql->bindValue(':user', $_SESSION['email']);
 	$sql->execute();
 	$rows = $sql->fetchAll();
@@ -501,14 +501,12 @@ function groupsOwnedByUser($db){
 */
 function groupsJoinedByUser($db){
 	$groups = array();
-	if($_SESSION['email'] != 'anonymous@anonymous.com'){
-		$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name ORDER BY groupuser_date_joined DESC);");
-		$sql->bindValue(':user', $_SESSION['email']);
-		$sql->execute();
-		$rows = $sql->fetchAll();
-		foreach($rows as $group){
-			$groups[] = new Group($group);
-		}
+	$sql = $db->prepare("SELECT * FROM groups WHERE :user IN (SELECT groupuser_user_email_user FROM groupusers WHERE group_user_email=groupuser_user_email_group AND group_name=groupuser_group_name ORDER BY groupuser_date_joined DESC);");
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->execute();
+	$rows = $sql->fetchAll();
+	foreach($rows as $group){
+		$groups[] = new Group($group);
 	}
 	return $groups;
 }
@@ -647,8 +645,8 @@ function outputAccountMenu(){
 			<ul data-role="listview" data-mini="true">
 				<li>'.loggedInUser().'</li>';
 	if(userLoggedIn()){
-		echo 	'<li><a href="group_manage.php" data-ajax="false">Manage</a></li>';
-		echo 	'<li><a href="group_feed.php" data-ajax="false">Feed</a></li>';
+		echo 	'<li><a href="poll_manage.php" data-ajax="false">Manage Polls</a></li>';
+		echo 	'<li><a href="group_manage.php" data-ajax="false">Manage Groups</a></li>';
 		echo 	'<li><a href="control/user_signout.php" data-ajax="false">Sign Out</a></li>';
 	}else{
 		echo 	'<li><a href="user_signin.php" data-ajax="false">Sign In</a></li>';
@@ -699,7 +697,16 @@ function drawHeader(){
 		echo '
 			<div data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
 				<a onClick="history.go(-1);return true;" data-corners="false" class="ui-btn-left" data-icon="back">Back</a>
-				<a href="#popupAccount" data-role="none" class="ui-btn-right" id="gravatar"><span class="ui-inner-btn">Sign in </span><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
+				<a href="#popupAccount" data-role="none" class="ui-btn-right" id="gravatar">
+					<span class="ui-inner-btn">';
+					if(userLoggedIn()){
+						echo substr (loggedInUser(), 0, 8);
+					}else{
+						echo 'Sign In';
+					}
+		echo		'</span>
+					<img border="0" src="'.$gravURL.'" alt="gravatar" />
+				</a>
 				<h1>Web Clicker</h1>
 			</div><!-- /header -->';
 }
@@ -731,5 +738,53 @@ function outputFooter(){
 function userLoggedIn(){
 	return ($_SESSION['email'] != 'anonymous@anonymous.com');
 }
-?>
 
+function displaySubscribedPolls($db, $groups){
+	foreach($groups as $group){
+		echo '<li><div data-role="collapsible">';
+		echo "<h1>$group->Name</h1>";
+		echo 	'<ul data-role="listview" data-filter="true">';
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:creator AND poll_active=true");
+		$sql->bindValue(':group', $group->Name);
+		$sql->bindValue(':creator', $group->Creator);
+		$sql->execute();
+		displayPollsList($sql->fetchAll());
+		echo 	'</ul><!-- /list -->';
+		echo '</div></li><!-- /collapsible -->';
+	}
+}
+
+function displayOwnedPolls($db, $groups){
+	foreach($groups as $group){
+		echo '<li><div data-role="collapsible" data-collapsed="true">';
+		echo "<h1>$group->Name</h1>";
+		echo 	'<ul data-role="listview">';
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_user_email=:user;");
+		$sql->bindValue(':group', $group->Name);
+		$sql->bindValue(':user', $_SESSION['email']);
+		$sql->execute();
+		displayPollsList($sql->fetchAll());
+		echo 	'</ul><!-- /list -->';
+		echo '</div><!-- /collapsible --></li>';
+	}
+}
+
+function displayPossibleUnSubscriptions($db, $groups){
+	foreach($groups as $group){
+		if($group->Name != 'Public'){
+			echo 	"<li><h1>$group->Name</h1>";
+			echo	'<form action="control/group_unsubscribe.php" method="POST" data-ajax="false">
+						<input type="hidden" name="groupcreator" value="'.$group->Creator.'">
+						<input type="hidden" name="groupname" value="'.$group->Name.'">
+						<input type="submit" name="submit" value="Unsubscribe">
+					</form></li>';
+		}
+	}
+}
+
+function displayOwnedGroups($db, $groups){
+	foreach($groups as $group){
+			echo	'<li><a href="group_details.php?name='.urlencode($group->Name).'" data-role="button" data-mini="true" data-icon="gear" data-mini="true" data-ajax="false">'.$group->Name.' - Details</a></li>';
+	}
+}
+?>
