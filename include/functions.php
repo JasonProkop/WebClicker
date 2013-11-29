@@ -698,7 +698,7 @@ function drawHeader(){
 	$gravURL = getGravatarURL(36);
 		echo '
 			<div data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
-				<a href="index.php" data-icon="home" data-corners="false" class="ui-btn-left"data-ajax="false">Home</a>
+				<a onClick="history.go(-1);return true;" data-corners="false" class="ui-btn-left" data-icon="back">Back</a>
 				<a href="#popupAccount" data-role="none" class="ui-btn-right" id="gravatar"><span class="ui-inner-btn">Sign in </span><img border="0" src="'.$gravURL.'" alt="gravatar" /></a>
 				<h1>Web Clicker</h1>
 			</div><!-- /header -->';
@@ -714,9 +714,9 @@ function outputFooter(){
 		<div data-role="footer" data-id="persistentfooter" data-position="fixed">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
-					<li><a onClick="history.go(-1);return true;" data-icon="back">Back</a></li>
-					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">Create Poll</a></li>
 					<li><a href="#searchPanel" data-icon="search">Search</a></li>
+					<li><a href="poll_create.php" data-icon="plus" data-ajax="false">Create Poll</a></li>
+					<li><a href="index.php" data-icon="home" data-ajax="false">Home</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->';
