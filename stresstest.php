@@ -1,3 +1,8 @@
+<!-- 	WebClicker.tk/group_manage.php
+	Developers: Dylan Fafard, Brady Smith, Jason Prokop, Bo Don, Max Gooding
+	Stress test that signs up 10000 users
+--> 
+
 <?php
 	include_once('include/functions.php');
 	include_once('include/db.php');
@@ -12,6 +17,7 @@
 			echo $e->getMessage();
 		}
 	}
+	
 	$db->rollBack();
 	echo 'success';
 	function generateRandomString($length = 10) {

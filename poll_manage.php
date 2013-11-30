@@ -1,3 +1,9 @@
+<!-- 	WebClicker.tk/poll_manage.php
+	Developers: Dylan Fafard, Brady Smith, Jason Prokop, Bo Don, Max Gooding
+	Displays a list of all the polls that were created by the user. Gives you some
+	options for each of them
+--> 
+
 <?php
 	require_once('include/functions.php');
 	include_once('include/db.php'); 
@@ -14,6 +20,7 @@
 	}
 
 ?>
+
 <!doctype html>
 <html>
 	<head>

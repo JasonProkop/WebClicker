@@ -1,28 +1,33 @@
+<!-- 	WebClicker.tk/group_results.php
+	Developers: Dylan Fafard, Brady Smith, Jason Prokop, Bo Don, Max Gooding
+	This page displays the results from a poll in various formats.
+--> 
+
 <?php
 	require_once('include/functions.php');
 	include_once('include/db.php'); 
 	
-	if(isset($_GET['accessCode'])){
-		try{
+	if(isset($_GET['accessCode'])) {
+		try {
 			$db = db_getpdo();
 			validAccessCode($_GET['accessCode']);
 			$poll = searchPoll($db, $_GET['accessCode']);
 			$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
-		}catch (PollNotFound $e) {
+		} catch (PollNotFound $e) {
 			//echo "Poll Not Found";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
-		}catch(PDOException $e){
+		} catch(PDOException $e) {
 			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
-		}catch(MalformedAccessCode $e){
+		} catch(MalformedAccessCode $e) {
 			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
 			$_SESSION['error'] = $e->getMessage();
 			header("location:error.php");
 		}
-	}else{
-		header("location:index.php");
+		} else {
+			header("location:index.php");
 	}
 
 function displayRadio($question){
@@ -138,9 +143,7 @@ function displayQuestion($question){
 <!DOCTYPE html> 
 <html>
 	<head>
-		<title>
-			WebClicker
-		</title>
+		<title>WebClicker</title>
 		<?php boilerPlate(); ?>
 		<script type="text/javascript" src="static/js/excanvas.min.js"></script>
 		<script type="text/javascript" src="static/js/jquery.jqplot.min.js"></script>
@@ -157,9 +160,15 @@ function displayQuestion($question){
 		<div data-role="page" data-title="Webclicker - <?php echo $poll->Name; ?> - Results" data-theme="a" id="resultsPage">
 			<?php drawHeader(); ?>
 			<h1><?php echo $poll->Name ?></h1>
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-<?php	
+			<!-- Adding a twitter button so you can share poll results -->
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://webclicker.tk/<?php echo $poll->AccessCode;?>" 
+				data-text="WebClicker - <?php echo $poll->Name;?> -Take this poll at" data-via="Webclickertk" data-size="large">Tweet
+			</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+				if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+			</script>
+			<!-- /Twitter End-->	
+			<?php	
 				//colors: #FF8C00, #87CEFA, #ADFF2F, #DDA0DD, #FFD700
 				// Construct the divs to hold the plots
 				foreach($poll->Questions as $question){
@@ -182,17 +191,15 @@ function displayQuestion($question){
 					}
 					echo '</div>';
 				}
-?>
-		
-<?php
+			?>
+			<?php
 			// Create the plots	
 			foreach($poll->Questions as $question){
 				displayQuestion($question);
 			}
-?>
-			
-				<?php outputFooter(); ?>
-			</div>
-	</body>
+			?>
+			<?php outputFooter(); ?>
+		</div>
+	</body>
 </html>
 
