@@ -134,13 +134,20 @@ function authorizeUser($db, $email, $key){
     The UserDetails were used to create or update an unauthorized Account
     An email was sent to the email address in the UserDetails
 	
-	Authored by: Dylan
+	Authored by: Dylan, Max
 */
 
 function signUp($db, $email, $password, $alias){
 	$email = strtolower($email); //allows the user to input his email case insensitive
 	if(empty($email) || empty($password)){
 		throw new Account('Empty e-mail or password fields!');
+	}
+	// check for a valid email
+	// this should work for everything except IP address server thing, should be fine
+	$valid = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
+	
+	if (!eregi($valid , $email)){
+		throw new Account('Invalid Email');
 	}
     randomize();
 	$salt = rand(0, 100000);
