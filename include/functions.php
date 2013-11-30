@@ -145,7 +145,7 @@ function signUp($db, $email, $password, $alias){
 	// check for a valid email
 	// this should work for everything except IP address server thing, should be fine
 	$valid = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
-
+	
 	if (!eregi($valid , $email)){
 		throw new Account('Invalid Email');
 	}
