@@ -1,4 +1,4 @@
-<!-- 	WebClicker.tk/error.php
+<!-- 	WebClicker.tk/group_details.php
 	Developers: Dylan Fafard, Brady Smith, Jason Prokop, Bo Don, Max Gooding
 	This page contains group details.
 --> 
