@@ -65,8 +65,8 @@ function getGravatarURLemail($email, $sizePx=40) {
 }
 
 /*
-    Generates a random access code for accessing polls. 
-    A random string of characters in the charset with a given length (default 5)
+   Generates a random access code for accessing polls. 
+   A random string of characters in the charset with a given length (default 5)
 	
 	Authored by: Dylan
 */
