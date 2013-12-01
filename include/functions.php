@@ -326,15 +326,6 @@ function displayPollsList($polls){
 				</li>';
 	}
 }
-/*
-	Grabs the 10 most recent polls from the database to display on the homepage
-	Authored by: Dylan
-*/
-function displayRecentPolls($db){
-	$sql = $db->prepare("SELECT * FROM polls WHERE poll_active='true' AND poll_group_name='Public' ORDER BY poll_date_created DESC LIMIT 5;");
-	$sql->execute();
-	displayPollsList($sql->fetchAll());
-}
 
 /*
 	Grabs all polls from the database to display in the searchable list on the homepage
@@ -690,11 +681,11 @@ function outputSearchPanel(){
 	echo '
 		 <div data-role="panel" data-display="overlay" data-position="left" id="searchPanel" data-theme="b">	
 			    <div class="panel-content">
-					<ul data-role="listview" data-mini="true">
-						<li><h2>Search by Access Code</h2>
+					<div data-role="collapsible">
+						<h1>Poll Access Code</h1>
 						<input id="accessCode" type="text" name="accessCode" placeholder="eg: twx29">
-						<input data-mini="true" data-role="button" type="submit" name="submit" value="Go" onclick="goToPoll()"></li>
-					</ul>
+						<input data-mini="true" data-role="button" type="submit" name="submit" value="Go" onclick="goToPoll()">
+					</div>
 						<script>
 							function goToPoll() {
 								var code = $(\'#accessCode\').val();
@@ -779,7 +770,7 @@ function displaySubscribedPolls($db, $groups){
 		echo '<li><div data-role="collapsible">';
 		echo "<h1>$group->Name</h1>";
 		echo 	'<ul data-role="listview" data-filter="true">';
-		$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:creator AND poll_active=true");
+		$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:creator AND poll_active=true ORDER BY poll_date_created DESC");
 		$sql->bindValue(':group', $group->Name);
 		$sql->bindValue(':creator', $group->Creator);
 		$sql->execute();
