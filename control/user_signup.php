@@ -12,11 +12,11 @@
 			$db->commit();
 			header("location:../index.php");
 		}catch(Account $e){
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../user_signup.php");
 		}catch(PDOException $e){
 			$db->rollBack();
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../error.php");
 		}
 	}else{

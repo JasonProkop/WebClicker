@@ -8,14 +8,14 @@
 	require_once('include/functions.php');
 	include_once('include/db.php'); 
 	
-	try{
-		$db = db_getpdo();
-		$groups = groupsAllowedCreatePoll($db);
-		$db = null;
-	}catch(PDOException $e){
-		$_SESSION['error'] = $e->getMessage();
-		header("location:error.php");
-	}
+try{
+	$db = db_getpdo();
+	$groups = groupsAllowedCreatePoll($db);
+	$db = null;
+}catch(PDOException $e){
+	setError($e->getMessage());
+	header("location:error.php");
+}
 ?>
 
 <!DOCTYPE html> 

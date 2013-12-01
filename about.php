@@ -9,24 +9,20 @@
 	/* Displays a list of our site date which includes: Number of Users, Polls, Questions, and Responses.
 	Authored by: Dylan */
 	
-	function displaySiteStats()
-	{
-	  try
-	  {
-	    $db    = db_getpdo();
-	    $stats = new SiteStats($db);
-	    echo "<li>$stats->Users Users</li>";
-	    echo "<li>$stats->Polls Polls</li>";
-	    echo "<li>$stats->Questions Questions</li>";
-	    echo "<li>$stats->Responses Responses</li>";
-	    echo "<li>$stats->Groups Groups</li>";
-	    echo "<li>" . sprintf("%.2f%%", $stats->Percentage * 100) . " Total Response Grade</li>";
-	  }
-	  catch (PDOException $e)
-	  {
-	    $_SESSION['error'] = $e->getMessage();
-	    redirectTo('error.php');
-	  }
+	function displaySiteStats(){
+		try{
+			$db    = db_getpdo();
+			$stats = new SiteStats($db);
+			echo "<li>$stats->Users Users</li>";
+			echo "<li>$stats->Polls Polls</li>";
+			echo "<li>$stats->Questions Questions</li>";
+			echo "<li>$stats->Responses Responses</li>";
+			echo "<li>$stats->Groups Groups</li>";
+			echo "<li>" . sprintf("%.2f%%", $stats->Percentage * 100) . " Total Response Grade</li>";
+		}catch (PDOException $e){
+			setError($e->getMessage());
+			header("location:error.php");
+		}
 	}
 ?>
 

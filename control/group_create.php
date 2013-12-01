@@ -12,11 +12,11 @@
 			header("location:../group_manage.php");
 		}catch(Subscription $e){
 			$db->rollBack();
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../error.php");
 		}catch(PDOException $e){
 			$db->rollBack();
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../error.php");
 		}
 	}else{

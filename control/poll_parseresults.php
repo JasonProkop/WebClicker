@@ -22,7 +22,7 @@
 			header("location:../poll_results.php?accessCode=".$_POST['poll_id']);
 		}catch(PDOException $e){
 			$db->rollBack();
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../error.php");
 		}
 	}else{

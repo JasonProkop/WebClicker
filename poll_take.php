@@ -8,72 +8,72 @@
 	require_once('include/functions.php');
 	include_once('include/db.php'); 
 	
-	if(isset($_GET['accessCode'])){
-		try {
-			$db = db_getpdo();
-			validAccessCode($_GET['accessCode']);
-			if(userTakenPoll($db, $_GET['accessCode'])) {
+if(isset($_GET['accessCode'])){
+	try {
+		$db = db_getpdo();
+		validAccessCode($_GET['accessCode']);
+		if(userTakenPoll($db, $_GET['accessCode'])) {
+			header('Location:poll_results.php?accessCode='.$_GET['accessCode']);
+		} else {
+			$poll = searchPoll($db, $_GET['accessCode']);
+			if(!$poll->Active){
 				header('Location:poll_results.php?accessCode='.$_GET['accessCode']);
-			} else {
-				$poll = searchPoll($db, $_GET['accessCode']);
-				if(!$poll->Active){
-					header('Location:poll_results.php?accessCode='.$_GET['accessCode']);
-				}
 			}
-		} catch (PollNotFound $e) {
-			$_SESSION['error'] = $e->getMessage();
-			redirectTo('error.php');
-		} catch(PDOException $e) {
-			$_SESSION['error'] = $e->getMessage();
-			redirectTo('error.php');
-		} catch(MalformedAccessCode $e) {
-			$_SESSION['error'] = $e->getMessage();
-			redirectTo('error.php');
 		}
-	} else {
-		header("location:index.php");
+	} catch (PollNotFound $e) {
+		setError($e->getMessage());
+		redirectTo('error.php');
+	} catch(PDOException $e) {
+		setError($e->getMessage());
+		redirectTo('error.php');
+	} catch(MalformedAccessCode $e) {
+		setError($e->getMessage());
+		redirectTo('error.php');
 	}
+} else {
+	header("location:index.php");
+}
 
-	function displayRadio($question){
-		echo '<fieldset data-role="controlgroup">';
-		foreach($question->PAnswers as $panswer){
-			echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
-						<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
-		}
-						
-		echo '</fieldset>';
+function displayRadio($question){
+	echo '<fieldset data-role="controlgroup">';
+	foreach($question->PAnswers as $panswer){
+		echo '<input type="radio" name="questions['.$panswer->Question.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
+					<label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
+					
+	echo '</fieldset>';
+}
 
-	function displayCheckbox($question){
-		echo '<fieldset data-role="controlgroup">';
-		foreach($question->PAnswers as $panswer){
-			echo '<input type="checkbox" name="questions['.$panswer->Question.']['.$panswer->ID.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
-				 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
-		}
-		echo '</fieldset>';
+function displayCheckbox($question){
+	echo '<fieldset data-role="controlgroup">';
+	foreach($question->PAnswers as $panswer){
+		echo '<input type="checkbox" name="questions['.$panswer->Question.']['.$panswer->ID.']" id="'.$panswer->ID.'" value="'.$panswer->PAnswer.'">
+			 <label for="'.$panswer->ID.'">'.$panswer->PAnswer.'</label>';
 	}
-	
-	function displayText($question){
-		echo '<label for="'.$question->ID.'"></label>
-	    			<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'" maxlength="1000">';
-	}
+	echo '</fieldset>';
+}
 
-	function displayQuestion($question){
-		echo '<h3>'.$question->Question.'</h3>';
-		switch($question->Type){
-			case 'Radio':
-				displayRadio($question);
-				return;
-			case 'Checkbox':
-				displayCheckbox($question);
-				return;
-			case 'Textbox':
-				displayText($question);
-				return;
-			default:
-				return;
-		}
+function displayText($question){
+	echo '<label for="'.$question->ID.'"></label>
+				<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'" maxlength="1000">';
+}
+
+function displayQuestion($question){
+	echo '<h3>'.$question->Question.'</h3>';
+	switch($question->Type){
+		case 'Radio':
+			displayRadio($question);
+			return;
+		case 'Checkbox':
+			displayCheckbox($question);
+			return;
+		case 'Textbox':
+			displayText($question);
+			return;
+		default:
+			return;
 	}
+}
 ?>
 
 <!doctype html>

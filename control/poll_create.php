@@ -14,14 +14,14 @@
 			$db = null;
 			header("location:../poll_details.php?accessCode=".$access);
 		}catch(PollCreationError $e){
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../poll_create.php");
 		}catch(QuestionCreationError $e){
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../poll_create.php");
 		}catch(PDOException $e){
 			$db->rollBack();
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:../error.php");
 		}
 	}else{

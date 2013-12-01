@@ -15,7 +15,7 @@
 		$db = db_getpdo();
 		$groups = groupsOwnedByUser($db);
 	}catch(PDOException $e){
-		$_SESSION['error'] = $e->getMessage();
+		setError($e->getMessage());
 		header("location:error.php");
 	}
 

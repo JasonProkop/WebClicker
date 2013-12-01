@@ -13,7 +13,7 @@
 	  $groups = groupsJoinedByUser($db);
 	}
 	catch (PDOException $e) {
-	  $_SESSION['error'] = $e->getMessage();
+	  setError($e->getMessage());
 	  header('Location:error.php');
 	}
 ?>

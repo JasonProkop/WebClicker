@@ -7,28 +7,25 @@
 	require_once('include/functions.php');
 	include_once('include/db.php'); 
 	
-	if(isset($_GET['accessCode'])) {
-		try {
-			$db = db_getpdo();
-			validAccessCode($_GET['accessCode']);
-			$poll = searchPoll($db, $_GET['accessCode']);
-			$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
-		} catch (PollNotFound $e) {
-			//echo "Poll Not Found";
-			$_SESSION['error'] = $e->getMessage();
-			header("location:error.php");
-		} catch(PDOException $e) {
-			//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
-			$_SESSION['error'] = $e->getMessage();
-			header("location:error.php");
-		} catch(MalformedAccessCode $e) {
-			//echo "Caught MalformedAccessCode ('{$e->getMessage()}')\n{$e}\n";
-			$_SESSION['error'] = $e->getMessage();
-			header("location:error.php");
-		}
-		} else {
-			header("location:index.php");
+if(isset($_GET['accessCode'])) {
+	try {
+		$db = db_getpdo();
+		validAccessCode($_GET['accessCode']);
+		$poll = searchPoll($db, $_GET['accessCode']);
+		$colors = array('#ff8c00', '#87cefa', '#adff2f', '#dda0dd', '#ffd700'); //SETUP THE default color scheme for the graphs
+	} catch (PollNotFound $e) {
+		setError($e->getMessage());
+		header("location:error.php");
+	} catch(PDOException $e) {
+		setError($e->getMessage());
+		header("location:error.php");
+	} catch(MalformedAccessCode $e) {
+		setError($e->getMessage());
+		header("location:error.php");
 	}
+}else{
+	header("location:index.php");
+}
 
 function displayRadio($question){
 	// Make a pie chart

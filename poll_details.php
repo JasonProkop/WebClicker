@@ -18,13 +18,13 @@
 				$total_responses += sizeof($question->Responses);
 			}
 		}catch (PollNotFound $e) {
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:error.php");
 		}catch(PDOException $e){
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:error.php");
 		}catch(MalformedAccessCode $e){
-			$_SESSION['error'] = $e->getMessage();
+			setError($e->getMessage());
 			header("location:error.php");
 		}
 	}else{

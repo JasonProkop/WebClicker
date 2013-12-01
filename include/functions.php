@@ -762,6 +762,18 @@ function userLoggedIn(){
 	return ($_SESSION['email'] != 'anonymous@anonymous.com');
 }
 
+/*
+	Sets the error message.
+	Authored by: Dylan
+*/
+function setError($errorMessage){
+	$_SESSION['error'] = $errorMessage;
+}
+
+/*
+	Displays all polls that the current user is subscribed to.
+	Authored by: Dylan
+*/
 function displaySubscribedPolls($db, $groups){
 	foreach($groups as $group){
 		echo '<li><div data-role="collapsible">';
@@ -777,6 +789,10 @@ function displaySubscribedPolls($db, $groups){
 	}
 }
 
+/*
+	Displays all polls that the current user created.
+	Authored by: Dylan
+*/
 function displayOwnedPolls($db, $groups){
 	foreach($groups as $group){
 		echo '<li><div data-role="collapsible" data-collapsed="true">';
@@ -792,6 +808,10 @@ function displayOwnedPolls($db, $groups){
 	}
 }
 
+/*
+	Displays all possible groups that the current user can unsubscribe from.
+	Authored by: Dylan
+*/
 function displayPossibleUnSubscriptions($db, $groups){
 	foreach($groups as $group){
 		if($group->Name != 'Public'){
@@ -805,6 +825,10 @@ function displayPossibleUnSubscriptions($db, $groups){
 	}
 }
 
+/*
+	Displays all groups that the current user owns.
+	Authored by: Dylan
+*/
 function displayOwnedGroups($db, $groups){
 	foreach($groups as $group){
 			echo	'<li><a href="group_details.php?name='.urlencode($group->Name).'" data-role="button" data-mini="true" data-icon="gear" data-mini="true" data-ajax="false">'.$group->Name.' - Details</a></li>';
