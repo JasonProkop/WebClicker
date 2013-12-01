@@ -503,6 +503,22 @@ function groupsOwnedByUser($db){
 }
 
 /*
+	Returns a list of groups that the user can publish to
+	Authored by: Dylan
+*/
+function groupsAllowedCreatePoll($db){
+	$groups = array();
+	$sql = $db->prepare("SELECT * FROM groups WHERE (group_user_email='anonymous@anonymous.com' AND group_name='Public') OR group_user_email=:user ORDER BY group_date_created DESC;");
+	$sql->bindValue(':user', $_SESSION['email']);
+	$sql->execute();
+	$rows = $sql->fetchAll();
+	foreach($rows as $group){
+		$groups[] = new Group($group);
+	}
+	return $groups;
+}
+
+/*
 	Returns a list of groups joined for the individual 
 	Authored by: Dylan
 */

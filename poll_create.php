@@ -10,10 +10,9 @@
 	
 	try{
 		$db = db_getpdo();
-		$groups = groupsOwnedByUser($db);
+		$groups = groupsAllowedCreatePoll($db);
 		$db = null;
 	}catch(PDOException $e){
-		//echo "Caught PDOException ('{$e->getMessage()}')\n{$e}\n";
 		$_SESSION['error'] = $e->getMessage();
 		header("location:error.php");
 	}
@@ -57,6 +56,7 @@
 						<label for="select-choice-0" class="select">Group</label>
 						<select name="groupname" id="select-choice-0">
 							<?php
+							//display possible groups that the user can create a poll in
 							foreach($groups as $group){
 								echo "<option value=\"$group->Name\">$group->Name</option>";
 							}
@@ -78,4 +78,3 @@
 		</div>
 	</body>
 </html>
-<?php $_SESSION['error'] = ''; ?>
