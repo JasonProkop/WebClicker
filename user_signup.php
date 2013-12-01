@@ -25,19 +25,19 @@ there details and will thne be redirected back to where they came from after the
 		  <div data-role="content">
 				<form action="control/user_signup.php" method="POST" data-ajax="false">
 				   <div data-role="fieldcontain">
-						<label for="email">Email</label>
-						<input name="email" id="email" placeholder="email@example.com" value=""btype="email" required>
+						<label for="email">Email</label> <!-- user will enter email, it checks that it must be of a basica for here-->
+						<input name="email" id="email" placeholder="email@example.com" value="" btype="email" required>
 				  </div>
 				  <div data-role="fieldcontain">
-						<label for="alias">Default Alias (optional)</label>
+						<label for="alias">Default Alias (optional)</label> <!-- user can enter a nickname is desired -->
 						<input name="alias" id="alias" placeholder="Your default public name" value="" type="text">
 				  </div>
 				  <div data-role="fieldcontain">
-						<label for="password">Password</label>
+						<label for="password">Password</label> <!-- user will nter password once here and again below -->
 						<input name="password" id="password" placeholder="" value="" type="password" required>
 				  </div>
 				  <div data-role="fieldcontain">
-						<label for="passwordconfirmation">Confirm Password</label>
+						<label for="passwordconfirmation">Confirm Password</label> <!-- confirm the above password-->
 						<input name="passwordconfirmation" id="passwordconfirmation" placeholder="" value="" type="password" oninput="confirmPass(this)" required>
 						<script language='javascript' type='text/javascript'>
 						// Checks to see if the confirmation password matches the one entered previously
@@ -50,7 +50,7 @@ there details and will thne be redirected back to where they came from after the
 							 }
 						  }
 						</script>
-				  </div>
+				  </div> <!-- On submit we check that the email is of a proper form and that everything is filled out-->
 				  <input type="submit" value="Submit">
 				</form>
 		  </div>

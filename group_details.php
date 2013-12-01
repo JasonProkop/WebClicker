@@ -50,14 +50,14 @@
 	<body>
 		<div id="homepage" data-role="page" data-title="WebClicker - <?php
       echo $group->Name; ?> - Group Details" data-theme='a'>
-			<?php drawHeader(); ?>
+			<?php drawHeader(); ?> <!-- Group details Page -->
 			<ul data-role="listview">
-				<li>Key: <?php echo $group->Key; ?></li>
+				<li>Key: <?php echo $group->Key; ?></li> 
 				<li>Polls: <?php echo $polls; ?></li>
 				<li>Users: <?php echo $users; ?></li>
 				<li>Created On: <?php echo date("F j, Y, g:i a", strtotime($group->DateCreated)); ?></li>
 			</ul>
 			<?php outputFooter(); ?>
-		</div>
+		</div> <!-- /Group details Page End -->
 	</body>
 </html>
