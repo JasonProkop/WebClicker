@@ -41,6 +41,21 @@ function loggedInUser()
 	}
 }
 
+/* Create an adaptor class which allows us to just use one gravatar fucntion no matter
+ * if a user enters an email or not.
+ * 
+ * Authored by: Brady
+ */
+
+function getGravatar($sizePx=40, $email){
+	if ($email == ''){
+		return getGravatarURL($sizePx);
+	}
+	else{
+		return getGravatarURLemail($email, $sizePx);
+	}
+}
+
 /* Get a user's gravatar using the session email(returns size based on input)
  *	
  * Authored by: Brady, gravatar
@@ -700,7 +715,7 @@ function outputSearchPanel(){
 	Authored by: Brady
 */
 function drawHeader(){
-	$gravURL = getGravatarURL(36);
+	$gravURL = getGravatar(36);
 		echo '
 			<div data-role="header" data-id="persistentheader" data-position="fixed" data-tap-toggle="false">
 				<a onClick="history.go(-1);return true;" data-corners="false" class="ui-btn-left" data-icon="back">Back</a>
@@ -748,9 +763,9 @@ function userLoggedIn(){
 
 function displaySubscribedPolls($db, $groups){
 	foreach($groups as $group){
-		echo '<li><div data-role="collapsible">';
+		echo '<li><div data-role="collapsible" data-collapsed="false">';
 		echo "<h1>$group->Name</h1>";
-		echo 	'<ul data-role="listview" data-filter="true">';
+		echo 	'<ul data-role="listview" data-filter="false">';
 		$sql = $db->prepare("SELECT * FROM polls WHERE poll_group_name=:group AND poll_group_user_email=:creator AND poll_active=true");
 		$sql->bindValue(':group', $group->Name);
 		$sql->bindValue(':creator', $group->Creator);

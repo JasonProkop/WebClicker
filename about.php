@@ -41,19 +41,19 @@
 				<h1>Members - Group 04</h1> <!-- Members - List all the developers with their gravatars -->
 				<ul data-role="listview">
 					<li><a href="https://github.com/MaxGoo"><img src="<?php
-							$url = getGravatarURLemail("maxgooding@gmail.com", 80);
+							$url = getGravatar(80, "maxgooding@gmail.com");
 							echo $url; ?>" alt="Max Gooding"/><h3>Max Gooding</h3><p>Github</p></a></li>
 					<li><a href="https://github.com/BradySmith"><img src="<?php
-							$url = getGravatarURLemail("brady_smith87@hotmail.com", 80);
+							$url = getGravatar(80, "brady_smith87@hotmail.com");
 							echo $url; ?>" alt="Brady Smith"/><h3>Brady Smith</h3><p>Github</p></a></li>
 					<li><a href="https://github.com/JasonProkop"><img src="<?php
-							$url = getGravatarURLemail("jasonprokop@gmail.com", 80);
+							$url = getGravatar(80, "jasonprokop@gmail.com");
 							echo $url; ?>" alt="Jason Prokop"/><h3>Jason Prokop</h3><p>Github</p></a></li>
 					<li><a href="https://github.com/fafmaster"><img src="<?php
-							$url = getGravatarURLemail("fafmaster@hotmail.com", 80);
+							$url = getGravatar(80, "fafmaster@hotmail.com");
 							echo $url; ?>" alt="Dylan Fafard"/><h3>Dylon Fafard</h3><p>Github</p></a></li>
 					<li><a href="https://github.com/zillionk"><img src="<?php
-							$url = getGravatarURLemail("zillionk1973@gmail.com", 80);
+							$url = getGravatar(80, "zillionk1973@gmail.com");
 							echo $url; ?>" alt="Bo Dong"/><h3>Bo Dong</h3><p>Github</p></a></li>
 				</ul>
 			</div><!-- /Members End -->

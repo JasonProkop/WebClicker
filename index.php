@@ -31,7 +31,7 @@
 					<h2>Welcome to Web Clicker!</h2> <!-- Welcom message -->
 					<p>To get started use the buttons at the bottom of the page for the main site actions or check out one of these recently created polls.</p>
 				</div>
-				<div data-role="collapsible">
+				<div data-role="collapsible" data-collapsed="false">
 				  <h3>Latest Polls</h3> <!-- Gets a list of the lastest poll, for ease of use and wuick poll access -->
 					<?php displaySubscribedPolls($db, $groups); ?>
 				</div>
