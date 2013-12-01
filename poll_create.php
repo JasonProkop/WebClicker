@@ -34,7 +34,7 @@
 			<form id="createPoll" action="control/poll_create.php" method="POST" data-ajax="false" questions=0>
 				<div data-role="content">
 					<h1>Poll Title:</h1>
-					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" required></h1>
+					<h1><input type="text" name="pollname" id="pollName" value="<?php echo randomPollName(); ?>" maxlength="140" required></h1>
 					<span class="error"><?php echo currentError(); ?></span>
 				</div>
 				<div data-role="collapsible" data-collapsed="true" data-icon="gear">
