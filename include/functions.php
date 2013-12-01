@@ -732,7 +732,7 @@ function drawHeader(){
 */
 function outputFooter(){
 	echo '
-		<div data-role="footer" data-id="persistentfooter" data-position="fixed">	
+		<div data-role="footer" data-id="persistentfooter" data-tap-toggle="false" data-position="fixed">	
 			<div data-role="navbar" data-iconpos="top">
 				<ul>
 					<li><a href="#searchPanel" data-icon="search">Search</a></li>
