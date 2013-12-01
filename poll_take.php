@@ -55,7 +55,7 @@
 	
 	function displayText($question){
 		echo '<label for="'.$question->ID.'"></label>
-	    			<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'">';
+	    			<input type="text" name="questions['.$question->ID.']" id="'.$question->ID.'" maxlength="1000">';
 	}
 
 	function displayQuestion($question){
