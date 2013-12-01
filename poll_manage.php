@@ -13,7 +13,7 @@
 			header("location:index.php");
 		}
 		$db = db_getpdo();
-		$groups = groupsOwnedByUser($db);
+		$groups = groupsAllowedCreatePoll($db);
 	}catch(PDOException $e){
 		setError($e->getMessage());
 		header("location:error.php");

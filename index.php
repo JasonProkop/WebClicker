@@ -9,12 +9,11 @@
 	include_once('include/db.php');
 	
 	try {
-	  $db     = db_getpdo();
-	  $groups = groupsJoinedByUser($db);
-	}
-	catch (PDOException $e) {
-	  setError($e->getMessage());
-	  header('Location:error.php');
+		$db     = db_getpdo();
+		$groups = groupsJoinedByUser($db);
+	}catch (PDOException $e) {
+		setError($e->getMessage());
+		header('Location:error.php');
 	}
 ?>
 
