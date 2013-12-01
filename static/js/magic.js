@@ -15,7 +15,7 @@ function addCheckbox(fieldset){
 		var checkbox = $('<input />', {'class' : 'textb', 'type' : 'checkbox', 'id' : 'checkbox' + num, 'name' : 'questions['+qindex+'][answers]['+ currentCheckboxes +']', 'value' : 'answer'});
 		var label = $('<label />', {'for' : 'checkbox' + num});
 		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+ currentCheckboxes +']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required', 
-			'onclick' : 'function(event) { if(event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true;} }'});
+			'maxlength' : '140'});
 		
 		label.html(textarea);
 		checkbox.append(label);
@@ -47,7 +47,7 @@ function addRadio(fieldset){
 		var qindex = parseInt(fieldset.parent().parent().attr('question'));
 		var radio = $('<input />', {'class' : 'textb', 'type' : 'radio', 'id' : 'radio' + num, 'name' : 'questions['+qindex+'][answers][0]', 'value' : ''});
 		var label = $('<label />', {'for' : 'radio' + num});
-		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required'});
+		var textarea = $('<input />', {'class' : 'texta', 'name' : 'questions['+qindex+'][panswers]['+currentRadios+']', 'type' : 'text', 'style' : 'position:relative !important;', 'required' : 'required', 'maxlength' : '140'});
 
 		label.html(textarea);
 		radio.append(label);
@@ -108,7 +108,7 @@ $(document).on('pageinit', function () {
 		if(questions < MAX_QUESTION){
 			$('#createPoll').attr('questions',  questions + 1);
 			var content = $('<div />', {'id' : 'qc'+questions+'', 'class' : 'bordered', 'data-role' : 'content', 'data-content-theme' : 'c', 'question' : questions});
-			var textarea = $('<input />', { 'type' : 'text', 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'placeholder' : 'Enter your question here...', 'required' : 'required'});
+			var textarea = $('<input />', { 'type' : 'text', 'name' : 'questions['+questions+'][question]', 'id' : 'questions['+questions+'][question]', 'placeholder' : 'Enter your question here...', 'required' : 'required', 'maxlength' : '140'});
 			var fieldcontain = $('<div />', {'data-role' : 'fieldcontain'});
 			var label = $('<label />', {'for' : 'questions['+questions+'][type]', 'html' : 'Choose the type of answer:'});
 			var select = $('<select />', {'class' : 'type', 'name' : 'questions['+questions+'][type]', 'id' : 'questions['+questions+'][type]', 'data-mini':'true'});
