@@ -310,17 +310,13 @@ function displayPollsList($polls){
 	foreach($polls as $poll){
 		echo 	'<li style="padding:1px;">
 					<div data-mini="true" data-role="collapsible" data-collapsed="true">
-							<h1><span class="code">['.$poll['poll_id'].']</span> '.$poll['poll_name'].'</h1>
-							<div class="ui-grid-b">
-								<div class="ui-block-a">
-									<a href="poll_take.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a>
-								</div>
-								<div class="ui-block-b">
-									<a href="poll_results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a>
-								</div>
-								<div class="ui-block-c">
-									<a href="poll_details.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a>
-								</div>
+						<h1><span class="code">['.$poll['poll_id'].']</span> '.$poll['poll_name'].'</h1>
+						<div data-role="navbar">
+							<ul>
+								<li><a href="poll_take.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Take</a></li>
+								<li><a href="poll_results.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Results</a></li>
+								<li><a href="poll_details.php?accessCode='.$poll['poll_id'].'" data-role="button" data-mini="true" data-ajax="false">Details</a></li>
+							</ul>
 						</div>
 					</div>
 				</li>';
