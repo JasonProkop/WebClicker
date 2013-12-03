@@ -118,13 +118,17 @@ class Question implements iDatabase, iPost{
 		$obj->Question = $POST['question'];
 		$obj->Type = $POST['type'];
 		$obj->Order = $POST['order'];
+		 
 		if($obj->Type != "Textbox"){
+			//create the answers first
+			while(list($key, $value) = each($POST['answers'])){
+				$obj->Answers[] = Answer::createFromPOST($POST['panswers'][$key]); //get the value of the answers from the correct possible answer
+			}
+			$POST['panswers'] = array_unique($POST['panswers']); //removes duplicate possible answers
+			//now create the possible answers
 			while(list($key, $value) = each($POST['panswers'])){
 				if(!empty($value)){
 					$obj->PAnswers[] = PAnswer::createFromPOST($value);
-					if(array_key_exists($key, $POST['answers'])){
-						$obj->Answers[] = Answer::createFromPOST($value);
-					}
 				}
 			}
 		}
