@@ -1,6 +1,8 @@
-CMPT370 - Group Project                                                         
-=======================                                                            
-University of Saskatchewan                                                         
+WebClicker                                                        
+==========                                                        
+University of Saskatchewan
+
+CMPT 370 - Group Project
 Fall 2013                                                                          
                                                                                    
 Project Link: http://www.webclicker.tk                                             
